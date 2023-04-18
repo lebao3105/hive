@@ -5,13 +5,11 @@ import customtkinter as ctk
 from core import *  # pylint: disable=unused-wildcard-import,wildcard-import
 
 class App(ctk.CTk):
-    """
-    Main app class that contains all the widgets and logic. To run, simply create an instance of the
-    class and call the ".mainloop()" method on the instance.
-    """
+    # pylint: disable=missing-class-docstring
     def __init__(self):
         """
-        Creates the app.
+        Main app class that contains all the widgets and logic. To run, simply create an instance of the
+        class and call the ".mainloop()" method on the instance.
         """
 
         # window setup
