@@ -39,12 +39,19 @@ class App(ctk.CTk):
         self.columnconfigure((0, 1), weight = 0)
         self.rowconfigure((0, 1), weight = 0)
 
-        # widgets
+        # appearance widgets
         self.appearance_selector = AppearanceSelector(self)
         self.appearance_selector.grid(row = 1, column = 0, padx = PADX, pady = PADY)
 
         self.appearance_label = AppearanceLabel(self)
         self.appearance_label.grid(row = 0, column = 0, padx = PADX, pady = PADY)
+        
+        # system files widgets
+        self.system_files_switch = SystemFilesSwitch(self)
+        self.system_files_switch.grid(row = 3, column = 0, padx = PADX, pady = PADY)
+        
+        self.system_files_label = SystemFilesLabel(self)
+        self.system_files_label.grid(row = 2, column = 0, padx = PADX, pady = PADY)
 
 class SystemFilesLabel(ctk.CTkLabel):
     def __init__(self, master: ctk.CTk):
@@ -57,14 +64,21 @@ class SystemFilesLabel(ctk.CTkLabel):
                          text = "Display system files"
                          )
 
-class SystemFilesBox(ctk.CTkCheckBox):
+class SystemFilesSwitch(ctk.CTKSwitch):
     def __init__(self, master: ctk.CTk):
         """
         Widget that allows the user to toggle the visibility of system files.
         """
-
+        
+        # data
+        switch_var = ctk.IntVar(0)
+        
         # widget setup
-        super().__init__(master = master)
+        super().__init__(master = master,
+                         onvalue = 1,
+                         offvalue = 0,
+                         variable = switch_var
+                        )
 
 class AppearanceLabel(ctk.CTkLabel):
     def __init__(self, master: ctk.CTk):
