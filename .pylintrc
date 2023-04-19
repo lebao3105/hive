@@ -4,4 +4,5 @@ disable=missing-module-docstring,
         unused-wildcard-import,
         wildcard-import,
         too-many-ancestors,
-        missing-class-docstring
+        missing-class-docstring,
+        too-few-public-methods
