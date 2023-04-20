@@ -53,66 +53,6 @@ class App(ctk.CTk):
         self.system_files_label = SystemFilesLabel(self)
         self.system_files_label.grid(row = 2, column = 0, padx = PADX, pady = PADY)
 
-class SystemFilesLabel(ctk.CTkLabel):
-    def __init__(self, master: ctk.CTk):
-        """
-        Widget that explains what the checkbox below it is for/does.
-        """
-
-        # widget setup
-        super().__init__(master = master,
-                         text = "Display system files"
-                         )
-
-class SystemFilesSwitch(ctk.CTkSwitch):
-    def __init__(self, master: ctk.CTk):
-        """
-        Widget that allows the user to toggle the visibility of system files.
-        """
-
-        # data
-        switch_var = ctk.IntVar(0)
-
-        # widget setup
-        super().__init__(master = master,
-                         onvalue = 1,
-                         offvalue = 0,
-                         variable = switch_var
-                        )
-
-class AppearanceLabel(ctk.CTkLabel):
-    def __init__(self, master: ctk.CTk):
-        """
-        Widget that explains what the menu below it is for/does.
-        """
-
-        # widget setup
-        super().__init__(master = master,
-                         text = "Appearance"
-                         )
-
-class AppearanceSelector(ctk.CTkOptionMenu):
-    def __init__(self, master: ctk.CTk):
-        """
-        Widget that allows the user to select a theme from light, dark, or system default.
-        """
-
-        # widget setup
-        self.values = ["System", "Light", "Dark"]
-        super().__init__(master = master,
-                         values = self.values,
-                         command = self.change_appearance,
-                         )
-
-    def change_appearance(self, new_appearance: str):
-        """
-        Changes the appearance/theme of the app.
-
-        Args:
-            new_appearance (str): The new appearance/theme. Either "system", "light", or "dark".
-        """
-        ctk.set_appearance_mode(new_appearance)
-
 # create and run the app
 if __name__ == "__main__":
     app = App()
