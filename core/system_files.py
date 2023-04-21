@@ -36,7 +36,7 @@ class SystemFilesSwitch(ctk.CTkSwitch):
         """
 
         # data
-        switch_var = ctk.IntVar(0)
+        switch_var = ctk.IntVar(value = 0)
 
         # widget setup
         super().__init__(master = master,
