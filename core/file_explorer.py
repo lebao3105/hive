@@ -20,7 +20,9 @@ import os
 
 import customtkinter as ctk
 
-class FileExplorer(ctk.CTkFrame):
+from .config import *
+
+class FileExplorer(ctk.CTkScrollableFrame):
     def __init__(self, master: ctk.CTk):
         """
         The main file explorer widget. This widget displays all the files and directories in the 
@@ -28,14 +30,23 @@ class FileExplorer(ctk.CTkFrame):
         """
 
         # widget setup
-        super().__init__(master=master,
+        super().__init__(master = master,
                          )
+        self.sys_files = 0
 
-        # getting user and path data, filling tree
+        # list of files/dirs that are allowed but start with a "."
+        self.files_allowed = [".gitignore",
+                              ".github",
+                              "pylintrc"
+                              ]
+
+        # getting user and path data
         self.user = os.environ["USER"]
         self.user_path = f"/Users/{self.user}"
         self.cwd = self.user_path
-        self.fill_tree(self.cwd, 0)
+
+        # filling the tree with files and dirs
+        self.fill_tree(self.cwd, self.sys_files)
 
     def fill_tree(self, cwd: str, sys_files: int):
         """
@@ -44,17 +55,49 @@ class FileExplorer(ctk.CTkFrame):
         """
 
         # settin up attributes
+        self.sys_files = sys_files
         self.cwd = cwd
         entities = os.listdir(self.cwd)
 
         # grid setup
         self.grid_columnconfigure(0, weight = 1)
         for num in range(len(entities)):
-            self.grid_rowconfigure(num, weight = 1)
+            self.grid_rowconfigure(num, weight = 0)
 
         # adding files and directories to list
         for entity in entities:
-            label = ctk.CTkLabel(master = self,
-                                 text = entity
-                                 )
-            label.grid(row = entities.index(entity), column = 0)
+
+            # if we don't want to see system files
+            if self.sys_files == 0:
+                # is the file normal, not starting with a "."?
+                if not entity.startswith("."):
+                    label = ctk.CTkLabel(master = self,
+                                        text = entity
+                                        )
+                    label.grid(row = entities.index(entity),
+                               column = 0,
+                               padx = PADX,
+                               pady = PADY,
+                               sticky = "w"
+                               )
+                # is the file starting with a ".", but in our exceptions list?
+                elif entity.startswith(".") and entity in self.files_allowed:
+                    label = ctk.CTkLabel(master = self,
+                                        text = entity
+                                        )
+                    label.grid(row = entities.index(entity), column = 0)
+                # is the file starting with a ".", but not in our exceptions list?
+                elif entity.startswith(".") and entity not in self.files_allowed:
+                    pass
+
+            # if we want to see system files
+            elif self.sys_files == 1:
+                label = ctk.CTkLabel(master = self,
+                                        text = entity
+                                        )
+                label.grid(row = entities.index(entity),
+                           column = 0,
+                           padx = PADX,
+                           pady = PADY,
+                           sticky = "w"
+                           )

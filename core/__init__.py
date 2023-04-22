@@ -18,5 +18,5 @@
 
 from .config import *
 from .appearance import *
-from .system_files import *
+from .sys_files import *
 from .file_explorer import *

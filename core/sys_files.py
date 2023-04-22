@@ -18,7 +18,7 @@
 
 import customtkinter as ctk
 
-class SystemFilesLabel(ctk.CTkLabel):
+class SysFilesLabel(ctk.CTkLabel):
     def __init__(self, master: ctk.CTk):
         """
         Widget that explains what the checkbox below it is for/does.
@@ -29,19 +29,19 @@ class SystemFilesLabel(ctk.CTkLabel):
                          text = "Display system files"
                          )
 
-class SystemFilesSwitch(ctk.CTkSwitch):
+class SysFilesSwitch(ctk.CTkSwitch):
     def __init__(self, master: ctk.CTk):
         """
         Widget that allows the user to toggle the visibility of system files.
         """
 
         # data
-        switch_var = ctk.IntVar(value = 0)
+        self.switch_var = ctk.IntVar(value = 0)
 
         # widget setup
         super().__init__(master = master,
                          onvalue = 1,
                          offvalue = 0,
-                         variable = switch_var,
+                         variable = self.switch_var,
                          text = ""
                         )

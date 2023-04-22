@@ -62,22 +62,25 @@ class App(ctk.CTk):
                                       sticky = "w"
                                       )
 
-        # system files widgets
-        self.system_files_label = SystemFilesLabel(self)
-        self.system_files_label.grid(row = 2,
+        # sys files widgets
+        self.sys_files_label = SysFilesLabel(self)
+        self.sys_files_label.grid(row = 2,
                                      column = 0,
                                      padx = PADX,
                                      pady = PADY,
                                      sticky = "w"
                                      )
 
-        self.system_files_switch = SystemFilesSwitch(self)
-        self.system_files_switch.grid(row = 3,
+        self.sys_files_switch = SysFilesSwitch(self)
+        self.sys_files_switch.grid(row = 3,
                                       column = 0,
                                       padx = PADX,
                                       pady = PADY,
                                       sticky = "w"
                                       )
+        
+        # checks if a switch's status was updated
+        self.sys_files_switch.switch_var.trace_add("write", self.update_tree)
 
         # file explorer widgets
         self.file_explorer = FileExplorer(self)
@@ -89,6 +92,13 @@ class App(ctk.CTk):
                                 pady = PADY,
                                 sticky = "nsew"
                                 )
+
+    def update_tree(self, *args): # pylint: disable=unused-argument
+        """
+        Updates the file explorer tree from the app itself. Could be done with 
+        app.file_explorer.fill_tree, but this is a lot cleaner and easier to read.
+        """
+        self.file_explorer.fill_tree("/", self.sys_files_switch.get())
 
 # create and run the app
 if __name__ == "__main__":
