@@ -23,7 +23,7 @@ from core import *
 class App(ctk.CTk):
     def __init__(self):
         """
-        Main app class that contains all the widgets and logic. To run, simply create an instance of 
+        Main app class that contains all the widgets and logic. To run, simply create an instance of
         the class and call the ".mainloop()" method on the instance.
         """
 
@@ -33,25 +33,62 @@ class App(ctk.CTk):
         self.iconbitmap("./src/icon.ico")
         self.geometry(f"{WIDTH}x{HEIGHT}")
         self.resizable(False, False)
+        ctk.set_default_color_theme("green")
         ctk.set_appearance_mode("system")
 
         # layout
-        self.columnconfigure((0, 1), weight = 0)
-        self.rowconfigure((0, 1), weight = 0)
+        self.grid_rowconfigure(0, weight = 0)
+        self.grid_rowconfigure(1, weight = 0)
+        self.grid_rowconfigure(2, weight = 0)
+        self.grid_rowconfigure(3, weight = 0)
+        self.grid_rowconfigure(4, weight = 1)
+        self.grid_columnconfigure(0, weight = 0)
+        self.grid_columnconfigure(1, weight = 1)
 
         # appearance widgets
-        self.appearance_selector = AppearanceSelector(self)
-        self.appearance_selector.grid(row = 1, column = 0, padx = PADX, pady = PADY)
-
         self.appearance_label = AppearanceLabel(self)
-        self.appearance_label.grid(row = 0, column = 0, padx = PADX, pady = PADY)
+        self.appearance_label.grid(row = 0,
+                                   column = 0,
+                                   padx = PADX,
+                                   pady = PADY,
+                                   sticky = "w"
+                                   )
+
+        self.appearance_selector = AppearanceSelector(self)
+        self.appearance_selector.grid(row = 1,
+                                      column = 0,
+                                      padx = PADX,
+                                      pady = PADY,
+                                      sticky = "w"
+                                      )
 
         # system files widgets
-        self.system_files_switch = SystemFilesSwitch(self)
-        self.system_files_switch.grid(row = 3, column = 0, padx = PADX, pady = PADY)
-
         self.system_files_label = SystemFilesLabel(self)
-        self.system_files_label.grid(row = 2, column = 0, padx = PADX, pady = PADY)
+        self.system_files_label.grid(row = 2,
+                                     column = 0,
+                                     padx = PADX,
+                                     pady = PADY,
+                                     sticky = "w"
+                                     )
+
+        self.system_files_switch = SystemFilesSwitch(self)
+        self.system_files_switch.grid(row = 3,
+                                      column = 0,
+                                      padx = PADX,
+                                      pady = PADY,
+                                      sticky = "w"
+                                      )
+
+        # file explorer widgets
+        self.file_explorer = FileExplorer(self)
+        self.file_explorer.grid(row = 0,
+                                rowspan = 5,
+                                column = 1,
+                                columnspan = 1,
+                                padx = PADX,
+                                pady = PADY,
+                                sticky = "nsew"
+                                )
 
 # create and run the app
 if __name__ == "__main__":

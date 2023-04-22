@@ -36,9 +36,8 @@ class AppearanceSelector(ctk.CTkOptionMenu):
         """
 
         # widget setup
-        self.values = ["System", "Light", "Dark"]
         super().__init__(master = master,
-                         values = self.values,
+                         values = ["System", "Light", "Dark"],
                          command = self.change_appearance,
                          )
 
@@ -47,6 +46,6 @@ class AppearanceSelector(ctk.CTkOptionMenu):
         Changes the appearance/theme of the app.
 
         Args:
-            new_appearance (str): The new appearance/theme. Either "system", "light", or "dark".
+            new_appearance (str): The new appearance/theme. Either "System", "Light", or "Dark".
         """
-        ctk.set_appearance_mode(new_appearance)
+        ctk.set_appearance_mode(new_appearance.lower())

@@ -42,5 +42,6 @@ class SystemFilesSwitch(ctk.CTkSwitch):
         super().__init__(master = master,
                          onvalue = 1,
                          offvalue = 0,
-                         variable = switch_var
+                         variable = switch_var,
+                         text = ""
                         )
