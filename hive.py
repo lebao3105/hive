@@ -78,7 +78,7 @@ class App(ctk.CTk):
                                       pady = PADY,
                                       sticky = "w"
                                       )
-        
+
         # checks if a switch's status was updated
         self.sys_files_switch.switch_var.trace_add("write", self.update_tree)
 
