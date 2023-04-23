@@ -16,6 +16,8 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
+import os
+
 # window size
 WIDTH = 700
 HEIGHT = 600
@@ -24,23 +26,26 @@ HEIGHT = 600
 PADX = 15
 PADY = 5
 
+# paths to files and directories
 THEME_PATH = "./src/hive_theme.json"
+USER = os.environ["USER"]
+USER_PATH = f"/Users/{USER}/"
 
-FILES_ALLOWED = [".gitignore",
-                 ".github",
-                 ".pylintrc"
-                 ]
-
-FILES_DISALLOWED = ["usr",
-                    "home",
-                    "bin",
-                    "sbin",
-                    "var",
-                    "private",
-                    "opt",
-                    "dev",
-                    "cores",
-                    "tmp",
-                    "etc",
-                    "Volumes"
-                    ]
+# list of hidden system files/directories
+SYSTEM_FILES = ["/bin",
+                "/cores",
+                "/private",
+                "/etc",
+                "/home",
+                "/opt",
+                "/sbin",
+                "/tmp",
+                "/usr",
+                "/var",
+                "/dev",
+                "/Volumes",
+                "/Users/Shared/adi",
+                "/Users/Shared/SC Info",
+                f"/Users/{USER}/Library",
+                f"/Users/{USER}/Trash"
+                ]

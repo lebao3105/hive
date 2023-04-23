@@ -36,15 +36,12 @@ class FileExplorer(ctk.CTkScrollableFrame):
         self.sys_files = 0
         self.cwd_var = cwd_var
 
-        # list of files/dirs that are allowed but start with a "."
-        self.allowed = FILES_ALLOWED
-
-        # list of files/dirs that aren't allowed and don't start with a "."
-        self.not_allowed = FILES_DISALLOWED
+        # list of hidden system files
+        self.not_allowed = SYSTEM_FILES
 
         # getting user and path data
-        self.user = os.environ["USER"]
-        self.user_path = f"/Users/{self.user}/"
+        self.user = USER
+        self.user_path = USER_PATH
         self.cwd = cwd
 
         os.chdir(self.cwd) # change to the current dir
@@ -62,6 +59,7 @@ class FileExplorer(ctk.CTkScrollableFrame):
         self.cwd = cwd
         os.chdir(self.cwd)
         entities = os.listdir(self.cwd)
+        entities = sorted(entities)
 
         # grid setup
         self.grid_columnconfigure(0, weight = 1)
@@ -75,13 +73,12 @@ class FileExplorer(ctk.CTkScrollableFrame):
         # if we don't want to see system files; 0 = False
         if self.sys_files == 0:
             for entity in entities:
-                # if it's an application, we don't want the ".app" showing up
-                if entity.endswith(".app"):
-                    entities[entities.index(entity)] = entity.removesuffix(".app")
-                    entity = entity.removesuffix(".app")
-
                 # is the file not starting with a "." and in our not allowed list?
-                if entity in self.not_allowed:
+                if self.cwd.endswith("/"):
+                    entity_path = f"{self.cwd}{entity}"
+                else:
+                    entity_path = f"{self.cwd}/{entity}"
+                if entity_path in self.not_allowed or self.is_hidden(entity):
                     pass
 
                 # is the file a normal, user visible file?
@@ -100,34 +97,9 @@ class FileExplorer(ctk.CTkScrollableFrame):
                                self.open_entity(event, text) # pylint: disable=cell-var-from-loop
                                )
 
-                # is the file starting with a ".", but in our exceptions list?
-                elif entity.startswith(".") and entity in self.allowed:
-                    label = ctk.CTkLabel(master = self,
-                                         text = entity
-                                         )
-                    label.grid(row = entities.index(entity),
-                               column = 0,
-                               padx = PADX,
-                               pady = PADY,
-                               sticky = "w"
-                               )
-                    label.bind('<Double-Button-1>',
-                               lambda event, text = label.cget("text"):
-                               self.open_entity(event, text) # pylint: disable=cell-var-from-loop
-                               )
-
-                # is the file starting with a ".", but not in our exceptions list?
-                elif entity.startswith(".") and entity not in self.allowed:
-                    pass
-
         # if we want to see system files; 1 = True
         elif self.sys_files == 1:
             for entity in entities:
-                # if it's an application, we don't want the ".app" showing up
-                if entity.endswith(".app"):
-                    entities[entities.index(entity)] = entity.removesuffix(".app")
-                    entity = entity.removesuffix(".app")
-
                 label = ctk.CTkLabel(master = self,
                                      text = entity
                                      )
@@ -148,16 +120,32 @@ class FileExplorer(ctk.CTkScrollableFrame):
         """
 
         os.chdir(self.cwd) # change to current directory
-        path = os.path.abspath(f"./{text}")
+        path = os.path.abspath(f"./{text}") # make a path to our entity
 
-        if not os.path.isfile(path):
+        if not os.path.isfile(path) and not path.endswith(".app"): # a directory
             os.chdir(path) # use relative paths to get to the double clicked directory
 
             if self.cwd.endswith("/"): # if we already have a "/"
                 self.cwd = f"{self.cwd}{text}" # change to our new path
             else: # if we don't
                 self.cwd = f"{self.cwd}/{text}" # change to our new path
-        else:
-            sp.call(["open", path])
+        else: # a file or an app
+            sp.run(["open", path], check = True)
 
         self.cwd_var.set(self.cwd) # set the variable to the new path
+
+    def is_hidden(self, path: str):
+        """
+        Check if the file/directory at the given path is a hidden system file/directory.
+        """
+
+        # run macOS command to find files with "hidden" attribute
+        result = sp.run(['ls', '-A', path], capture_output = True, text = True, check = True)
+
+        # if command was sucessful
+        if result.returncode == 0:
+            # check for hidden attribute in the output
+            if "hidden" in result.stdout.split():
+                return True
+
+        return False # not a hidden file/directory
