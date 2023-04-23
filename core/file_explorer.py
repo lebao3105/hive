@@ -89,6 +89,7 @@ class FileExplorer(ctk.CTkScrollableFrame):
                 # is the file not starting with a "." and in our not allowed list?
                 if entity in self.not_allowed:
                     pass
+
                 # is the file a normal, user visible file?
                 elif not entity.startswith("."):
                     label = ctk.CTkLabel(master = self,
@@ -100,6 +101,7 @@ class FileExplorer(ctk.CTkScrollableFrame):
                                pady = PADY,
                                sticky = "w"
                                )
+
                 # is the file starting with a ".", but in our exceptions list?
                 elif entity.startswith(".") and entity in self.allowed:
                     label = ctk.CTkLabel(master = self,
@@ -111,6 +113,7 @@ class FileExplorer(ctk.CTkScrollableFrame):
                             pady = PADY,
                             sticky = "w"
                             )
+
                 # is the file starting with a ".", but not in our exceptions list?
                 elif entity.startswith(".") and entity not in self.allowed:
                     pass

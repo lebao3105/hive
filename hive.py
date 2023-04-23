@@ -33,7 +33,7 @@ class App(ctk.CTk):
         self.iconbitmap("./src/icon.ico")
         self.geometry(f"{WIDTH}x{HEIGHT}")
         self.resizable(False, False)
-        ctk.set_default_color_theme("green")
+        ctk.set_default_color_theme(THEME_PATH)
         ctk.set_appearance_mode("system")
 
         # layout
