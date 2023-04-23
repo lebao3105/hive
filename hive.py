@@ -45,6 +45,14 @@ class App(ctk.CTk):
         self.grid_columnconfigure(0, weight = 0)
         self.grid_columnconfigure(1, weight = 1)
 
+        # data
+        self.cwd_var = ctk.StringVar(master = self,
+                                 value = "/"
+                                 )
+        self.sys_files_var = ctk.IntVar(master = self,
+                                        value = 0
+                                        )
+
         # appearance widgets
         self.appearance_label = AppearanceLabel(self)
         self.appearance_label.grid(row = 0,
@@ -71,7 +79,7 @@ class App(ctk.CTk):
                                      sticky = "w"
                                      )
 
-        self.sys_files_switch = SysFilesSwitch(self)
+        self.sys_files_switch = SysFilesSwitch(self, self.sys_files_var)
         self.sys_files_switch.grid(row = 3,
                                       column = 0,
                                       padx = PADX,
@@ -79,8 +87,9 @@ class App(ctk.CTk):
                                       sticky = "w"
                                       )
 
-        # checks if a switch's status was updated
-        self.sys_files_switch.switch_var.trace_add("write", self.update_tree)
+        # checks if any variables were updated
+        self.sys_files_var.trace_add("write", self.update_tree)
+        self.cwd_var.trace_add("write", self.update_tree)
 
         # file explorer widgets
         self.file_explorer = FileExplorer(self)
@@ -98,7 +107,7 @@ class App(ctk.CTk):
         Updates the file explorer tree from the app itself. Could be done with 
         app.file_explorer.fill_tree, but this is a lot cleaner and easier to read.
         """
-        self.file_explorer.fill_tree("/", self.sys_files_switch.get())
+        self.file_explorer.fill_tree(self.cwd_var.get(), self.sys_files_var.get())
 
 # create and run the app
 if __name__ == "__main__":

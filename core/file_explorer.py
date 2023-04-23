@@ -35,15 +35,30 @@ class FileExplorer(ctk.CTkScrollableFrame):
         self.sys_files = 0
 
         # list of files/dirs that are allowed but start with a "."
-        self.files_allowed = [".gitignore",
-                              ".github",
-                              "pylintrc"
-                              ]
+        self.allowed = [".gitignore",
+                        ".github",
+                        ".pylintrc"
+                        ]
+
+        # list of files/dirs that aren't allowed and don't start with a "."
+        self.not_allowed = ["usr",
+                            "home",
+                            "bin",
+                            "sbin",
+                            "var",
+                            "private",
+                            "opt",
+                            "dev",
+                            "cores",
+                            "tmp",
+                            "etc",
+                            "Volumes"
+                            ]
 
         # getting user and path data
         self.user = os.environ["USER"]
         self.user_path = f"/Users/{self.user}"
-        self.cwd = self.user_path
+        self.cwd = "/"
 
         # filling the tree with files and dirs
         self.fill_tree(self.cwd, self.sys_files)
@@ -64,16 +79,21 @@ class FileExplorer(ctk.CTkScrollableFrame):
         for num in range(len(entities)):
             self.grid_rowconfigure(num, weight = 0)
 
-        # adding files and directories to list
-        for entity in entities:
+        # clear previous label widgets
+        for label in self.winfo_children():
+            label.destroy()
 
-            # if we don't want to see system files
-            if self.sys_files == 0:
-                # is the file normal, not starting with a "."?
-                if not entity.startswith("."):
+        # if we don't want to see system files; 0 = False
+        if self.sys_files == 0:
+            for entity in entities:
+                # is the file not starting with a "." and in our not allowed list?
+                if entity in self.not_allowed:
+                    pass
+                # is the file a normal, user visible file?
+                elif not entity.startswith("."):
                     label = ctk.CTkLabel(master = self,
-                                        text = entity
-                                        )
+                                         text = entity
+                                         )
                     label.grid(row = entities.index(entity),
                                column = 0,
                                padx = PADX,
@@ -81,20 +101,26 @@ class FileExplorer(ctk.CTkScrollableFrame):
                                sticky = "w"
                                )
                 # is the file starting with a ".", but in our exceptions list?
-                elif entity.startswith(".") and entity in self.files_allowed:
+                elif entity.startswith(".") and entity in self.allowed:
                     label = ctk.CTkLabel(master = self,
-                                        text = entity
-                                        )
-                    label.grid(row = entities.index(entity), column = 0)
+                                    text = entity
+                                    )
+                    label.grid(row = entities.index(entity),
+                            column = 0,
+                            padx = PADX,
+                            pady = PADY,
+                            sticky = "w"
+                            )
                 # is the file starting with a ".", but not in our exceptions list?
-                elif entity.startswith(".") and entity not in self.files_allowed:
+                elif entity.startswith(".") and entity not in self.allowed:
                     pass
 
-            # if we want to see system files
-            elif self.sys_files == 1:
+        # if we want to see system files; 1 = True
+        elif self.sys_files == 1:
+            for entity in entities:
                 label = ctk.CTkLabel(master = self,
-                                        text = entity
-                                        )
+                                     text = entity
+                                     )
                 label.grid(row = entities.index(entity),
                            column = 0,
                            padx = PADX,

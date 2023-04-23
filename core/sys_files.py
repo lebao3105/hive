@@ -30,18 +30,15 @@ class SysFilesLabel(ctk.CTkLabel):
                          )
 
 class SysFilesSwitch(ctk.CTkSwitch):
-    def __init__(self, master: ctk.CTk):
+    def __init__(self, master: ctk.CTk, sys_files: ctk.IntVar):
         """
         Widget that allows the user to toggle the visibility of system files.
         """
-
-        # data
-        self.switch_var = ctk.IntVar(value = 0)
 
         # widget setup
         super().__init__(master = master,
                          onvalue = 1,
                          offvalue = 0,
-                         variable = self.switch_var,
+                         variable = sys_files,
                          text = ""
                         )
