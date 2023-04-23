@@ -23,16 +23,17 @@ import customtkinter as ctk
 from .config import *
 
 class FileExplorer(ctk.CTkScrollableFrame):
-    def __init__(self, master: ctk.CTk):
+    def __init__(self, master: ctk.CTk, cwd: str, cwd_var: ctk.StringVar):
         """
         The main file explorer widget. This widget displays all the files and directories in the 
         current working directory.
         """
 
         # widget setup
-        super().__init__(master = master,
+        super().__init__(master = master
                          )
         self.sys_files = 0
+        self.cwd_var = cwd_var
 
         # list of files/dirs that are allowed but start with a "."
         self.allowed = [".gitignore",
@@ -57,8 +58,8 @@ class FileExplorer(ctk.CTkScrollableFrame):
 
         # getting user and path data
         self.user = os.environ["USER"]
-        self.user_path = f"/Users/{self.user}"
-        self.cwd = "/"
+        self.user_path = f"/Users/{self.user}/"
+        self.cwd = cwd
 
         # filling the tree with files and dirs
         self.fill_tree(self.cwd, self.sys_files)
@@ -72,6 +73,7 @@ class FileExplorer(ctk.CTkScrollableFrame):
         # settin up attributes
         self.sys_files = sys_files
         self.cwd = cwd
+        os.chdir(self.cwd)
         entities = os.listdir(self.cwd)
 
         # grid setup
@@ -101,18 +103,24 @@ class FileExplorer(ctk.CTkScrollableFrame):
                                pady = PADY,
                                sticky = "w"
                                )
+                    label.bind('<Double-Button-1>',
+                               lambda event: self.open_entity(event, label.cget("text")) # pylint: disable=cell-var-from-loop
+                               )
 
                 # is the file starting with a ".", but in our exceptions list?
                 elif entity.startswith(".") and entity in self.allowed:
                     label = ctk.CTkLabel(master = self,
-                                    text = entity
-                                    )
+                                         text = entity
+                                         )
                     label.grid(row = entities.index(entity),
-                            column = 0,
-                            padx = PADX,
-                            pady = PADY,
-                            sticky = "w"
-                            )
+                               column = 0,
+                               padx = PADX,
+                               pady = PADY,
+                               sticky = "w"
+                               )
+                    label.bind('<Double-Button-1>',
+                               lambda event: self.open_entity(event, label.cget("text")) # pylint: disable=cell-var-from-loop
+                               )
 
                 # is the file starting with a ".", but not in our exceptions list?
                 elif entity.startswith(".") and entity not in self.allowed:
@@ -130,3 +138,17 @@ class FileExplorer(ctk.CTkScrollableFrame):
                            pady = PADY,
                            sticky = "w"
                            )
+                label.bind('<Double-Button-1>',
+                           lambda event: self.open_entity(event, label.cget("text")) # pylint: disable=cell-var-from-loop
+                           )
+
+    def open_entity(self, event, text: str): # pylint: disable=unused-argument
+        """
+        An event in the case that the user double clicks a file or directory. Should open the file 
+        or directory.
+        """
+
+        os.chdir(self.cwd) # change to current directory
+        os.chdir(f"./{text}") # use relative paths to get to the double clicked directory
+        self.cwd = f"{self.cwd}{text}" # change to our new path
+        self.cwd_var.set(self.cwd) # set the variable to the new path

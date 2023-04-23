@@ -47,8 +47,8 @@ class App(ctk.CTk):
 
         # data
         self.cwd_var = ctk.StringVar(master = self,
-                                 value = "/"
-                                 )
+                                     value = "/"
+                                     )
         self.sys_files_var = ctk.IntVar(master = self,
                                         value = 0
                                         )
@@ -87,12 +87,8 @@ class App(ctk.CTk):
                                       sticky = "w"
                                       )
 
-        # checks if any variables were updated
-        self.sys_files_var.trace_add("write", self.update_tree)
-        self.cwd_var.trace_add("write", self.update_tree)
-
         # file explorer widgets
-        self.file_explorer = FileExplorer(self)
+        self.file_explorer = FileExplorer(self, self.cwd_var.get(), self.cwd_var)
         self.file_explorer.grid(row = 0,
                                 rowspan = 5,
                                 column = 1,
@@ -102,11 +98,16 @@ class App(ctk.CTk):
                                 sticky = "nsew"
                                 )
 
+        # checks if any variables were updated
+        self.sys_files_var.trace_add("write", self.update_tree)
+        self.cwd_var.trace_add("write", self.update_tree)
+
     def update_tree(self, *args): # pylint: disable=unused-argument
         """
         Updates the file explorer tree from the app itself. Could be done with 
         app.file_explorer.fill_tree, but this is a lot cleaner and easier to read.
         """
+
         self.file_explorer.fill_tree(self.cwd_var.get(), self.sys_files_var.get())
 
 # create and run the app
