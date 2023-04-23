@@ -25,3 +25,22 @@ PADX = 15
 PADY = 5
 
 THEME_PATH = "./src/hive_theme.json"
+
+FILES_ALLOWED = [".gitignore",
+                 ".github",
+                 ".pylintrc"
+                 ]
+
+FILES_DISALLOWED = ["usr",
+                    "home",
+                    "bin",
+                    "sbin",
+                    "var",
+                    "private",
+                    "opt",
+                    "dev",
+                    "cores",
+                    "tmp",
+                    "etc",
+                    "Volumes"
+                    ]

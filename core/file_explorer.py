@@ -17,6 +17,7 @@
 #
 
 import os
+import subprocess as sp
 
 import customtkinter as ctk
 
@@ -36,33 +37,19 @@ class FileExplorer(ctk.CTkScrollableFrame):
         self.cwd_var = cwd_var
 
         # list of files/dirs that are allowed but start with a "."
-        self.allowed = [".gitignore",
-                        ".github",
-                        ".pylintrc"
-                        ]
+        self.allowed = FILES_ALLOWED
 
         # list of files/dirs that aren't allowed and don't start with a "."
-        self.not_allowed = ["usr",
-                            "home",
-                            "bin",
-                            "sbin",
-                            "var",
-                            "private",
-                            "opt",
-                            "dev",
-                            "cores",
-                            "tmp",
-                            "etc",
-                            "Volumes"
-                            ]
+        self.not_allowed = FILES_DISALLOWED
 
         # getting user and path data
         self.user = os.environ["USER"]
         self.user_path = f"/Users/{self.user}/"
         self.cwd = cwd
 
-        # filling the tree with files and dirs
-        self.fill_tree(self.cwd, self.sys_files)
+        os.chdir(self.cwd) # change to the current dir
+
+        self.fill_tree(self.cwd, self.sys_files) # filling the tree with files and dirs
 
     def fill_tree(self, cwd: str, sys_files: int):
         """
@@ -88,6 +75,11 @@ class FileExplorer(ctk.CTkScrollableFrame):
         # if we don't want to see system files; 0 = False
         if self.sys_files == 0:
             for entity in entities:
+                # if it's an application, we don't want the ".app" showing up
+                if entity.endswith(".app"):
+                    entities[entities.index(entity)] = entity.removesuffix(".app")
+                    entity = entity.removesuffix(".app")
+
                 # is the file not starting with a "." and in our not allowed list?
                 if entity in self.not_allowed:
                     pass
@@ -104,7 +96,8 @@ class FileExplorer(ctk.CTkScrollableFrame):
                                sticky = "w"
                                )
                     label.bind('<Double-Button-1>',
-                               lambda event, text = label.cget("text"): self.open_entity(event, text) # pylint: disable=cell-var-from-loop
+                               lambda event, text = label.cget("text"):
+                               self.open_entity(event, text) # pylint: disable=cell-var-from-loop
                                )
 
                 # is the file starting with a ".", but in our exceptions list?
@@ -119,7 +112,8 @@ class FileExplorer(ctk.CTkScrollableFrame):
                                sticky = "w"
                                )
                     label.bind('<Double-Button-1>',
-                               lambda event, text = label.cget("text"): self.open_entity(event, text) # pylint: disable=cell-var-from-loop
+                               lambda event, text = label.cget("text"):
+                               self.open_entity(event, text) # pylint: disable=cell-var-from-loop
                                )
 
                 # is the file starting with a ".", but not in our exceptions list?
@@ -129,6 +123,11 @@ class FileExplorer(ctk.CTkScrollableFrame):
         # if we want to see system files; 1 = True
         elif self.sys_files == 1:
             for entity in entities:
+                # if it's an application, we don't want the ".app" showing up
+                if entity.endswith(".app"):
+                    entities[entities.index(entity)] = entity.removesuffix(".app")
+                    entity = entity.removesuffix(".app")
+
                 label = ctk.CTkLabel(master = self,
                                      text = entity
                                      )
@@ -149,9 +148,16 @@ class FileExplorer(ctk.CTkScrollableFrame):
         """
 
         os.chdir(self.cwd) # change to current directory
-        os.chdir(f"./{text}") # use relative paths to get to the double clicked directory
-        if self.cwd.endswith("/"): # if we already have a "/"
-            self.cwd = f"{self.cwd}{text}" # change to our new path
-        else: # if we don't
-            self.cwd = f"{self.cwd}/{text}" # change to our new path
+        path = os.path.abspath(f"./{text}")
+
+        if not os.path.isfile(path):
+            os.chdir(path) # use relative paths to get to the double clicked directory
+
+            if self.cwd.endswith("/"): # if we already have a "/"
+                self.cwd = f"{self.cwd}{text}" # change to our new path
+            else: # if we don't
+                self.cwd = f"{self.cwd}/{text}" # change to our new path
+        else:
+            sp.call(["open", path])
+
         self.cwd_var.set(self.cwd) # set the variable to the new path
