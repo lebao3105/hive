@@ -104,7 +104,7 @@ class FileExplorer(ctk.CTkScrollableFrame):
                                sticky = "w"
                                )
                     label.bind('<Double-Button-1>',
-                               lambda event: self.open_entity(event, label.cget("text")) # pylint: disable=cell-var-from-loop
+                               lambda event, text = label.cget("text"): self.open_entity(event, text) # pylint: disable=cell-var-from-loop
                                )
 
                 # is the file starting with a ".", but in our exceptions list?
@@ -119,7 +119,7 @@ class FileExplorer(ctk.CTkScrollableFrame):
                                sticky = "w"
                                )
                     label.bind('<Double-Button-1>',
-                               lambda event: self.open_entity(event, label.cget("text")) # pylint: disable=cell-var-from-loop
+                               lambda event, text = label.cget("text"): self.open_entity(event, text) # pylint: disable=cell-var-from-loop
                                )
 
                 # is the file starting with a ".", but not in our exceptions list?
@@ -139,7 +139,7 @@ class FileExplorer(ctk.CTkScrollableFrame):
                            sticky = "w"
                            )
                 label.bind('<Double-Button-1>',
-                           lambda event: self.open_entity(event, label.cget("text")) # pylint: disable=cell-var-from-loop
+                           lambda event, text = label.cget("text"): self.open_entity(event, text) # pylint: disable=cell-var-from-loop
                            )
 
     def open_entity(self, event, text: str): # pylint: disable=unused-argument
@@ -150,5 +150,8 @@ class FileExplorer(ctk.CTkScrollableFrame):
 
         os.chdir(self.cwd) # change to current directory
         os.chdir(f"./{text}") # use relative paths to get to the double clicked directory
-        self.cwd = f"{self.cwd}{text}" # change to our new path
+        if self.cwd.endswith("/"): # if we already have a "/"
+            self.cwd = f"{self.cwd}{text}" # change to our new path
+        else: # if we don't
+            self.cwd = f"{self.cwd}/{text}" # change to our new path
         self.cwd_var.set(self.cwd) # set the variable to the new path
