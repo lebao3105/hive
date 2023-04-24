@@ -32,7 +32,8 @@ class App(ctk.CTk):
         # window setup
         super().__init__()
         self.title("hive")
-        self.iconbitmap("./src/icon.ico")
+        self.icon_path = abspath("./src/icon.png")
+        self.iconbitmap(self.icon_path)
         self.geometry(f"{WIDTH}x{HEIGHT}")
         self.resizable(False, False)
         ctk.set_default_color_theme(THEME_PATH)
@@ -90,10 +91,14 @@ class App(ctk.CTk):
                                       )
 
         # attribute setup
-        self.icon_path = abspath("./src/")
+        self.file_icon_path = abspath("./src/")
 
         # file explorer widgets
-        self.file_explorer = FileExplorer(self, self.cwd_var.get(), self.cwd_var, self.icon_path)
+        self.file_explorer = FileExplorer(self,
+                                          self.cwd_var.get(),
+                                          self.cwd_var,
+                                          self.file_icon_path
+                                          )
         self.file_explorer.grid(row = 0,
                                 rowspan = 5,
                                 column = 1,
@@ -113,7 +118,10 @@ class App(ctk.CTk):
         app.file_explorer.fill_tree, but this is a lot cleaner and easier to read.
         """
 
-        self.file_explorer.fill_tree(self.cwd_var.get(), self.sys_files_var.get(), self.icon_path)
+        self.file_explorer.fill_tree(self.cwd_var.get(),
+                                     self.sys_files_var.get(),
+                                     self.file_icon_path
+                                     )
 
 # create and run the app
 if __name__ == "__main__":

@@ -64,7 +64,7 @@ class FileExplorer(ctk.CTkScrollableFrame):
 
         # grid setup
         self.grid_columnconfigure(0, weight = 0)
-        self.grid_columnconfigure(1, weight = 2)
+        self.grid_columnconfigure(1, weight = 1)
         for num in range(len(entities)):
             self.grid_rowconfigure(num, weight = 0)
 
@@ -107,13 +107,14 @@ class FileExplorer(ctk.CTkScrollableFrame):
                         icon = ctk.CTkImage(light_image = Image.open(f"{icon_path}/folder.png"))
                     button = ctk.CTkButton(master = self,
                                            image = icon,
-                                           text = ""
+                                           text = "",
+                                           width = icon.cget("size")[0]
                                            )
                     button.grid(row = entities.index(entity),
                                 column = 0,
                                 padx = PADX,
                                 pady = PADY,
-                                sticky = "w",
+                                sticky = "w"
                                 )
                     button.bind('<Double-Button-1>',
                                 lambda event, text = label.cget("text"):
@@ -149,7 +150,8 @@ class FileExplorer(ctk.CTkScrollableFrame):
                     icon = ctk.CTkImage(light_image = Image.open(f"{icon_path}/folder.png"))
                 button = ctk.CTkButton(master = self,
                                        image = icon,
-                                       text = ""
+                                       text = "",
+                                       width = icon.cget("size")[0]
                                        )
                 button.grid(row = entities.index(entity),
                             column = 0,
