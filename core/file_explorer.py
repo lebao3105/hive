@@ -188,7 +188,4 @@ class FileExplorer(ctk.CTkScrollableFrame):
         Check if the file/directory at the given path is a hidden system file/directory.
         """
 
-        if path.startswith("."):
-            return True
-        else:
-            return False
+        return path.startswith(".")
