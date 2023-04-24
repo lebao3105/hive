@@ -16,7 +16,7 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-from .config import *
 from .appearance import *
-from .sys_files import *
+from .config import *
 from .file_explorer import *
+from .sys_files import *

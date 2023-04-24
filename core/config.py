@@ -16,7 +16,7 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-import os
+from os import environ
 
 # window size
 WIDTH = 700
@@ -28,7 +28,7 @@ PADY = 5
 
 # paths to files and directories
 THEME_PATH = "./src/hive_theme.json"
-USER = os.environ["USER"]
+USER = environ["USER"]
 USER_PATH = f"/Users/{USER}/"
 
 # list of hidden system files/directories

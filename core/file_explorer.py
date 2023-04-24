@@ -17,14 +17,15 @@
 #
 
 import os
-import subprocess as sp
+from subprocess import run
 
 import customtkinter as ctk
+from PIL import Image
 
 from .config import *
 
 class FileExplorer(ctk.CTkScrollableFrame):
-    def __init__(self, master: ctk.CTk, cwd: str, cwd_var: ctk.StringVar):
+    def __init__(self, master: ctk.CTk, cwd: str, cwd_var: ctk.StringVar, icon_path: str):
         """
         The main file explorer widget. This widget displays all the files and directories in the 
         current working directory.
@@ -46,9 +47,9 @@ class FileExplorer(ctk.CTkScrollableFrame):
 
         os.chdir(self.cwd) # change to the current dir
 
-        self.fill_tree(self.cwd, self.sys_files) # filling the tree with files and dirs
+        self.fill_tree(self.cwd, self.sys_files, icon_path) # filling the tree with files and dirs
 
-    def fill_tree(self, cwd: str, sys_files: int):
+    def fill_tree(self, cwd: str, sys_files: int, icon_path: str):
         """
         Fills the file explorer tree with all the files and directories in the current working 
         directory. Is supposed to be called every frame.
@@ -62,7 +63,8 @@ class FileExplorer(ctk.CTkScrollableFrame):
         entities = sorted(entities)
 
         # grid setup
-        self.grid_columnconfigure(0, weight = 1)
+        self.grid_columnconfigure(0, weight = 0)
+        self.grid_columnconfigure(1, weight = 2)
         for num in range(len(entities)):
             self.grid_rowconfigure(num, weight = 0)
 
@@ -73,21 +75,23 @@ class FileExplorer(ctk.CTkScrollableFrame):
         # if we don't want to see system files; 0 = False
         if self.sys_files == 0:
             for entity in entities:
-                # is the file not starting with a "." and in our not allowed list?
+                # create a path to the file/directory
                 if self.cwd.endswith("/"):
                     entity_path = f"{self.cwd}{entity}"
                 else:
                     entity_path = f"{self.cwd}/{entity}"
-                if entity_path in self.not_allowed or self.is_hidden(entity):
+
+                # is the file a hidden system file
+                if (entity_path in self.not_allowed) or (self.is_hidden(entity)):
                     pass
 
                 # is the file a normal, user visible file?
-                elif not entity.startswith("."):
+                else:
                     label = ctk.CTkLabel(master = self,
                                          text = entity
                                          )
                     label.grid(row = entities.index(entity),
-                               column = 0,
+                               column = 1,
                                padx = PADX,
                                pady = PADY,
                                sticky = "w"
@@ -97,21 +101,66 @@ class FileExplorer(ctk.CTkScrollableFrame):
                                self.open_entity(event, text) # pylint: disable=cell-var-from-loop
                                )
 
+                    if os.path.isfile(entity_path):
+                        icon = ctk.CTkImage(light_image = Image.open(f"{icon_path}/file.png"))
+                    else:
+                        icon = ctk.CTkImage(light_image = Image.open(f"{icon_path}/folder.png"))
+                    button = ctk.CTkButton(master = self,
+                                           image = icon,
+                                           text = ""
+                                           )
+                    button.grid(row = entities.index(entity),
+                                column = 0,
+                                padx = PADX,
+                                pady = PADY,
+                                sticky = "w",
+                                )
+                    button.bind('<Double-Button-1>',
+                                lambda event, text = label.cget("text"):
+                                self.open_entity(event, text) # pylint: disable=cell-var-from-loop
+                                )
+
         # if we want to see system files; 1 = True
         elif self.sys_files == 1:
             for entity in entities:
+                # create a path to the file/directory
+                if self.cwd.endswith("/"):
+                    entity_path = f"{self.cwd}{entity}"
+                else:
+                    entity_path = f"{self.cwd}/{entity}"
+
                 label = ctk.CTkLabel(master = self,
                                      text = entity
                                      )
                 label.grid(row = entities.index(entity),
-                           column = 0,
+                           column = 1,
                            padx = PADX,
                            pady = PADY,
                            sticky = "w"
                            )
                 label.bind('<Double-Button-1>',
-                           lambda event, text = label.cget("text"): self.open_entity(event, text) # pylint: disable=cell-var-from-loop
+                           lambda event, text = label.cget("text"):
+                           self.open_entity(event, text) # pylint: disable=cell-var-from-loop
                            )
+
+                if os.path.isfile(entity_path):
+                    icon = ctk.CTkImage(light_image = Image.open(f"{icon_path}/file.png"))
+                else:
+                    icon = ctk.CTkImage(light_image = Image.open(f"{icon_path}/folder.png"))
+                button = ctk.CTkButton(master = self,
+                                       image = icon,
+                                       text = ""
+                                       )
+                button.grid(row = entities.index(entity),
+                            column = 0,
+                            padx = PADX,
+                            pady = PADY,
+                            sticky = "w"
+                            )
+                button.bind('<Double-Button-1>',
+                            lambda event, text = label.cget("text"):
+                            self.open_entity(event, text) # pylint: disable=cell-var-from-loop
+                            )
 
     def open_entity(self, event, text: str): # pylint: disable=unused-argument
         """
@@ -130,7 +179,7 @@ class FileExplorer(ctk.CTkScrollableFrame):
             else: # if we don't
                 self.cwd = f"{self.cwd}/{text}" # change to our new path
         else: # a file or an app
-            sp.run(["open", path], check = True)
+            run(["open", path], check = True)
 
         self.cwd_var.set(self.cwd) # set the variable to the new path
 
@@ -139,13 +188,7 @@ class FileExplorer(ctk.CTkScrollableFrame):
         Check if the file/directory at the given path is a hidden system file/directory.
         """
 
-        # run macOS command to find files with "hidden" attribute
-        result = sp.run(['ls', '-A', path], capture_output = True, text = True, check = True)
-
-        # if command was sucessful
-        if result.returncode == 0:
-            # check for hidden attribute in the output
-            if "hidden" in result.stdout.split():
-                return True
-
-        return False # not a hidden file/directory
+        if path.startswith("."):
+            return True
+        else:
+            return False

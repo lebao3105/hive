@@ -16,6 +16,8 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
+from os.path import abspath
+
 import customtkinter as ctk
 
 from core import *
@@ -87,8 +89,11 @@ class App(ctk.CTk):
                                       sticky = "w"
                                       )
 
+        # attribute setup
+        self.icon_path = abspath("./src/")
+
         # file explorer widgets
-        self.file_explorer = FileExplorer(self, self.cwd_var.get(), self.cwd_var)
+        self.file_explorer = FileExplorer(self, self.cwd_var.get(), self.cwd_var, self.icon_path)
         self.file_explorer.grid(row = 0,
                                 rowspan = 5,
                                 column = 1,
@@ -108,7 +113,7 @@ class App(ctk.CTk):
         app.file_explorer.fill_tree, but this is a lot cleaner and easier to read.
         """
 
-        self.file_explorer.fill_tree(self.cwd_var.get(), self.sys_files_var.get())
+        self.file_explorer.fill_tree(self.cwd_var.get(), self.sys_files_var.get(), self.icon_path)
 
 # create and run the app
 if __name__ == "__main__":

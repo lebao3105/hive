@@ -3,6 +3,8 @@
 disable=missing-module-docstring,
         unused-wildcard-import,
         wildcard-import,
-        too-many-ancestors,
         missing-class-docstring,
-        too-few-public-methods
+        too-many-ancestors,
+        too-few-public-methods,
+        too-many-branches,
+        too-many-instance-attributes
