@@ -17,6 +17,7 @@
 #
 
 from os import environ
+from os.path import dirname
 
 # window size
 WIDTH = 700
@@ -27,7 +28,8 @@ PADX = 15
 PADY = 5
 
 # paths to files and directories
-THEME_PATH = "./src/hive_theme.json"
+SCRIPT_DIR = dirname(__file__).replace("core", "")
+THEME_PATH = f"{SCRIPT_DIR}/src/hive_theme.json"
 USER = environ["USER"]
 USER_PATH = f"/Users/{USER}/"
 

@@ -102,9 +102,15 @@ class FileExplorer(ctk.CTkScrollableFrame):
                                )
 
                     if os.path.isfile(entity_path):
-                        icon = ctk.CTkImage(light_image = Image.open(f"{icon_path}/file.png"))
+                        if icon_path.endswith("/"):
+                            icon = ctk.CTkImage(light_image = Image.open(f"{icon_path}file.png"))
+                        else:
+                            icon = ctk.CTkImage(light_image = Image.open(f"{icon_path}/file.png"))
                     else:
-                        icon = ctk.CTkImage(light_image = Image.open(f"{icon_path}/folder.png"))
+                        if icon_path.endswith("/"):
+                            icon = ctk.CTkImage(light_image = Image.open(f"{icon_path}folder.png"))
+                        else:
+                            icon = ctk.CTkImage(light_image = Image.open(f"{icon_path}/folder.png"))
                     button = ctk.CTkButton(master = self,
                                            image = icon,
                                            text = "",
@@ -145,9 +151,15 @@ class FileExplorer(ctk.CTkScrollableFrame):
                            )
 
                 if os.path.isfile(entity_path):
-                    icon = ctk.CTkImage(light_image = Image.open(f"{icon_path}/file.png"))
+                    if icon_path.endswith("/"):
+                        icon = ctk.CTkImage(light_image = Image.open(f"{icon_path}file.png"))
+                    else:
+                        icon = ctk.CTkImage(light_image = Image.open(f"{icon_path}/file.png"))
                 else:
-                    icon = ctk.CTkImage(light_image = Image.open(f"{icon_path}/folder.png"))
+                    if icon_path.endswith("/"):
+                        icon = ctk.CTkImage(light_image = Image.open(f"{icon_path}folder.png"))
+                    else:
+                        icon = ctk.CTkImage(light_image = Image.open(f"{icon_path}/folder.png"))
                 button = ctk.CTkButton(master = self,
                                        image = icon,
                                        text = "",
@@ -171,7 +183,7 @@ class FileExplorer(ctk.CTkScrollableFrame):
         """
 
         os.chdir(self.cwd) # change to current directory
-        path = os.path.abspath(f"./{text}") # make a path to our entity
+        path = f"./{text}" # make a path to our entity
 
         if not os.path.isfile(path) and not path.endswith(".app"): # a directory
             os.chdir(path) # use relative paths to get to the double clicked directory

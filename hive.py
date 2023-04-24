@@ -16,8 +16,6 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-from os.path import abspath
-
 import customtkinter as ctk
 
 from core import *
@@ -32,7 +30,7 @@ class App(ctk.CTk):
         # window setup
         super().__init__()
         self.title("hive")
-        self.icon_path = abspath("./src/icon.png")
+        self.icon_path = f"{SCRIPT_DIR}/src/icon.png"
         self.iconbitmap(self.icon_path)
         self.geometry(f"{WIDTH}x{HEIGHT}")
         self.resizable(False, False)
@@ -91,7 +89,7 @@ class App(ctk.CTk):
                                       )
 
         # attribute setup
-        self.file_icon_path = abspath("./src/")
+        self.file_icon_path = f"{SCRIPT_DIR}/src/"
 
         # file explorer widgets
         self.file_explorer = FileExplorer(self,
