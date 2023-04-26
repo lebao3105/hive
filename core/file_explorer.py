@@ -42,7 +42,7 @@ class FileExplorer(ctk.CTkScrollableFrame):
 
         # getting user and path data
         self.user = USER
-        self.user_path = USER_PATH
+        self.user_path = f"/Users/{USER}"
         self.cwd = cwd
 
         os.chdir(self.cwd) # change to the current dir
