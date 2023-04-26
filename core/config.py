@@ -31,7 +31,6 @@ PADY = 5
 SCRIPT_DIR = dirname(__file__).replace("core", "")
 THEME_PATH = f"{SCRIPT_DIR}/src/hive_theme.json"
 USER = environ["USER"]
-USER_PATH = f"/Users/{USER}/"
 
 # list of hidden system files/directories
 SYSTEM_FILES = ["/bin",
