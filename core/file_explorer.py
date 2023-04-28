@@ -82,7 +82,7 @@ class FileExplorer(ctk.CTkScrollableFrame):
                     entity_path = f"{self.cwd}/{entity}"
 
                 # is the file a hidden system file
-                if (entity_path in self.not_allowed) or (self.is_hidden(entity)):
+                if self.is_hidden(entity, entity_path):
                     pass
 
                 # is the file a normal, user visible file?
@@ -197,9 +197,9 @@ class FileExplorer(ctk.CTkScrollableFrame):
 
         self.cwd_var.set(self.cwd) # set the variable to the new path
 
-    def is_hidden(self, path: str):
+    def is_hidden(self, entity: str, path: str):
         """
         Check if the file/directory at the given path is a hidden system file/directory.
         """
 
-        return path.startswith(".")
+        return (entity.startswith(".")) or (path in self.not_allowed)
