@@ -60,7 +60,11 @@ class FileExplorer(ctk.CTkScrollableFrame):
         self.cwd = cwd
         os.chdir(self.cwd)
         entities = os.listdir(self.cwd)
-        entities = sorted(entities)
+        entities.sort()
+        for item in entities:
+            if item.startswith("."):
+                entities.append(item)
+                entities.remove(item)
 
         # grid setup
         self.grid_columnconfigure(0, weight = 0)
