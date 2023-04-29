@@ -74,38 +74,39 @@ class FileExplorer(ctk.CTkScrollableFrame):
         for widget in self.winfo_children():
             widget.destroy()
 
-        # a button to let the user navigate up a directory
-        up_label = ctk.CTkLabel(master = self,
-                                text = "←"
-                                )
-        up_label.grid(row = 0,
-                      column = 1,
-                      padx = PADX,
-                      pady = PADY,
-                      sticky = "w"
-                      )
+        if not self.cwd == "/":
+            # a button to let the user navigate up a directory
+            up_label = ctk.CTkLabel(master = self,
+                                    text = "←"
+                                    )
+            up_label.grid(row = 0,
+                        column = 1,
+                        padx = PADX,
+                        pady = PADY,
+                        sticky = "w"
+                        )
 
-        up_label.bind("<Double-Button-1>",
-                      self.up_one_dir
-                      )
+            up_label.bind("<Double-Button-1>",
+                        self.up_one_dir
+                        )
 
-        up_icon = ctk.CTkImage(light_image = Image.open(f"{icon_path}folder.png"))
-        up_button = ctk.CTkButton(master = self,
-                                  text = "",
-                                  image = up_icon,
-                                  width = up_icon.cget("size")[0]
-                                  )
-        up_button.grid(row = 0,
-                       column = 0,
-                       padx = PADX,
-                       pady = PADY,
-                       sticky = "w"
-                       )
+            up_icon = ctk.CTkImage(light_image = Image.open(f"{icon_path}folder.png"))
+            up_button = ctk.CTkButton(master = self,
+                                    text = "",
+                                    image = up_icon,
+                                    width = up_icon.cget("size")[0]
+                                    )
+            up_button.grid(row = 0,
+                        column = 0,
+                        padx = PADX,
+                        pady = PADY,
+                        sticky = "w"
+                        )
 
-        up_button.bind("<Double-Button-1>",
-                    lambda event: # pylint: disable=unnecessary-lambda
-                        self.up_one_dir(event)
-                    )
+            up_button.bind("<Double-Button-1>",
+                        lambda event: # pylint: disable=unnecessary-lambda
+                            self.up_one_dir(event)
+                        )
 
         # if we don't want to see system files; 0 = False
         if self.sys_files == 0:
