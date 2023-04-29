@@ -170,11 +170,6 @@ class FileExplorer(ctk.CTkScrollableFrame):
                 else:
                     entity_path = f"{self.cwd}/{entity}"
 
-                # for some reason, doesn't work on ".file" - maybe due to permissions
-                if entity.startswith(".") or entity_path in self.not_allowed:
-                    # magic to move an item to end of list
-                    entities.append(entities.pop(entities.index(entity)))
-
             for entity in entities:
                 # create a path to the file/directory
                 if self.cwd.endswith("/"):
@@ -230,18 +225,25 @@ class FileExplorer(ctk.CTkScrollableFrame):
 
         os.chdir(self.cwd)
 
-        if self.cwd.endswith("/"):
-            new_path = f"{self.cwd}{text}"
-        else:
-            new_path = f"{self.cwd}/{text}"
+        try:
+            if self.cwd.endswith("/"):
+                new_path = f"{self.cwd}{text}"
+            else:
+                new_path = f"{self.cwd}/{text}"
 
-        if os.path.isfile(new_path) or new_path.endswith(".app"): # a file or application
-            run(["open", new_path], check = True)
-        else: # a directory
-            new_path += "/"
-            self.cwd = new_path
-            os.chdir(self.cwd)
-            self.cwd_var.set(self.cwd)
+            # protects users from accidentally messing with system stuff
+            if self.is_hidden(text, new_path):
+                raise PermissionError
+
+            if os.path.isfile(new_path) or new_path.endswith(".app"): # a file or application
+                run(["open", new_path], check = True)
+            else: # a directory
+                new_path += "/"
+                self.cwd = new_path
+                os.chdir(self.cwd)
+                self.cwd_var.set(self.cwd)
+        except PermissionError:
+            WarnBox()
 
     def up_one_dir(self, event) -> None: # pylint: disable=unused-argument
         """
