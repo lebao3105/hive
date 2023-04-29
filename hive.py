@@ -31,12 +31,16 @@ class App(ctk.CTk):
         # window setup
         super().__init__()
         self.title("hive")
-        icon_image = Image.open(LIGHT_ICON_PATH)
-        self.iconphoto(True, ImageTk.PhotoImage(icon_image, master = self))
         self.geometry(f"{WIDTH}x{HEIGHT}")
         self.resizable(False, False)
         ctk.set_default_color_theme(THEME_PATH)
         ctk.set_appearance_mode("system")
+        if ctk.get_appearance_mode().lower() == "light":
+            icon_image = Image.open(LIGHT_ICON_PATH)
+            self.iconphoto(True, ImageTk.PhotoImage(icon_image, master = self))
+        elif ctk.get_appearance_mode().lower() == "dark":
+            icon_image = Image.open(DARK_ICON_PATH)
+            self.iconphoto(True, ImageTk.PhotoImage(icon_image, master = self))
 
         # layout
         self.grid_rowconfigure(0, weight = 0)

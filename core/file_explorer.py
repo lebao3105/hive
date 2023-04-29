@@ -23,6 +23,7 @@ import customtkinter as ctk
 from PIL import Image
 
 from .config import *
+from .warn_box import *
 
 class FileExplorer(ctk.CTkScrollableFrame):
     def __init__(self, master: ctk.CTk, cwd: str, cwd_var: ctk.StringVar, icon_path: str):
@@ -195,20 +196,24 @@ class FileExplorer(ctk.CTkScrollableFrame):
         or directory.
         """
 
-        os.chdir(self.cwd) # change to current directory
-        path = f"./{text}" # make a path to our entity
+        try:
+            os.chdir(self.cwd) # change to current directory
+            path = os.path.abspath(f"./{text}") # make a path to our entity
 
-        if not os.path.isfile(path) and not path.endswith(".app"): # a directory
-            os.chdir(path) # use relative paths to get to the double clicked directory
+            if not os.path.isfile(path) and not path.endswith(".app"): # a directory
+                os.chdir(path) # use relative paths to get to the double clicked directory
 
-            if self.cwd.endswith("/"): # if we already have a "/"
-                self.cwd = f"{self.cwd}{text}" # change to our new path
-            else: # if we don't
-                self.cwd = f"{self.cwd}/{text}" # change to our new path
-        else: # a file or an app
-            run(["open", path], check = True)
+                if self.cwd.endswith("/"): # if we already have a "/"
+                    self.cwd = f"{self.cwd}{text}" # change to our new path
+                else: # if we don't
+                    self.cwd = f"{self.cwd}/{text}" # change to our new path
+            else: # a file or an app
+                run(["open", path], check = True)
 
-        self.cwd_var.set(self.cwd) # set the variable to the new path
+            self.cwd_var.set(self.cwd) # set the variable to the new path
+
+        except PermissionError: # if user doesn't have permission
+            WarnBox()
 
     def is_hidden(self, entity: str, path: str):
         """

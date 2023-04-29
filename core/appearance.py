@@ -53,9 +53,11 @@ class AppearanceSelector(ctk.CTkOptionMenu):
             new_appearance (str): The new appearance/theme. Either "System", "Light", or "Dark".
         """
         ctk.set_appearance_mode(new_appearance.lower())
-        if new_appearance.lower() == "dark":
-            icon_image = Image.open(DARK_ICON_PATH)
-            self.master.iconphoto(True, ImageTk.PhotoImage(icon_image, master = self))
-        elif new_appearance.lower() == "light":
+
+        # change the icon
+        if ctk.get_appearance_mode().lower() == "light":
             icon_image = Image.open(LIGHT_ICON_PATH)
+            self.master.iconphoto(True, ImageTk.PhotoImage(icon_image, master = self))
+        elif ctk.get_appearance_mode().lower() == "dark":
+            icon_image = Image.open(DARK_ICON_PATH)
             self.master.iconphoto(True, ImageTk.PhotoImage(icon_image, master = self))
