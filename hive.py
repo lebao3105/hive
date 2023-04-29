@@ -53,7 +53,7 @@ class App(ctk.CTk):
 
         # data
         self.cwd_var = ctk.StringVar(master = self,
-                                     value = "/"
+                                     value = f"/Users/{USER}"
                                      )
         self.sys_files_var = ctk.IntVar(master = self,
                                         value = 0

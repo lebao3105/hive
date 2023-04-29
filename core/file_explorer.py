@@ -86,7 +86,7 @@ class FileExplorer(ctk.CTkScrollableFrame):
                       )
 
         up_label.bind("<Double-Button-1>",
-                      self.up_one_dir()
+                      self.up_one_dir
                       )
 
         up_icon = ctk.CTkImage(light_image = Image.open(f"{icon_path}folder.png"))
@@ -103,7 +103,8 @@ class FileExplorer(ctk.CTkScrollableFrame):
                        )
 
         up_button.bind("<Double-Button-1>",
-                    self.up_one_dir()
+                    lambda event: # pylint: disable=unnecessary-lambda
+                        self.up_one_dir(event)
                     )
 
         # if we don't want to see system files; 0 = False
@@ -132,7 +133,7 @@ class FileExplorer(ctk.CTkScrollableFrame):
                                )
                     label.bind("<Double-Button-1>",
                                lambda event, text = label.cget("text"):
-                               self.open_entity(event, text)
+                                   self.open_entity(event, text)
                                )
 
                     if os.path.isfile(entity_path):
@@ -158,7 +159,7 @@ class FileExplorer(ctk.CTkScrollableFrame):
                                 )
                     button.bind("<Double-Button-1>",
                                 lambda event, text = label.cget("text"):
-                                self.open_entity(event, text)
+                                    self.open_entity(event, text)
                                 )
 
         # if we want to see system files; 1 = True
@@ -192,7 +193,7 @@ class FileExplorer(ctk.CTkScrollableFrame):
                            )
                 label.bind("<Double-Button-1>",
                            lambda event, text = label.cget("text"):
-                           self.open_entity(event, text)
+                               self.open_entity(event, text)
                            )
 
                 if os.path.isfile(entity_path):
@@ -218,7 +219,7 @@ class FileExplorer(ctk.CTkScrollableFrame):
                             )
                 button.bind("<Double-Button-1>",
                             lambda event, text = label.cget("text"):
-                            self.open_entity(event, text)
+                                self.open_entity(event, text)
                             )
 
     def open_entity(self, event, text: str) -> None: # pylint: disable=unused-argument
@@ -242,10 +243,18 @@ class FileExplorer(ctk.CTkScrollableFrame):
             os.chdir(self.cwd)
             self.cwd_var.set(self.cwd)
 
-    def up_one_dir(self) -> None:
+    def up_one_dir(self, event) -> None: # pylint: disable=unused-argument
         """
         Allow the user to move up one directory. Essential for navigating the file hierarchy.
         """
+
+        os.chdir(self.cwd)
+
+        # use relative paths and os module to move to parent dir
+        new_path = os.path.abspath("..")
+        self.cwd = new_path
+        os.chdir(self.cwd)
+        self.cwd_var.set(self.cwd)
 
     def is_hidden(self, entity: str, path: str) -> bool:
         """
