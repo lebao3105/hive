@@ -17,6 +17,7 @@
 #
 
 import os
+from subprocess import run
 
 import customtkinter as ctk
 from PIL import Image
@@ -225,6 +226,21 @@ class FileExplorer(ctk.CTkScrollableFrame):
         An event in the case that the user double clicks a file or directory. Should open the file 
         or directory.
         """
+
+        os.chdir(self.cwd)
+
+        if self.cwd.endswith("/"):
+            new_path = f"{self.cwd}{text}"
+        else:
+            new_path = f"{self.cwd}/{text}"
+
+        if os.path.isfile(new_path) or new_path.endswith(".app"): # a file or application
+            run(["open", new_path], check = True)
+        else: # a directory
+            new_path += "/"
+            self.cwd = new_path
+            os.chdir(self.cwd)
+            self.cwd_var.set(self.cwd)
 
     def up_one_dir(self) -> None:
         """
