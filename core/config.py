@@ -29,7 +29,7 @@ PADY = 5
 
 # paths to files and directories
 SCRIPT_DIR = dirname(__file__).replace("core", "")
-THEME_PATH = f"{SCRIPT_DIR}/src/hive_theme.json"
+THEME_PATH = f"{SCRIPT_DIR}/src/themes/hive_theme.json"
 USER = environ["USER"]
 
 # list of hidden system files/directories

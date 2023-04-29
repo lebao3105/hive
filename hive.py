@@ -31,7 +31,7 @@ class App(ctk.CTk):
         # window setup
         super().__init__()
         self.title("hive")
-        self.icon_path = f"{SCRIPT_DIR}/src/icon.png"
+        self.icon_path = f"{SCRIPT_DIR}/src/icons/icon.png"
         self.iconphoto(True, ImageTk.PhotoImage(file = self.icon_path, master = self))
         self.geometry(f"{WIDTH}x{HEIGHT}")
         self.resizable(False, False)
@@ -90,7 +90,7 @@ class App(ctk.CTk):
                                       )
 
         # attribute setup
-        self.file_icon_path = f"{SCRIPT_DIR}/src/"
+        self.file_icon_path = f"{SCRIPT_DIR}/src/file_icons/"
 
         # file explorer widgets
         self.file_explorer = FileExplorer(self,
