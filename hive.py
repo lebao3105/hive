@@ -17,7 +17,7 @@
 #
 
 import customtkinter as ctk
-from PIL import ImageTk
+from PIL import ImageTk, Image
 
 from core import *
 
@@ -31,8 +31,8 @@ class App(ctk.CTk):
         # window setup
         super().__init__()
         self.title("hive")
-        self.icon_path = f"{SCRIPT_DIR}/src/icons/icon.png"
-        self.iconphoto(True, ImageTk.PhotoImage(file = self.icon_path, master = self))
+        icon_image = Image.open(LIGHT_ICON_PATH)
+        self.iconphoto(True, ImageTk.PhotoImage(icon_image, master = self))
         self.geometry(f"{WIDTH}x{HEIGHT}")
         self.resizable(False, False)
         ctk.set_default_color_theme(THEME_PATH)

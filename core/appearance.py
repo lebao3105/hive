@@ -17,6 +17,9 @@
 #
 
 import customtkinter as ctk
+from PIL import ImageTk, Image
+
+from .config import *
 
 class AppearanceLabel(ctk.CTkLabel):
     def __init__(self, master: ctk.CTk):
@@ -36,7 +39,8 @@ class AppearanceSelector(ctk.CTkOptionMenu):
         """
 
         # widget setup
-        super().__init__(master = master,
+        self.master = master
+        super().__init__(master = self.master,
                          values = ["System", "Light", "Dark"],
                          command = self.change_appearance,
                          )
@@ -49,3 +53,9 @@ class AppearanceSelector(ctk.CTkOptionMenu):
             new_appearance (str): The new appearance/theme. Either "System", "Light", or "Dark".
         """
         ctk.set_appearance_mode(new_appearance.lower())
+        if new_appearance.lower() == "dark":
+            icon_image = Image.open(DARK_ICON_PATH)
+            self.master.iconphoto(True, ImageTk.PhotoImage(icon_image, master = self))
+        elif new_appearance.lower() == "light":
+            icon_image = Image.open(LIGHT_ICON_PATH)
+            self.master.iconphoto(True, ImageTk.PhotoImage(icon_image, master = self))

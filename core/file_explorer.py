@@ -60,11 +60,9 @@ class FileExplorer(ctk.CTkScrollableFrame):
         self.cwd = cwd
         os.chdir(self.cwd)
         entities = os.listdir(self.cwd)
+
+        # sorting our entities to make the file explorer sensible
         entities.sort()
-        for item in entities:
-            if item.startswith("."):
-                entities.append(item)
-                entities.remove(item)
 
         # grid setup
         self.grid_columnconfigure(0, weight = 0)
@@ -133,6 +131,17 @@ class FileExplorer(ctk.CTkScrollableFrame):
 
         # if we want to see system files; 1 = True
         elif self.sys_files == 1:
+            for entity in entities:
+                if self.cwd.endswith("/"):
+                    entity_path = f"{self.cwd}{entity}"
+                else:
+                    entity_path = f"{self.cwd}/{entity}"
+
+                # for some reason, doesn't work on ".file" - maybe due to permissions
+                if entity.startswith(".") or entity_path in self.not_allowed:
+                    # magic to move an item to end of list
+                    entities.append(entities.pop(entities.index(entity)))
+
             for entity in entities:
                 # create a path to the file/directory
                 if self.cwd.endswith("/"):
