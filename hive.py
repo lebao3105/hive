@@ -22,7 +22,7 @@ from PIL import ImageTk, Image
 from core import *
 
 class App(ctk.CTk):
-    def __init__(self):
+    def __init__(self) -> None:
         """
         Main app class that contains all the widgets and logic. To run, simply create an instance of
         the class and call the ".mainloop()" method on the instance.
@@ -115,7 +115,7 @@ class App(ctk.CTk):
         self.sys_files_var.trace_add("write", self.update_tree)
         self.cwd_var.trace_add("write", self.update_tree)
 
-    def update_tree(self, *args): # pylint: disable=unused-argument
+    def update_tree(self, *args) -> None: # pylint: disable=unused-argument
         """
         Updates the file explorer tree from the app itself. Could be done with 
         app.file_explorer.fill_tree, but this is a lot cleaner and easier to read.

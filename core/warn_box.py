@@ -21,7 +21,7 @@ import customtkinter as ctk
 from .config import *
 
 class WarnBox(ctk.CTkToplevel):
-    def __init__(self):
+    def __init__(self) -> None:
         """
         A window that displays a warning explaining to the user why an action could not be 
         performed.
@@ -42,7 +42,7 @@ class WarnBox(ctk.CTkToplevel):
         warning.grid(row = 0, column = 0, padx = PADX, pady = PADY)
 
 class WarnLabel(ctk.CTkLabel):
-    def __init__(self, master: ctk.CTk):
+    def __init__(self, master: ctk.CTk) -> None:
         """
         The text that goes inside the warning window.
         """

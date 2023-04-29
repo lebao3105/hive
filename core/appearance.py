@@ -22,7 +22,7 @@ from PIL import ImageTk, Image
 from .config import *
 
 class AppearanceLabel(ctk.CTkLabel):
-    def __init__(self, master: ctk.CTk):
+    def __init__(self, master: ctk.CTk) -> None:
         """
         Widget that explains what the menu below it is for/does.
         """
@@ -33,7 +33,7 @@ class AppearanceLabel(ctk.CTkLabel):
                          )
 
 class AppearanceSelector(ctk.CTkOptionMenu):
-    def __init__(self, master: ctk.CTk):
+    def __init__(self, master: ctk.CTk) -> None:
         """
         Widget that allows the user to select a theme from light, dark, or system default.
         """
