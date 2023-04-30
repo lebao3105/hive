@@ -56,7 +56,7 @@ class App(ctk.CTk):
 
         # data
         self.cwd_var = ctk.StringVar(master = self,
-                                     value = f"/Users/{USER}"
+                                     value = "/"
                                      )
         self.sys_files_var = ctk.IntVar(master = self,
                                         value = 0
@@ -148,6 +148,12 @@ class App(ctk.CTk):
             self.cwd_var.set(settings["cwd"])
             self.sys_files_var.set(settings["sys_files"])
             ctk.set_appearance_mode(settings["theme"])
+            if ctk.get_appearance_mode().lower() == "light":
+                icon_image = Image.open(LIGHT_ICON_PATH)
+                self.iconphoto(True, ImageTk.PhotoImage(icon_image, master = self))
+            elif ctk.get_appearance_mode().lower() == "dark":
+                icon_image = Image.open(DARK_ICON_PATH)
+                self.iconphoto(True, ImageTk.PhotoImage(icon_image, master = self))
         except FileNotFoundError:
             pass
 
