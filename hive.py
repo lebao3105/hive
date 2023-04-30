@@ -17,6 +17,8 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
+from json import dump, load
+
 import customtkinter as ctk
 from PIL import ImageTk, Image
 
@@ -116,6 +118,12 @@ class App(ctk.CTk):
         self.sys_files_var.trace_add("write", self.update_tree)
         self.cwd_var.trace_add("write", self.update_tree)
 
+        # tries to load recent config
+        self.open_recent()
+
+        # save the current config
+        self.after(100, self.save_recent)
+
     def update_tree(self, *args) -> None: # pylint: disable=unused-argument
         """
         Updates the file explorer tree from the app itself. Could be done with 
@@ -126,6 +134,36 @@ class App(ctk.CTk):
                                      self.sys_files_var.get(),
                                      self.file_icon_path
                                      )
+        self.save_recent()
+
+    def open_recent(self) -> None:
+        """
+        Opens the configuration file with the most recent user settings.
+        """
+
+        path = f"{SCRIPT_DIR}/src/cfg/settings.cfg"
+        try:
+            file = open(path, "r", encoding = "utf-8") # pylint: disable=consider-using-with
+            settings = load(file)
+            self.cwd_var.set(settings["cwd"])
+            self.sys_files_var.set(settings["sys_files"])
+            ctk.set_appearance_mode(settings["theme"])
+        except FileNotFoundError:
+            pass
+
+    def save_recent(self) -> None:
+        """
+        Saves the most recent settings to a file. These settings include the current directory,
+        theme, and the system files toggle.
+        """
+
+        path = f"{SCRIPT_DIR}/src/cfg/settings.cfg"
+        file = open(path, "w", encoding = "utf-8") # pylint: disable=consider-using-with
+        settings = {"cwd": self.cwd_var.get(),
+                    "sys_files": self.sys_files_var.get(),
+                    "theme": self.appearance_selector.get()
+                    }
+        dump(settings, file)
 
 # create and run the app
 if __name__ == "__main__":
