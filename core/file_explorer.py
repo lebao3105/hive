@@ -1,6 +1,7 @@
 #
 #    A whole new file explorer for macOS. Finder, but better.
-#    Copyright (C) 2023  Dishant B. (@dishb)
+#    Copyright (C) 2023  Dishant B. (@dishb) <code.dishb@gmail.com> and
+#    contributors.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
