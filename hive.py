@@ -141,7 +141,7 @@ class App(ctk.CTk):
         Opens the configuration file with the most recent user settings.
         """
 
-        path = f"{SCRIPT_DIR}/src/cfg/settings.cfg"
+        path = f"{SCRIPT_DIR}/config/settings.cfg"
         try:
             file = open(path, "r", encoding = "utf-8") # pylint: disable=consider-using-with
             settings = load(file)
@@ -163,7 +163,7 @@ class App(ctk.CTk):
         theme, and the system files toggle.
         """
 
-        path = f"{SCRIPT_DIR}/src/cfg/settings.cfg"
+        path = f"{SCRIPT_DIR}/config/settings.cfg"
         file = open(path, "w", encoding = "utf-8") # pylint: disable=consider-using-with
         settings = {"cwd": self.cwd_var.get(),
                     "sys_files": self.sys_files_var.get(),
