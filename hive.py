@@ -97,7 +97,7 @@ class App(ctk.CTk):
                                       )
 
         # attribute setup
-        self.file_icon_path = f"{SCRIPT_DIR}/src/file_icons/"
+        self.file_icon_path = f"{SCRIPT_DIR}/source/file_icons/"
 
         # file explorer widgets
         self.file_explorer = FileExplorer(self,

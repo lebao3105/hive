@@ -32,11 +32,11 @@ PADY = 5
 SCRIPT_DIR = dirname(__file__).replace("core", "")
 if SCRIPT_DIR.endswith("/"):
     SCRIPT_DIR = SCRIPT_DIR.removesuffix("/")
-THEME_PATH = f"{SCRIPT_DIR}/src/themes/hive_theme.json"
+THEME_PATH = f"{SCRIPT_DIR}/source/themes/hive_theme.json"
 USER = environ["USER"]
 
-LIGHT_ICON_PATH = f"{SCRIPT_DIR}/src/icons/light.png"
-DARK_ICON_PATH = f"{SCRIPT_DIR}/src/icons/dark.png"
+LIGHT_ICON_PATH = f"{SCRIPT_DIR}/source/icons/light.png"
+DARK_ICON_PATH = f"{SCRIPT_DIR}/source/icons/dark.png"
 
 # list of hidden system files/directories
 SYSTEM_FILES = ["/bin",
