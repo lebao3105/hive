@@ -20,8 +20,9 @@
 /core/__pycache__/
 /.DS_Store
 /core/.DS_Store
-/src/.DS_Store
-/src/icons/.DS_Store
-/src/file_icons/.DS_Store
-/src/themes/.DS_Store
-/src/cfg/.DS_Store
+/source/.DS_Store
+/sourcc/icons/.DS_Store
+/source/file_icons/.DS_Store
+/source/themes/.DS_Store
+/source.DS_Store
+/config/.DS_Store
