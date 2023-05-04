@@ -21,26 +21,6 @@
     A whole new file explorer for macOS. Finder, but better.
 </div>
 
-## Build:
-First, install the dependencies for `hive`.
-```bash
-pip3 install --upgrade pillow
-pip3 install --upgrade customtkinter
-```
-
-Next, follow the commands listed below to build from source. The comments explain what they do.
-```bash
-cd $HOME/Documents/ # changes to your Documents directory
-git clone https://github.com/dishb/hive.git . # clones the repo
-
-cd ./hive/ # changes to the repo directory
-
-chmod +x ./utils/build.sh # makes build script executable
-./utils/build.sh # executes build script
-```
-
-The macOS application should be inside the `./dist/` directory. You can double click and run this app like any other.
-
 ## Download:
 Find the most recent build in the [Releases section](https://github.com/dishb/hive/releases) of this repository. Each release contains details as well as a version number.
 
