@@ -31,4 +31,4 @@ If you find a security issue or vulnerability, please follow the instructions li
 To keep this repository friendly and open to everyone, please ensure that you follow the guidelines [here](./CODE_OF_CONDUCT.md) or in the `./CODE_OF_CONDUCT.md` file.
 
 ## License:
-This project is licensed under the `GNU GPL v3` license. A copy of the license can be found in [here](./LICENSE.md) or in the `./LICENSE.md` file. All the source code files have a license header at the top.
+This project is licensed under the `GNU General Public Lesser v3` license. A copy of the license can be found in [here](./LICENSE.md) or in the `./LICENSE.md` file. All the source code files have a license header at the top.
