@@ -45,12 +45,15 @@ class App(ctk.CTk):
             icon_image = Image.open(DARK_ICON_PATH)
             self.iconphoto(True, ImageTk.PhotoImage(icon_image, master = self))
 
-        # layout
+        # rows (layout)
         self.grid_rowconfigure(0, weight = 0)
         self.grid_rowconfigure(1, weight = 0)
         self.grid_rowconfigure(2, weight = 0)
         self.grid_rowconfigure(3, weight = 0)
         self.grid_rowconfigure(4, weight = 1)
+        self.grid_rowconfigure(5, weight = 0)
+
+        # columns (layout)
         self.grid_columnconfigure(0, weight = 0)
         self.grid_columnconfigure(1, weight = 1)
 
@@ -114,6 +117,18 @@ class App(ctk.CTk):
                                 sticky = "nsew"
                                 )
 
+        # path text (breadcrumbs) widgets
+        self.path_text = PathLabel(self,
+                                   self.cwd_var.get()
+                                   )
+
+        self.path_text.grid(row = 5,
+                            column = 1,
+                            padx = PADX,
+                            pady = PADY,
+                            sticky = "sw"
+                            )
+
         # checks if any variables were updated
         self.sys_files_var.trace_add("write", self.update_tree)
         self.cwd_var.trace_add("write", self.update_tree)
@@ -134,6 +149,22 @@ class App(ctk.CTk):
                                      self.sys_files_var.get(),
                                      self.file_icon_path
                                      )
+
+        # clear previous path text widget
+        self.path_text.destroy()
+
+        # path text (breadcrumbs) widgets
+        self.path_text = PathLabel(self,
+                                   self.cwd_var.get()
+                                   )
+
+        self.path_text.grid(row = 5,
+                            column = 1,
+                            padx = PADX,
+                            pady = PADY,
+                            sticky = "sw"
+                            )
+
         self.save_recent()
 
     def open_recent(self) -> None:

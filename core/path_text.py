@@ -17,9 +17,22 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-from .appearance import *
-from .config import *
-from .file_explorer import *
-from .sys_files import *
-from .warn_box import *
-from .path_text import *
+import customtkinter as ctk
+
+class PathLabel(ctk.CTkLabel):
+    def __init__(self, master: ctk.CTkFrame, cwd: str) -> None:
+        """
+        Widget to display the path to the current working directory.
+        """
+
+        # widget setup
+        super().__init__(master = master,
+                         text = cwd
+                         )
+
+    def update_label(self, cwd: str) -> None:
+        """
+        Updates the label's text to the current working directory.
+        """
+
+        self.configure(text = cwd)
