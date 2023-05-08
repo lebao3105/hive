@@ -22,10 +22,35 @@
 </div>
 
 ## About:
-In its current state, `hive` is a simple file explorer for macOS. It has a clean, modern, and simple user-interface as well as light and dark modes. In `hive`, you can toggle system files (which are usually hidden), open files (or apps), and navigate through directories/folders.
+In its current state, `hive` is a simple file explorer for macOS. It has a clean, modern, and simple user-interface as well as light and dark modes. In `hive`, you can toggle system files (which are usually hidden), open files (or apps), and navigate through directories/folders. The path to the directory you are viewing is displayed at the bottom of the window.
 
 ## Download:
-Find the most recent build in the [Releases section](https://github.com/dishb/hive/releases) of this repository. Each release contains details as well as a version number.
+You can find the most recent build in the [Releases section](https://github.com/dishb/hive/releases) of this repository. Each release contains details as well as a version number.
+
+## Build:
+If you want to build `hive` from source yourself, follow the commands and instructions listed below.
+
+If you haven't already, install the latest version of Python from the [official website](https://python.org/downloads/).
+```bash
+# create a dir for the repo, change to it
+mkdir $HOME/Documents/hive/
+cd $HOME/Documents/hive/
+
+# clone this repo
+git clone https://github.com/dishb/hive.git .
+
+# make sure pip is updated
+pip3 install --upgrade pip
+
+# install all the dependencies
+pip3 install --upgrade pyinstaller
+pip3 install --upgrade customtkinter
+pip3 install --upgrade pillow
+
+# run the build script
+python3 ./utility/build.py
+```
+The build can be found in the `./dist/` folder. It will be a macOS application with the name `hive.app`.
 
 ## Security:
 If you find a security issue or vulnerability, please follow the instructions listed [here](./SECURITY.md) on in the `./SECURITY.md`  file.
