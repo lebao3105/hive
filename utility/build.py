@@ -18,6 +18,8 @@
 #
 
 from os.path import dirname
+from os import remove
+from shutil import rmtree
 from subprocess import run
 
 from PyInstaller.__main__ import run as pkg
@@ -36,10 +38,10 @@ output = output.split() # split by the newline chars
 
 # convert from bytes to string
 for index, item in enumerate(output):
-    output[index] = str(item)
+    output[index] = item.decode()
 
 # customtkinter's location
-CTK_LOC = output[7].replace("Location: ", "")
+CTK_LOC = output[24]
 
 # arguments for pyinstaller; these are command line args
 ARGS = [f"{REPO_LOC}/hive.py", # file to package
@@ -58,4 +60,13 @@ ARGS = [f"{REPO_LOC}/hive.py", # file to package
         f"--add-data={REPO_LOC}/config:config" # adds config directory
         ]
 
+# build the application
 pkg(ARGS)
+
+# remove the extra files and dirs
+try:
+    rmtree("./build/")
+    rmtree("./dist/hive/")
+    remove("../hive.spec")
+except FileNotFoundError:
+    pass
