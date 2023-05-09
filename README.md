@@ -32,12 +32,9 @@ If you want to build `hive` from source yourself, follow the commands and instru
 
 If you haven't already, install the latest version of Python from the [official website](https://python.org/downloads/).
 ```bash
-# create a dir for the repo, change to it
-mkdir $HOME/Documents/hive/
-cd $HOME/Documents/hive/
-
-# clone this repo
+# clone this repo, change to it
 git clone https://github.com/dishb/hive.git .
+cd ./hive/
 
 # make sure pip is updated
 pip3 install --upgrade pip
