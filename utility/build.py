@@ -51,8 +51,8 @@ ARGS = [f"{REPO_LOC}/hive.py", # file to package
         "--windowed", # no terminal window
         "-y", # no confirmation
         "--onedir", # one directory with all files
-        "--distpath=../dist", # location of the build
-        "--specpath=../", # location of the .spec file
+        f"--distpath={REPO_LOC}/dist/", # location of the build
+        f"--specpath={REPO_LOC}/utility/", # location of the .spec file
         "--log-level=ERROR", # verbosity
         f"--add-data={CTK_LOC}/customtkinter:customtkinter", # adds customtkinter module
         f"--add-data={REPO_LOC}/core:core", # adds core directory
@@ -65,9 +65,8 @@ pkg(ARGS)
 
 # remove the extra files and dirs
 try:
-    chdir(REPO_LOC)
-    rmtree("./build/")
-    rmtree("./dist/hive/")
-    remove("../hive.spec")
+    rmtree(f"{REPO_LOC}/utility/build/")
+    rmtree(f"{REPO_LOC}/dist/hive/")
+    remove(f"{REPO_LOC}/utility/hive.spec")
 except FileNotFoundError:
     pass
