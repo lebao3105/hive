@@ -18,7 +18,7 @@
 #
 
 from os.path import dirname
-from os import remove
+from os import remove, chdir
 from shutil import rmtree
 from subprocess import run
 
@@ -65,6 +65,7 @@ pkg(ARGS)
 
 # remove the extra files and dirs
 try:
+    chdir(REPO_LOC)
     rmtree("./build/")
     rmtree("./dist/hive/")
     remove("../hive.spec")
