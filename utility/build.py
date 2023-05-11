@@ -18,7 +18,7 @@
 #
 
 from os.path import dirname
-from os import remove, chdir
+from os import remove
 from shutil import rmtree
 from subprocess import run
 
