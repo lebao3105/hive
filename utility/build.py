@@ -29,9 +29,6 @@ REPO_LOC = dirname(__file__).replace("utility", "")
 if REPO_LOC.endswith("/"):
     REPO_LOC = REPO_LOC.removesuffix("/")
 
-# location of the icon
-ICON_LOC = f"{REPO_LOC}/source/icons/dark.png"
-
 # find where customtkinter is located
 output = run(["pip3", "show", "customtkinter"], check = True, capture_output = True).stdout
 output = output.split() # split by the newline chars
@@ -46,7 +43,7 @@ CTK_LOC = output[24]
 # arguments for pyinstaller; these are command line args
 ARGS = [f"{REPO_LOC}/hive.py", # file to package
         "-n=hive", # name
-        f"-i={ICON_LOC}", # icon
+        f"-i={REPO_LOC}/source/icons/dark.png", # icon
         "--clean", # clear cache
         "--windowed", # no terminal window
         "-y", # no confirmation
