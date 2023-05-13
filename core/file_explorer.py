@@ -25,6 +25,7 @@ from PIL import Image
 
 from .config import *
 from .warn_box import *
+from .helper import *
 
 class FileExplorer(ctk.CTkScrollableFrame):
     def __init__(self, master: ctk.CTk, cwd: str, cwd_var: ctk.StringVar, icon_path: str) -> None:
@@ -38,9 +39,6 @@ class FileExplorer(ctk.CTkScrollableFrame):
                          )
         self.sys_files = 0
         self.cwd_var = cwd_var
-
-        # list of hidden system files
-        self.not_allowed = SYSTEM_FILES
 
         # current directory setup
         self.cwd = cwd
@@ -120,7 +118,7 @@ class FileExplorer(ctk.CTkScrollableFrame):
                     entity_path = f"{self.cwd}/{entity}"
 
                 # is the file a hidden system file
-                if self.is_hidden(entity, entity_path):
+                if is_hidden(entity, entity_path):
                     pass
 
                 # is the file a normal, user visible file?
@@ -251,7 +249,7 @@ class FileExplorer(ctk.CTkScrollableFrame):
                 new_path = f"{self.cwd}/{text}"
 
             # protects users from accidentally messing with system stuff
-            if self.is_hidden(text, new_path):
+            if is_hidden(text, new_path):
                 raise PermissionError
 
             if os.path.isfile(new_path) or new_path.endswith(".app"): # a file or application
@@ -276,10 +274,3 @@ class FileExplorer(ctk.CTkScrollableFrame):
         self.cwd = new_path
         os.chdir(self.cwd)
         self.cwd_var.set(self.cwd)
-
-    def is_hidden(self, entity: str, path: str) -> bool:
-        """
-        Check if the file/directory at the given path is a hidden system file/directory.
-        """
-
-        return (entity.startswith(".")) or (path in self.not_allowed)

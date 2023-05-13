@@ -56,3 +56,19 @@ SYSTEM_FILES = ["/bin",
                 f"/Users/{USER}/Library",
                 f"/Users/{USER}/Trash"
                 ]
+
+# list of directories that cannot be renamed
+NO_RENAME = ["/Applications",
+             "/Library",
+             "/System",
+             "/Users",
+             f"/Users/{USER}",
+             "/Users/Shared",
+             f"/Users/{USER}/Desktop",
+             f"/Users/{USER}/Documents",
+             f"/Users/{USER}/Downloads",
+             f"/Users/{USER}/Movies",
+             f"/Users/{USER}/Music",
+             f"/Users/{USER}/Pictures",
+             f"/Users/{USER}/Public"
+             ]

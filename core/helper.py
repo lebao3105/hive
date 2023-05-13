@@ -17,10 +17,27 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-from .appearance import *
 from .config import *
-from .file_explorer import *
-from .helper import *
-from .path_text import *
-from .sys_files import *
-from .warn_box import *
+
+def is_hidden(entity: str, path: str) -> bool:
+    """
+    Check if the file/directory at the given path is a hidden system file/directory.
+    """
+
+    return (entity.startswith(".")) or (path in SYSTEM_FILES)
+
+def can_rename(path: str) -> bool:
+    """
+    Checks if it is possible to rename a file or directory based on some conditions.
+    """
+
+    if path in NO_RENAME: # if the file is in our list of no-nos
+        return False
+
+    if path.startswith("/Library/"): # if the file is in the Library dir
+        return False
+
+    if path.startswith("/System/"): # if the file is in the System dir
+        return False
+
+    return True

@@ -46,7 +46,7 @@ class AppearanceSelector(ctk.CTkOptionMenu):
                          command = self.change_appearance,
                          )
 
-    def change_appearance(self, new_appearance: str):
+    def change_appearance(self, new_appearance: str) -> None:
         """
         Changes the appearance/theme of the app.
 
@@ -55,10 +55,12 @@ class AppearanceSelector(ctk.CTkOptionMenu):
         """
         ctk.set_appearance_mode(new_appearance.lower())
 
-        # change the icon
+        # change to light icon
         if ctk.get_appearance_mode().lower() == "light":
             icon_image = Image.open(LIGHT_ICON_PATH)
             self.master.iconphoto(True, ImageTk.PhotoImage(icon_image, master = self))
+
+        # change to dark icon
         elif ctk.get_appearance_mode().lower() == "dark":
             icon_image = Image.open(DARK_ICON_PATH)
             self.master.iconphoto(True, ImageTk.PhotoImage(icon_image, master = self))
