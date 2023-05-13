@@ -47,9 +47,10 @@ class FileExplorer(ctk.CTkScrollableFrame):
         os.chdir(self.cwd)
 
         # start by filling tree
-        self.fill_tree(self.cwd, self.sys_files, icon_path) # filling the tree with files and dirs
+        self.icon_path = icon_path
+        self.fill_tree(self.cwd, self.sys_files) # filling the tree with files and dirs
 
-    def fill_tree(self, cwd: str, sys_files: int, icon_path: str) -> None:
+    def fill_tree(self, cwd: str, sys_files: int) -> None:
         """
         Fills the file explorer tree with all the files and directories in the current working 
         directory. Is supposed to be called every frame.
@@ -91,7 +92,7 @@ class FileExplorer(ctk.CTkScrollableFrame):
                         self.up_one_dir
                         )
 
-            up_icon = ctk.CTkImage(light_image = Image.open(f"{icon_path}folder.png"))
+            up_icon = ctk.CTkImage(light_image = Image.open(f"{self.icon_path}folder.png"))
             up_button = ctk.CTkButton(master = self,
                                     text = "",
                                     image = up_icon,
@@ -139,15 +140,23 @@ class FileExplorer(ctk.CTkScrollableFrame):
                                )
 
                     if os.path.isfile(entity_path):
-                        if icon_path.endswith("/"):
-                            icon = ctk.CTkImage(light_image = Image.open(f"{icon_path}file.png"))
+                        if self.icon_path.endswith("/"):
+                            icon = ctk.CTkImage(light_image =
+                                                Image.open(f"{self.icon_path}file.png")
+                                                )
                         else:
-                            icon = ctk.CTkImage(light_image = Image.open(f"{icon_path}/file.png"))
+                            icon = ctk.CTkImage(light_image =
+                                                Image.open(f"{self.icon_path}/file.png")
+                                                )
                     else:
-                        if icon_path.endswith("/"):
-                            icon = ctk.CTkImage(light_image = Image.open(f"{icon_path}folder.png"))
+                        if self.icon_path.endswith("/"):
+                            icon = ctk.CTkImage(light_image =
+                                                Image.open(f"{self.icon_path}folder.png")
+                                                )
                         else:
-                            icon = ctk.CTkImage(light_image = Image.open(f"{icon_path}/folder.png"))
+                            icon = ctk.CTkImage(light_image =
+                                                Image.open(f"{self.icon_path}/folder.png")
+                                                )
                     button = ctk.CTkButton(master = self,
                                            image = icon,
                                            text = "",
@@ -194,15 +203,23 @@ class FileExplorer(ctk.CTkScrollableFrame):
                            )
 
                 if os.path.isfile(entity_path):
-                    if icon_path.endswith("/"):
-                        icon = ctk.CTkImage(light_image = Image.open(f"{icon_path}file.png"))
+                    if self.icon_path.endswith("/"):
+                        icon = ctk.CTkImage(light_image =
+                                            Image.open(f"{self.icon_path}file.png")
+                                            )
                     else:
-                        icon = ctk.CTkImage(light_image = Image.open(f"{icon_path}/file.png"))
+                        icon = ctk.CTkImage(light_image =
+                                            Image.open(f"{self.icon_path}/file.png")
+                                            )
                 else:
-                    if icon_path.endswith("/"):
-                        icon = ctk.CTkImage(light_image = Image.open(f"{icon_path}folder.png"))
+                    if self.icon_path.endswith("/"):
+                        icon = ctk.CTkImage(light_image =
+                                            Image.open(f"{self.icon_path}folder.png")
+                                            )
                     else:
-                        icon = ctk.CTkImage(light_image = Image.open(f"{icon_path}/folder.png"))
+                        icon = ctk.CTkImage(light_image =
+                                            Image.open(f"{self.icon_path}/folder.png")
+                                            )
                 button = ctk.CTkButton(master = self,
                                        image = icon,
                                        text = "",
@@ -245,7 +262,7 @@ class FileExplorer(ctk.CTkScrollableFrame):
                 os.chdir(self.cwd)
                 self.cwd_var.set(self.cwd)
         except PermissionError:
-            WarnBox()
+            WarnBox(self.icon_path.replace("file_icons", "misc"))
 
     def up_one_dir(self, event) -> None: # pylint: disable=unused-argument
         """

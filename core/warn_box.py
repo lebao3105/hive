@@ -18,11 +18,12 @@
 #
 
 import customtkinter as ctk
+from PIL import Image
 
 from .config import *
 
 class WarnBox(ctk.CTkToplevel):
-    def __init__(self) -> None:
+    def __init__(self, icon_path: str) -> None:
         """
         A window that displays a warning explaining to the user why an action could not be 
         performed.
@@ -30,17 +31,29 @@ class WarnBox(ctk.CTkToplevel):
 
         # setup widget
         super().__init__()
-        self.title("hive")
+        self.title("error")
         self.geometry("250x150")
         self.resizable(False, False)
         ctk.set_default_color_theme(THEME_PATH)
         ctk.set_appearance_mode("system")
         self.rowconfigure(0, weight = 1)
+        self.rowconfigure(1, weight = 1)
         self.columnconfigure(0, weight = 1)
+
+        # the warning image/icon
+        icon = ctk.CTkImage(light_image = Image.open(f"{icon_path}warning.png"),
+                            size = (55, 55)
+                            )
+        button = ctk.CTkButton(master = self,
+                               image = icon,
+                               text = "",
+                               width = icon.cget("size")[0]
+                               )
+        button.grid(row = 0, column = 0, padx = PADX, pady = PADY)
 
         # create a text widget
         warning = WarnLabel(self)
-        warning.grid(row = 0, column = 0, padx = PADX, pady = PADY)
+        warning.grid(row = 1, column = 0, padx = PADX, pady = PADY)
 
 class WarnLabel(ctk.CTkLabel):
     def __init__(self, master: ctk.CTk) -> None:

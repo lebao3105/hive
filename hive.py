@@ -147,7 +147,6 @@ class App(ctk.CTk):
 
         self.file_explorer.fill_tree(self.cwd_var.get(),
                                      self.sys_files_var.get(),
-                                     self.file_icon_path
                                      )
 
         # clear previous path text widget
