@@ -61,9 +61,6 @@ ARGS = [f"{REPO_LOC}/hive.py", # file to package
 pkg(ARGS)
 
 # remove the extra files and dirs
-try:
-    rmtree(f"{REPO_LOC}/utility/build/")
-    rmtree(f"{REPO_LOC}/dist/hive/")
-    remove(f"{REPO_LOC}/utility/hive.spec")
-except FileNotFoundError:
-    pass
+rmtree(f"{REPO_LOC}/build/")
+rmtree(f"{REPO_LOC}/dist/hive/")
+remove(f"{REPO_LOC}/utility/hive.spec")
