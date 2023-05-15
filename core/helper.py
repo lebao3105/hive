@@ -24,8 +24,13 @@ def is_hidden(entity: str, path: str) -> bool:
     Check if the file/directory at the given path is a hidden system file/directory.
     """
 
-    return (entity.startswith(".")) or (path in SYSTEM_FILES)
+    if entity.startswith("."):
+        return True
 
+    if path in SYSTEM_FILES:
+        return True
+
+    return False
 def can_rename(path: str) -> bool:
     """
     Checks if it is possible to rename a file or directory based on some conditions.
