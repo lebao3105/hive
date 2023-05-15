@@ -22,7 +22,7 @@
 </div>
 
 ## About:
-In its current state, `hive` is a simple file explorer for macOS. It has a clean, modern, and simple user-interface as well as light and dark modes. In `hive`, you can toggle system files (which are usually hidden), open files (or apps), and navigate through directories/folders. The path to the directory you are viewing is displayed at the bottom of the window.
+`hive` is a simple file explorer for macOS. It has a clean, modern, and simple user-interface as well as light and dark modes. In `hive`, you can toggle system files (which are usually hidden), open files (or apps), and navigate through directories/folders. The path to the directory you are viewing is displayed at the bottom of the window.
 
 ## Download:
 You can find the most recent build in the [Releases section](https://github.com/dishb/hive/releases) of this repository. Each release contains details as well as a version number.
