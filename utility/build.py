@@ -22,13 +22,13 @@ from os import remove
 from shutil import rmtree
 from subprocess import run
 from platform import system
-from sys import exit
+from sys import exit as sys_exit
+
+from PyInstaller.__main__ import run as pkg
 
 if system() != "darwin":
     print(f"hive only supports macOS. You are on {system()}. Please switch to macOS.")
-    exit(1)
-
-from PyInstaller.__main__ import run as pkg
+    sys_exit(1)
 
 # location of the repository
 REPO_LOC = dirname(__file__).replace("utility", "")

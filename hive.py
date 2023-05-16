@@ -205,7 +205,7 @@ class HiveApp(ctk.CTk):
 # create and run the app
 if __name__ == "__main__":
     if system() != "darwin":
-        WarnBox(self.file_icon_path.replace("file_icons", "misc"),
+        WarnBox(f"{SCRIPT_DIR}/source/misc/",
                 f"hive only supports macOS. You are on {system()}. Please switch to macOS."
                 )
     else:
