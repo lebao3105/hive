@@ -18,13 +18,14 @@
 #
 
 from json import dump, load
+from platform import system
 
 import customtkinter as ctk
 from PIL import ImageTk, Image
 
 from core import *
 
-class App(ctk.CTk):
+class HiveApp(ctk.CTk):
     def __init__(self) -> None:
         """
         Main app class that contains all the widgets and logic. To run, simply create an instance of
@@ -203,5 +204,10 @@ class App(ctk.CTk):
 
 # create and run the app
 if __name__ == "__main__":
-    app = App()
-    app.mainloop()
+    if system() != "darwin":
+        WarnBox(self.file_icon_path.replace("file_icons", "misc"),
+                f"hive only supports macOS. You are on {system()}. Please switch to macOS."
+                )
+    else:
+        hive_app = HiveApp()
+        hive_app.mainloop()

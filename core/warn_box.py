@@ -23,7 +23,7 @@ from PIL import Image
 from .config import *
 
 class WarnBox(ctk.CTkToplevel):
-    def __init__(self, icon_path: str) -> None:
+    def __init__(self, icon_path: str, message: str) -> None:
         """
         A window that displays a warning explaining to the user why an action could not be 
         performed.
@@ -52,16 +52,16 @@ class WarnBox(ctk.CTkToplevel):
         button.grid(row = 0, column = 0, padx = PADX, pady = PADY)
 
         # create a text widget
-        warning = WarnLabel(self)
+        warning = WarnLabel(self, message)
         warning.grid(row = 1, column = 0, padx = PADX, pady = PADY)
 
 class WarnLabel(ctk.CTkLabel):
-    def __init__(self, master: ctk.CTk) -> None:
+    def __init__(self, master: ctk.CTk, message: str) -> None:
         """
         The text that goes inside the warning window.
         """
 
         # widget setup
         super().__init__(master = master,
-                         text = "Error: You do not have permission\nto open this file or directory."
+                         text = f"Error: {message}"
                          )

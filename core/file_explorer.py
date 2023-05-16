@@ -260,7 +260,9 @@ class FileExplorer(ctk.CTkScrollableFrame):
                 os.chdir(self.cwd)
                 self.cwd_var.set(self.cwd)
         except PermissionError:
-            WarnBox(self.icon_path.replace("file_icons", "misc"))
+            WarnBox(self.icon_path.replace("file_icons", "misc"),
+                    "You do not have permission\nto open this file or directory."
+                    )
 
     def up_one_dir(self, event) -> None: # pylint: disable=unused-argument
         """

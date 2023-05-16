@@ -21,6 +21,12 @@ from os.path import dirname
 from os import remove
 from shutil import rmtree
 from subprocess import run
+from platform import system
+from sys import exit
+
+if system() != "darwin":
+    print(f"hive only supports macOS. You are on {system()}. Please switch to macOS.")
+    exit(1)
 
 from PyInstaller.__main__ import run as pkg
 
