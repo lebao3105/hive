@@ -22,7 +22,9 @@
 </div>
 
 ## About:
-`hive` is a simple file explorer for macOS. It has a clean, modern, and simple user-interface as well as light and dark modes. In `hive`, you can toggle system files (which are usually hidden), open files (or apps), and navigate through directories/folders. The path to the directory you are viewing is displayed at the bottom of the window. The project was founded by [Dishant B](https://github.com/dishb). At its core, `hive` is pure Python. The GUI is built with the excellent `customtkinter` module (which is also open source).
+`hive` is a file explorer for macOS. At its core, `hive` is pure Python and uses the `customtkinter` module. This project is meant to be a simple file explorer with a clean and modern UI. While it's not as good as Finder yet, `hive` is meant to be a replacement for the somewhat dull, complex Finder. Users will be able to do everything they can in Finder, just without the clutter and extra nonsense. `hive` is targeted at casual users. People who don't need to harvest the full power of the operating system and file system. 
+
+By being open source, `hive` can establish a community of users that can help contribute to the project through code, documentation, and more. The community can look at the internal workings of this tool and find potential issues. Suggestions can be made and development sped up. Open source allows this project to have a much higher chance of surviving and not dying out.
 
 ## Download:
 You can find the most recent build in the [Releases section](https://github.com/dishb/hive/releases) of this repository. Each release contains details as well as a version number.
