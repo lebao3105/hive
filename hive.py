@@ -204,10 +204,5 @@ class HiveApp(ctk.CTk):
 
 # create and run the app
 if __name__ == "__main__":
-    if system() != "darwin":
-        WarnBox(f"{SCRIPT_DIR}/source/misc/",
-                f"hive only supports macOS. You are on {system()}. Please switch to macOS."
-                )
-    else:
-        hive_app = HiveApp()
-        hive_app.mainloop()
+    hive_app = HiveApp()
+    hive_app.mainloop()
