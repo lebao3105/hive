@@ -18,7 +18,6 @@
 #
 
 from json import dump, load
-from platform import system
 
 import customtkinter as ctk
 from PIL import ImageTk, Image
