@@ -26,7 +26,7 @@ from sys import exit as sys_exit
 
 from PyInstaller.__main__ import run as pkg
 
-if system() != "darwin":
+if system().lower() != "darwin":
     print(f"hive only supports macOS. You are on {system()}. Please switch to macOS.")
     sys_exit(1)
 
