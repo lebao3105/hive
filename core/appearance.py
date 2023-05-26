@@ -49,10 +49,8 @@ class AppearanceSelector(ctk.CTkOptionMenu):
     def change_appearance(self, new_appearance: str) -> None:
         """
         Changes the appearance/theme of the app.
-
-        Args:
-            new_appearance (str): The new appearance/theme. Either "System", "Light", or "Dark".
         """
+
         ctk.set_appearance_mode(new_appearance.lower())
 
         # change to light icon
