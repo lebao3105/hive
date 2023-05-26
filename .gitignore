@@ -28,4 +28,6 @@
 /source/.DS_Store
 /config/.DS_Store
 /utility/.DS_Store
+/utility/hive.spec
 /dist/
+/build/
