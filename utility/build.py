@@ -18,8 +18,8 @@
 #
 
 from os.path import dirname
-from os import remove
-from shutil import rmtree
+from os import remove, rmdir
+from shutil import rmtree, move
 from subprocess import run
 from platform import system
 from sys import exit as sys_exit
@@ -70,3 +70,5 @@ pkg(ARGS)
 rmtree(f"{REPO_LOC}/build/")
 rmtree(f"{REPO_LOC}/dist/hive/")
 remove(f"{REPO_LOC}/utility/hive.spec")
+move(f"{REPO_LOC}/dist/hive.app", "/Applications/")
+rmdir(f"{REPO_LOC}/dist/")

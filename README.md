@@ -50,7 +50,7 @@ pip3 install --upgrade pillow
 # run the build script
 python3 ./utility/build.py
 ```
-The build can be found in the `./dist/` folder. It will be a macOS application with the name `hive.app`.
+The build can be found in your `/Applications/` folder. It will be a macOS application with the name `hive.app`.
 
 ## Security:
 If you find a security issue or vulnerability, please follow the instructions listed [here](./SECURITY.md) on in the `./SECURITY.md`  file.
