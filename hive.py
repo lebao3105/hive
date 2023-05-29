@@ -17,7 +17,6 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-from webbrowser import open as open_link
 from json import dump, load
 from sys import exit as sys_exit
 from tkinter import Menu
@@ -66,8 +65,8 @@ class HiveApp(ctk.CTk):
         # credits menu
         self.main_menu = Menu(master = self.menubar)
         self.menubar.add_cascade(label = "Credits", menu = self.main_menu)
-        self.main_menu.add_command(label = "  Contribute     ", command = self.open_contribute)
-        self.main_menu.add_command(label = "  Creator        ", command = self.open_creator)
+        self.main_menu.add_command(label = "  Contribute     ", command = open_contribute)
+        self.main_menu.add_command(label = "  Creator        ", command = open_creator)
 
         # rows (layout)
         self.grid_rowconfigure(0, weight = 0)
@@ -190,20 +189,6 @@ class HiveApp(ctk.CTk):
 
         self.destroy()
         sys_exit(0)
-
-    def open_contribute(self) -> None:
-        """
-        Opens a link to the official Github repository.
-        """
-
-        open_link("https://github.com/dishb/hive")
-
-    def open_creator(self) -> None:
-        """
-        Opens a link to @dishb on Github.
-        """
-
-        open_link("https://github.com/dishb")
 
     def update_tree(self, *args) -> None: # pylint: disable=unused-argument
         """

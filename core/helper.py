@@ -17,6 +17,8 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
+from webbrowser import open as open_link
+
 from .config import *
 
 def is_hidden(entity: str, path: str) -> bool:
@@ -49,3 +51,17 @@ def can_rename(entity: str, path: str) -> bool:
         return False
 
     return True
+
+def open_contribute() -> None:
+    """
+    Opens a link to the official Github repository.
+    """
+
+    open_link("https://github.com/dishb/hive")
+
+def open_creator() -> None:
+    """
+    Opens a link to @dishb on Github.
+    """
+
+    open_link("https://github.com/dishb")
