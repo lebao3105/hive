@@ -36,8 +36,14 @@ class HiveApp(ctk.CTk):
         self.title("hive")
         self.geometry(f"{WIDTH}x{HEIGHT}")
         self.resizable(False, False)
-        ctk.set_default_color_theme(f"{THEME_PATH}/blue.json")
+
+        # themeing and appearance mode
+        self.config_file = f"{SCRIPT_DIR}/config/settings.cfg"
+        file = open(self.config_file, "r", encoding = "utf-8") # pylint: disable=consider-using-with
+        theme_name = load(file)["theme"]
+        ctk.set_default_color_theme(f"{THEME_PATH}/{theme_name.lower()}.json")
         ctk.set_appearance_mode("system")
+
         if ctk.get_appearance_mode().lower() == "light":
             icon_image = Image.open(LIGHT_ICON_PATH)
             self.iconphoto(True, ImageTk.PhotoImage(icon_image, master = self))
@@ -191,9 +197,8 @@ class HiveApp(ctk.CTk):
         Opens the configuration file with the most recent user settings.
         """
 
-        path = f"{SCRIPT_DIR}/config/settings.cfg"
         try:
-            file = open(path, "r", encoding = "utf-8") # pylint: disable=consider-using-with
+            file = open(self.config_file, "r", encoding = "utf-8") # pylint: disable=consider-using-with
             settings = load(file)
             self.cwd_var.set(settings["cwd"])
             self.sys_files_var.set(settings["sys_files"])
