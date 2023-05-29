@@ -36,7 +36,7 @@ class HiveApp(ctk.CTk):
         self.title("hive")
         self.geometry(f"{WIDTH}x{HEIGHT}")
         self.resizable(False, False)
-        ctk.set_default_color_theme(THEME_PATH)
+        ctk.set_default_color_theme(f"{THEME_PATH}/blue.json")
         ctk.set_appearance_mode("system")
         if ctk.get_appearance_mode().lower() == "light":
             icon_image = Image.open(LIGHT_ICON_PATH)
@@ -50,8 +50,10 @@ class HiveApp(ctk.CTk):
         self.grid_rowconfigure(1, weight = 0)
         self.grid_rowconfigure(2, weight = 0)
         self.grid_rowconfigure(3, weight = 0)
-        self.grid_rowconfigure(4, weight = 1)
+        self.grid_rowconfigure(4, weight = 0)
         self.grid_rowconfigure(5, weight = 0)
+        self.grid_rowconfigure(6, weight = 1)
+        self.grid_rowconfigure(7, weight = 0)
 
         # columns (layout)
         self.grid_columnconfigure(0, weight = 0)
@@ -74,30 +76,60 @@ class HiveApp(ctk.CTk):
                                    sticky = "w"
                                    )
 
-        self.appearance_selector = AppearanceSelector(self)
-        self.appearance_selector.grid(row = 1,
-                                      column = 0,
-                                      padx = PADX,
-                                      pady = PADY,
-                                      sticky = "w"
-                                      )
+        self.appearance_menu = AppearanceMenu(self)
+        self.appearance_menu.grid(row = 1,
+                                  column = 0,
+                                  padx = PADX,
+                                  pady = PADY,
+                                  sticky = "w"
+                                  )
+
+        # theme widgets
+        self.theme_label = ThemeLabel(self)
+        self.theme_label.grid(row = 2,
+                              column = 0,
+                              padx = PADX,
+                              pady = PADY,
+                              sticky = "w"
+                              )
+
+        # theme widgets
+        self.theme_menu = ThemeMenu(self)
+        self.theme_menu.grid(row = 3,
+                             column = 0,
+                             padx = PADX,
+                             pady = PADY,
+                             sticky = "w"
+                             )
 
         # sys files widgets
         self.sys_files_label = SysFilesLabel(self)
-        self.sys_files_label.grid(row = 2,
-                                     column = 0,
-                                     padx = PADX,
-                                     pady = PADY,
-                                     sticky = "w"
-                                     )
+        self.sys_files_label.grid(row = 4,
+                                  column = 0,
+                                  padx = PADX,
+                                  pady = PADY,
+                                  sticky = "w"
+                                  )
 
         self.sys_files_switch = SysFilesSwitch(self, self.sys_files_var)
-        self.sys_files_switch.grid(row = 3,
-                                      column = 0,
-                                      padx = PADX,
-                                      pady = PADY,
-                                      sticky = "w"
-                                      )
+        self.sys_files_switch.grid(row = 5,
+                                   column = 0,
+                                   padx = PADX,
+                                   pady = PADY,
+                                   sticky = "w"
+                                   )
+
+        # path text (breadcrumbs) widgets
+        self.path_text = PathLabel(self,
+                                   self.cwd_var.get()
+                                   )
+
+        self.path_text.grid(row = 7,
+                            column = 1,
+                            padx = PADX,
+                            pady = PADY,
+                            sticky = "sw"
+                            )
 
         # attribute setup
         self.file_icon_path = f"{SCRIPT_DIR}/source/file_icons/"
@@ -109,25 +141,13 @@ class HiveApp(ctk.CTk):
                                           self.file_icon_path
                                           )
         self.file_explorer.grid(row = 0,
-                                rowspan = 5,
+                                rowspan = 7,
                                 column = 1,
                                 columnspan = 1,
                                 padx = PADX,
                                 pady = PADY,
                                 sticky = "nsew"
                                 )
-
-        # path text (breadcrumbs) widgets
-        self.path_text = PathLabel(self,
-                                   self.cwd_var.get()
-                                   )
-
-        self.path_text.grid(row = 5,
-                            column = 1,
-                            padx = PADX,
-                            pady = PADY,
-                            sticky = "sw"
-                            )
 
         # checks if any variables were updated
         self.sys_files_var.trace_add("write", self.update_tree)
@@ -157,7 +177,7 @@ class HiveApp(ctk.CTk):
                                    self.cwd_var.get()
                                    )
 
-        self.path_text.grid(row = 5,
+        self.path_text.grid(row = 7,
                             column = 1,
                             padx = PADX,
                             pady = PADY,
@@ -177,7 +197,8 @@ class HiveApp(ctk.CTk):
             settings = load(file)
             self.cwd_var.set(settings["cwd"])
             self.sys_files_var.set(settings["sys_files"])
-            ctk.set_appearance_mode(settings["theme"])
+            ctk.set_appearance_mode(settings["appearance_mode"].lower())
+            ctk.set_default_color_theme(settings["theme"].lower())
             if ctk.get_appearance_mode().lower() == "light":
                 icon_image = Image.open(LIGHT_ICON_PATH)
                 self.iconphoto(True, ImageTk.PhotoImage(icon_image, master = self))
@@ -197,7 +218,8 @@ class HiveApp(ctk.CTk):
         file = open(path, "w", encoding = "utf-8") # pylint: disable=consider-using-with
         settings = {"cwd": self.cwd_var.get(),
                     "sys_files": self.sys_files_var.get(),
-                    "theme": self.appearance_selector.get()
+                    "appearance_mode": self.appearance_menu.get(),
+                    "theme": self.theme_menu.get()
                     }
         dump(settings, file)
 

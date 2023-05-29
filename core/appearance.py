@@ -30,13 +30,14 @@ class AppearanceLabel(ctk.CTkLabel):
 
         # widget setup
         super().__init__(master = master,
-                         text = "Appearance"
+                         text = "Appearance:"
                          )
 
-class AppearanceSelector(ctk.CTkOptionMenu):
+class AppearanceMenu(ctk.CTkOptionMenu):
     def __init__(self, master: ctk.CTk) -> None:
         """
-        Widget that allows the user to select a theme from light, dark, or system default.
+        Widget that allows the user to select an appearance mode from light, dark, or system
+        default.
         """
 
         # widget setup
@@ -48,7 +49,7 @@ class AppearanceSelector(ctk.CTkOptionMenu):
 
     def change_appearance(self, new_appearance: str) -> None:
         """
-        Changes the appearance/theme of the app.
+        Changes the appearance mode of the app.
         """
 
         ctk.set_appearance_mode(new_appearance.lower())

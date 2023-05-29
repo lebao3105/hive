@@ -19,27 +19,36 @@
 
 import customtkinter as ctk
 
-class SysFilesLabel(ctk.CTkLabel):
+from .config import *
+
+class ThemeLabel(ctk.CTkLabel):
     def __init__(self, master: ctk.CTk) -> None:
         """
-        Widget that explains what the checkbox below it is for/does.
+        Widget that explains what the menu below it is for/does.
         """
 
         # widget setup
-        super().__init__(master = master,
-                         text = "Display system files:"
+        super().__init__(master,
+                         text = "Theme:"
                          )
 
-class SysFilesSwitch(ctk.CTkSwitch):
-    def __init__(self, master: ctk.CTk, sys_files: ctk.IntVar) -> None:
+class ThemeMenu(ctk.CTkOptionMenu):
+    def __init__(self, master: ctk.CTk) -> None:
         """
-        Widget that allows the user to toggle the visibility of system files.
+        Widget that allows the user to select a theme from several options.
         """
 
-        # widget setup
-        super().__init__(master = master,
-                         onvalue = 1,
-                         offvalue = 0,
-                         variable = sys_files,
-                         text = ""
-                        )
+        super().__init__(master,
+                         values = ["Blue", "Green", "Dark Blue"],
+                         command = self.change_theme
+                         )
+
+    def change_theme(self, new_theme: str) -> None:
+        """
+        Changes the theme of the app.
+        """
+
+        if new_theme.lower() != "dark blue":
+            ctk.set_default_color_theme(f"{THEME_PATH}/{new_theme.lower()}.json")
+        else:
+            ctk.set_default_color_theme(f"{THEME_PATH}/dark_blue.json")
