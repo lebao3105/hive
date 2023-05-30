@@ -43,6 +43,7 @@ cd ./hive/
 pip3 install --upgrade pip
 
 # install all the dependencies
+pip3 install --upgrade requests
 pip3 install --upgrade pyinstaller
 pip3 install --upgrade customtkinter
 pip3 install --upgrade pillow
