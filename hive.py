@@ -21,10 +21,10 @@ from json import dump, load
 from sys import exit as sys_exit
 from tkinter import Menu
 
-import customtkinter as ctk
 from PIL import ImageTk, Image
 
 from core import *
+import customtkinter as ctk
 
 class HiveApp(ctk.CTk):
     def __init__(self) -> None:

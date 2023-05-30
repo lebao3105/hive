@@ -23,4 +23,4 @@ jobs:
         pip install pyinstaller
     - name: Analysing the code with pylint
       run: |
-        pylint $(git ls-files '*.py') --rcfile=.pylintrc
+        pylint $(git ls-files '*.py') --rcfile=.pylintrc --ignore-paths=./customtkinter/

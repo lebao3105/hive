@@ -17,17 +17,8 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-/core/__pycache__/
-/.DS_Store
-/core/.DS_Store
-/source/.DS_Store
-/source/icons/.DS_Store
-/source/file_icons/.DS_Store
-/source/themes/.DS_Store
-/source/misc/.DS_Store
-/source/.DS_Store
-/config/.DS_Store
-/utility/.DS_Store
 /utility/hive.spec
 /dist/
 /build/
+*.DS_Store
+*__pycache__
