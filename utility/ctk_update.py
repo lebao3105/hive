@@ -49,9 +49,12 @@ def download_folder(repo_url: str, folder_path: str, destination_path: str) -> N
                 file_name = os.path.basename(file_url)
                 file_path = os.path.join(destination_path, file_name)
                 response = requests.get(file_url, stream = True, timeout = 5)
+
                 with open(file_path, "wb") as file:
                     response.raw.decode_content = True
                     copyfileobj(response.raw, file)
+                    file.close()
+
                 del response
 
             elif item["type"] == "dir":
@@ -62,6 +65,6 @@ def download_folder(repo_url: str, folder_path: str, destination_path: str) -> N
         print(f"Failed to retrieve folder contents. Status code: {response.status_code}")
 
 download_folder("https://github.com/TomSchimansky/CustomTkinter",
-                       "customtkinter",
-                       "../customtkinter/"
-                       )
+                "customtkinter",
+                "../customtkinter/"
+                )
