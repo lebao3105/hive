@@ -17,12 +17,12 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-from shutil import copyfileobj
+from shutil import copyfileobj, rmtree
 import os
 
 import requests
 
-def download_folder(repo_url: str, folder_path: str, destination_path: str) -> None:
+def download_dir(repo_url: str, dir_path: str, dest_path: str) -> None:
     """
     Downloads any folder from a Github repository.
     """
@@ -33,21 +33,23 @@ def download_folder(repo_url: str, folder_path: str, destination_path: str) -> N
     repo_name = url_parts[-1].split(".")[0]
 
     # API endpoint for the repository contents
-    api_url = f"https://api.github.com/repos/{owner}/{repo_name}/contents/{folder_path}"
+    api_url = f"https://api.github.com/repos/{owner}/{repo_name}/contents/{dir_path}"
 
     # Send a GET request to the API endpoint
     response = requests.get(api_url, timeout = 5)
     if response.status_code == 200:
         contents = response.json()
-        if not os.path.exists(destination_path):
-            os.makedirs(destination_path)
+        if os.path.exists(dest_path):
+            rmtree(dest_path)
+
+        os.makedirs(dest_path)
 
         for item in contents:
             if item["type"] == "file":
                 # Download files
                 file_url = item["download_url"]
                 file_name = os.path.basename(file_url)
-                file_path = os.path.join(destination_path, file_name)
+                file_path = os.path.join(dest_path, file_name)
                 response = requests.get(file_url, stream = True, timeout = 5)
 
                 with open(file_path, "wb") as file:
@@ -55,16 +57,25 @@ def download_folder(repo_url: str, folder_path: str, destination_path: str) -> N
                     copyfileobj(response.raw, file)
                     file.close()
 
-                del response
-
             elif item["type"] == "dir":
                 # Recursively download subdirectories
-                subdir_path = os.path.join(destination_path, item["name"])
-                download_folder(repo_url, item["path"], subdir_path)
-    else:
-        print(f"Failed to retrieve folder contents. Status code: {response.status_code}")
+                subdir_path = os.path.join(dest_path, item["name"])
+                download_dir(repo_url, item["path"], subdir_path)
 
-download_folder("https://github.com/TomSchimansky/CustomTkinter",
+        print("\nSuccessfully retrieved directory contents.")
+        print(f"Response: {response.status_code}")
+        print(f"Repository: {owner}/{repo_name}")
+        print(f"Folder requested: {dir_path}")
+        print(f"Destination: {dest_path}")
+
+    else:
+        print("\nFailed to retrieve directory contents.")
+        print(f"Response: {response.status_code}")
+        print(f"Repository: {owner}/{repo_name}")
+        print(f"Folder requested: {dir_path}")
+        print(f"Destination: {dest_path}")
+
+download_dir("https://github.com/TomSchimansky/CustomTkinter",
                 "customtkinter",
                 "../customtkinter/"
                 )
