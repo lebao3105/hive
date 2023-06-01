@@ -17,8 +17,5 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-/utility/hive.spec
-/dist/
-/build/
 *.DS_Store
 *__pycache__
