@@ -34,8 +34,6 @@ class WarnBox(ctk.CTkToplevel):
         self.title("error")
         self.geometry("250x150")
         self.resizable(False, False)
-        ctk.set_default_color_theme(THEME_PATH)
-        ctk.set_appearance_mode("system")
         self.rowconfigure(0, weight = 1)
         self.rowconfigure(1, weight = 1)
         self.columnconfigure(0, weight = 1)
