@@ -57,7 +57,7 @@ ARGS = [f"{REPO_LOC}/hive.py", # file to package
         f"--distpath={REPO_LOC}/dist/", # location of the build
         f"--specpath={REPO_LOC}/utility/", # location of the .spec file
         "--log-level=ERROR", # verbosity
-        f"--add-data={CTK_LOC}/customtkinter:customtkinter", # adds customtkinter module
+        "--add-data=../customtkinter:customtkinter", # adds customtkinter module
         f"--add-data={REPO_LOC}/core:core", # adds core directory
         f"--add-data={REPO_LOC}/source:source", # adds source directory
         f"--add-data={REPO_LOC}/config:config" # adds config directory
@@ -67,7 +67,7 @@ ARGS = [f"{REPO_LOC}/hive.py", # file to package
 pkg(ARGS)
 
 # remove the extra files and dirs
-rmtree(f"{REPO_LOC}/build/")
+rmtree(f"{REPO_LOC}/utility/build/")
 rmtree(f"{REPO_LOC}/dist/hive/")
 remove(f"{REPO_LOC}/utility/hive.spec")
 move(f"{REPO_LOC}/dist/hive.app", "/Applications/")
