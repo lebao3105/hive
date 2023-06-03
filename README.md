@@ -53,6 +53,34 @@ python3 ./utility/build.py
 ```
 The build can be found in your `/Applications/` folder. It will be a macOS application with the name `hive.app`.
 
+## Contributing:
+First off, thank you for showing interest in contributing to this open-source project! As mentiomed in the `About` section, this project depends on contributors to keep it alive. To keep this `hive` maintainable, we have a few requirements:
+- Linter: [`pylint`](https://github.com/pylint-dev/pylint), v2.17.2 or higher
+- Commits: [`commit-styles`](https://github.com/dishb/commit-styles), latest version
+- Language: [`Python`](https://github.com/python/cpython) v3.11.3 or higher
+- Tab: Spaces, 4
+- Encoding: UTF-8
+
+To get started with development, follow the commands listed below:
+```bash
+# create a folder for the repo, clone it
+mkdir ./hive/
+git clone https://github.com/dishb/hive.git ./hive/
+cd ./hive/
+
+# make sure pip is updated
+pip3 install --upgrade pip
+
+# install the linter
+pip3 install --upgrade pylint
+
+# install all the dependencies
+pip3 install --upgrade requests
+pip3 install --upgrade pyinstaller
+pip3 install --upgrade customtkinter
+pip3 install --upgrade pillow
+```
+
 ## Security:
 If you find a security issue or vulnerability, please follow the instructions listed [here](./SECURITY.md) on in the `./SECURITY.md`  file.
 
