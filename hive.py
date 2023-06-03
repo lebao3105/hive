@@ -41,10 +41,16 @@ class HiveApp(ctk.CTk):
 
         # themeing and appearance mode
         self.config_file = f"{SCRIPT_DIR}/config/settings.cfg"
-        file = open(self.config_file, "r", encoding = "utf-8") # pylint: disable=consider-using-with
-        theme_name = load(file)["theme"]
-        ctk.set_default_color_theme(f"{THEME_PATH}/{theme_name.lower()}.json")
-        ctk.set_appearance_mode("system")
+        try:
+            config_file = open(self.config_file, "r", encoding = "utf-8") # pylint: disable=consider-using-with
+            config_file = load(config_file)
+            theme_name = config_file["theme"]
+            appearance_mode = config_file["appearance_mode"]
+            ctk.set_default_color_theme(f"{THEME_PATH}/{theme_name.lower()}.json")
+            ctk.set_appearance_mode(appearance_mode)
+        except FileNotFoundError:
+            ctk.set_default_color_theme(f"{THEME_PATH}/default.json")
+            ctk.set_appearance_mode("system")
 
         if ctk.get_appearance_mode().lower() == "light":
             icon_image = Image.open(LIGHT_ICON_PATH)

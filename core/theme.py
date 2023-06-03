@@ -38,8 +38,10 @@ class ThemeMenu(ctk.CTkOptionMenu):
         Widget that allows the user to select a theme from several options.
         """
 
+        # widget setup
+        self.options = ["Default", "Blue", "Green", "Dark Blue"]
         super().__init__(master,
-                         values = ["Blue", "Green", "Dark Blue"],
+                         values = self.options,
                          command = self.change_theme
                          )
 
