@@ -39,6 +39,10 @@ class HiveApp(ctk.CTk):
         self.geometry(f"{WIDTH}x{HEIGHT}")
         self.resizable(False, False)
 
+        # font setup
+        ctk.FontManager.load_font("../source/fonts/DM Mono.ttf")
+        self.font = ("DM Mono", 13)
+
         # themeing and appearance mode
         self.config_file = f"{SCRIPT_DIR}/config/settings.cfg"
         try:
@@ -98,7 +102,7 @@ class HiveApp(ctk.CTk):
                                         )
 
         # appearance widgets
-        self.appearance_label = AppearanceLabel(self)
+        self.appearance_label = AppearanceLabel(self, self.font)
         self.appearance_label.grid(row = 0,
                                    column = 0,
                                    padx = PADX,
@@ -106,7 +110,7 @@ class HiveApp(ctk.CTk):
                                    sticky = "w"
                                    )
 
-        self.appearance_menu = AppearanceMenu(self)
+        self.appearance_menu = AppearanceMenu(self, self.font)
         self.appearance_menu.grid(row = 1,
                                   column = 0,
                                   padx = PADX,
@@ -115,7 +119,7 @@ class HiveApp(ctk.CTk):
                                   )
 
         # theme widgets
-        self.theme_label = ThemeLabel(self)
+        self.theme_label = ThemeLabel(self, self.font)
         self.theme_label.grid(row = 2,
                               column = 0,
                               padx = PADX,
@@ -124,7 +128,7 @@ class HiveApp(ctk.CTk):
                               )
 
         # theme widgets
-        self.theme_menu = ThemeMenu(self)
+        self.theme_menu = ThemeMenu(self, self.font)
         self.theme_menu.grid(row = 3,
                              column = 0,
                              padx = PADX,
@@ -133,7 +137,7 @@ class HiveApp(ctk.CTk):
                              )
 
         # sys files widgets
-        self.sys_files_label = SysFilesLabel(self)
+        self.sys_files_label = SysFilesLabel(self, self.font)
         self.sys_files_label.grid(row = 4,
                                   column = 0,
                                   padx = PADX,
@@ -151,7 +155,8 @@ class HiveApp(ctk.CTk):
 
         # path text (breadcrumbs) widgets
         self.path_text = PathLabel(self,
-                                   self.cwd_var.get()
+                                   self.cwd_var.get(),
+                                   self.font
                                    )
 
         self.path_text.grid(row = 7,
@@ -168,7 +173,8 @@ class HiveApp(ctk.CTk):
         self.file_explorer = FileExplorer(self,
                                           self.cwd_var.get(),
                                           self.cwd_var,
-                                          self.file_icon_path
+                                          self.file_icon_path,
+                                          self.font
                                           )
         self.file_explorer.grid(row = 0,
                                 rowspan = 7,
@@ -212,7 +218,8 @@ class HiveApp(ctk.CTk):
 
         # path text (breadcrumbs) widgets
         self.path_text = PathLabel(self,
-                                   self.cwd_var.get()
+                                   self.cwd_var.get(),
+                                   font = self.font
                                    )
 
         self.path_text.grid(row = 7,

@@ -23,18 +23,19 @@ import customtkinter as ctk
 from .config import *
 
 class AppearanceLabel(ctk.CTkLabel):
-    def __init__(self, master: ctk.CTk) -> None:
+    def __init__(self, master: ctk.CTk, font: tuple) -> None:
         """
         Widget that explains what the menu below it is for/does.
         """
 
         # widget setup
         super().__init__(master = master,
-                         text = "Appearance:"
+                         text = "Appearance:",
+                         font = font
                          )
 
 class AppearanceMenu(ctk.CTkOptionMenu):
-    def __init__(self, master: ctk.CTk) -> None:
+    def __init__(self, master: ctk.CTk, font: tuple) -> None:
         """
         Widget that allows the user to select an appearance mode from light, dark, or system
         default.
@@ -45,6 +46,7 @@ class AppearanceMenu(ctk.CTkOptionMenu):
         super().__init__(master = self.master,
                          values = ["System", "Light", "Dark"],
                          command = self.change_appearance,
+                         font = font
                          )
 
     def change_appearance(self, new_appearance: str) -> None:

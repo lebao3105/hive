@@ -28,7 +28,13 @@ from .warn_box import *
 from .helper import *
 
 class FileExplorer(ctk.CTkScrollableFrame):
-    def __init__(self, master: ctk.CTk, cwd: str, cwd_var: ctk.StringVar, icon_path: str) -> None:
+    def __init__(self,
+                 master: ctk.CTk,
+                 cwd: str,
+                 cwd_var: ctk.StringVar,
+                 icon_path: str,
+                 font: tuple
+                 ) -> None:
         """
         The main file explorer widget. This widget displays all the files and directories in the 
         current working directory.
@@ -39,6 +45,9 @@ class FileExplorer(ctk.CTkScrollableFrame):
                          )
         self.sys_files = 0
         self.cwd_var = cwd_var
+
+        # font setup
+        self.font = font
 
         # current directory setup
         self.cwd = cwd
@@ -77,7 +86,8 @@ class FileExplorer(ctk.CTkScrollableFrame):
         if not self.cwd == "/":
             # a button to let the user navigate up a directory
             up_label = ctk.CTkLabel(master = self,
-                                    text = "←"
+                                    text = "←",
+                                    font = self.font
                                     )
             up_label.grid(row = 0,
                         column = 1,
@@ -124,7 +134,8 @@ class FileExplorer(ctk.CTkScrollableFrame):
                 # is the file a normal, user visible file?
                 else:
                     label = ctk.CTkLabel(master = self,
-                                         text = entity
+                                         text = entity,
+                                         font = self.font
                                          )
                     label.grid(row = entities.index(entity) + 1,
                                column = 1,
@@ -187,7 +198,8 @@ class FileExplorer(ctk.CTkScrollableFrame):
                     entity_path = f"{self.cwd}/{entity}"
 
                 label = ctk.CTkLabel(master = self,
-                                     text = entity
+                                     text = entity,
+                                     font = self.font
                                      )
                 label.grid(row = entities.index(entity) + 1,
                            column = 1,
@@ -261,7 +273,8 @@ class FileExplorer(ctk.CTkScrollableFrame):
                 self.cwd_var.set(self.cwd)
         except PermissionError:
             WarnBox(self.icon_path.replace("file_icons", "misc"),
-                    "You do not have permission\nto open this file or directory."
+                    "You do not have permission\nto open this file or directory.",
+                    self.font
                     )
 
     def up_one_dir(self, event) -> None: # pylint: disable=unused-argument

@@ -20,14 +20,15 @@
 import customtkinter as ctk
 
 class SysFilesLabel(ctk.CTkLabel):
-    def __init__(self, master: ctk.CTk) -> None:
+    def __init__(self, master: ctk.CTk, font: tuple) -> None:
         """
         Widget that explains what the checkbox below it is for/does.
         """
 
         # widget setup
         super().__init__(master = master,
-                         text = "Display system files:"
+                         text = "Display system files:",
+                         font = font
                          )
 
 class SysFilesSwitch(ctk.CTkSwitch):

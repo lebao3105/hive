@@ -27,4 +27,5 @@ disable=missing-module-docstring,
         too-few-public-methods,
         too-many-branches,
         too-many-instance-attributes,
-        too-many-statements
+        too-many-statements,
+        too-many-arguments

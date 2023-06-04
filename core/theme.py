@@ -22,18 +22,19 @@ import customtkinter as ctk
 from .config import *
 
 class ThemeLabel(ctk.CTkLabel):
-    def __init__(self, master: ctk.CTk) -> None:
+    def __init__(self, master: ctk.CTk, font: tuple) -> None:
         """
         Widget that explains what the menu below it is for/does.
         """
 
         # widget setup
         super().__init__(master,
-                         text = "Theme:"
+                         text = "Theme:",
+                         font = font
                          )
 
 class ThemeMenu(ctk.CTkOptionMenu):
-    def __init__(self, master: ctk.CTk) -> None:
+    def __init__(self, master: ctk.CTk, font: tuple) -> None:
         """
         Widget that allows the user to select a theme from several options.
         """
@@ -42,7 +43,8 @@ class ThemeMenu(ctk.CTkOptionMenu):
         self.options = ["Default", "Blue", "Green", "Dark Blue"]
         super().__init__(master,
                          values = self.options,
-                         command = self.change_theme
+                         command = self.change_theme,
+                         font = font
                          )
 
     def change_theme(self, new_theme: str) -> None:
