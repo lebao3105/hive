@@ -19,7 +19,6 @@
 
 from json import dump, load
 from sys import exit as sys_exit
-from tkinter import Menu
 
 from PIL import ImageTk, Image
 
@@ -63,21 +62,6 @@ class HiveApp(ctk.CTk):
         elif ctk.get_appearance_mode().lower() == "dark":
             icon_image = Image.open(DARK_ICON_PATH)
             self.iconphoto(True, ImageTk.PhotoImage(icon_image, master = self))
-
-        # setting up the menubar
-        self.menubar = Menu(master = self.master)
-        self.configure(menu = self.menubar)
-
-        # file menu
-        self.file_menu = Menu(master = self.menubar)
-        self.menubar.add_cascade(label = "File", menu = self.file_menu)
-        self.file_menu.add_command(label = "  Quit           ", command = self.quit_app)
-
-        # credits menu
-        self.main_menu = Menu(master = self.menubar)
-        self.menubar.add_cascade(label = "Credits", menu = self.main_menu)
-        self.main_menu.add_command(label = "  Contribute     ", command = open_contribute)
-        self.main_menu.add_command(label = "  Creator        ", command = open_creator)
 
         # rows (layout)
         self.grid_rowconfigure(0, weight = 0)
