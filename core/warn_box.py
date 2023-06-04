@@ -17,12 +17,9 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-from PIL import Image
+from .popup import *
 
-import customtkinter as ctk
-from .config import *
-
-class WarnBox(ctk.CTkToplevel):
+class WarnBox(Popup):
     def __init__(self, icon_path: str, message: str, font: tuple) -> None:
         """
         A window that displays a warning explaining to the user why an action could not be 
@@ -30,37 +27,8 @@ class WarnBox(ctk.CTkToplevel):
         """
 
         # setup widget
-        super().__init__()
-        self.title("error")
-        self.geometry("250x150")
-        self.resizable(False, False)
-        self.rowconfigure(0, weight = 1)
-        self.rowconfigure(1, weight = 1)
-        self.columnconfigure(0, weight = 1)
-
-        # the warning image/icon
-        icon = ctk.CTkImage(light_image = Image.open(f"{icon_path}warning.png"),
-                            size = (55, 55)
-                            )
-        button = ctk.CTkButton(master = self,
-                               image = icon,
-                               text = "",
-                               width = icon.cget("size")[0]
-                               )
-        button.grid(row = 0, column = 0, padx = PADX, pady = PADY)
-
-        # create a text widget
-        warning = WarnLabel(self, message, font)
-        warning.grid(row = 1, column = 0, padx = PADX, pady = PADY)
-
-class WarnLabel(ctk.CTkLabel):
-    def __init__(self, master: ctk.CTk, message: str, font: tuple) -> None:
-        """
-        The text that goes inside the warning window.
-        """
-
-        # widget setup
-        super().__init__(master = master,
-                         text = f"Error: {message}",
-                         font = font
+        super().__init__(icon_path,
+                         message,
+                         font
                          )
+        self.title("error")

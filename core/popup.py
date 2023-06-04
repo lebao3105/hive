@@ -39,13 +39,13 @@ class Popup(ctk.CTkToplevel):
         self.columnconfigure(0, weight = 1)
 
         # the popup image/icon
-        icon = ctk.CTkImage(light_image = Image.open(f"{icon_path}popup.png"),
+        self.icon = ctk.CTkImage(light_image = Image.open(icon_path),
                             size = (55, 55)
                             )
         button = ctk.CTkButton(master = self,
-                               image = icon,
+                               image = self.icon,
                                text = "",
-                               width = icon.cget("size")[0]
+                               width = self.icon.cget("size")[0]
                                )
         button.grid(row = 0, column = 0, padx = PADX, pady = PADY)
 
@@ -61,6 +61,6 @@ class PopupLabel(ctk.CTkLabel):
 
         # widget setup
         super().__init__(master = master,
-                         text = f"Popup: {message}",
+                         text = message,
                          font = font
                          )

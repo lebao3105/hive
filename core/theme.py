@@ -57,8 +57,8 @@ class ThemeMenu(ctk.CTkOptionMenu):
         Changes the theme of the app.
         """
 
-        Popup(f"{SCRIPT_DIR}/source/misc/",
-              "Please restart\nfor changes to the\ntheme to take effect.",
+        Popup(f"{SCRIPT_DIR}/source/misc/popup.png",
+              "Popup: Please restart\nfor changes to the\ntheme to take effect.",
               self.font
               )
 
