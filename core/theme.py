@@ -20,6 +20,7 @@
 import customtkinter as ctk
 
 from .config import *
+from .popup import *
 
 class ThemeLabel(ctk.CTkLabel):
     def __init__(self, master: ctk.CTk, font: tuple) -> None:
@@ -39,12 +40,16 @@ class ThemeMenu(ctk.CTkOptionMenu):
         Widget that allows the user to select a theme from several options.
         """
 
+        # font setup
+        self.font = font
+
         # widget setup
+        self.master = master
         self.options = ["Default", "Blue", "Green", "Dark Blue"]
-        super().__init__(master,
+        super().__init__(self.master,
                          values = self.options,
                          command = self.change_theme,
-                         font = font
+                         font = self.font
                          )
 
     def change_theme(self, new_theme: str) -> None:
@@ -52,7 +57,14 @@ class ThemeMenu(ctk.CTkOptionMenu):
         Changes the theme of the app.
         """
 
+        Popup(f"{SCRIPT_DIR}/source/misc/",
+              "Please restart\nfor changes to the\ntheme to take effect.",
+              self.font
+              )
+
         if new_theme.lower() != "dark blue":
             ctk.set_default_color_theme(f"{THEME_PATH}/{new_theme.lower()}.json")
         else:
             ctk.set_default_color_theme(f"{THEME_PATH}/dark_blue.json")
+
+        self.master.save_recent()

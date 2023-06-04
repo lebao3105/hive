@@ -25,3 +25,4 @@ from .path_text import *
 from .sys_files import *
 from .theme import *
 from .warn_box import *
+from .popup import *
