@@ -43,9 +43,9 @@ class HiveApp(ctk.CTk):
         self.config_file = f"{SCRIPT_DIR}/config/settings.cfg"
         try:
             with open(self.config_file, "r", encoding = "utf-8") as config_file:
-                config_file = load(config_file)
-                theme_name = config_file["theme"]
-                appearance_mode = config_file["appearance_mode"]
+                contents = load(config_file)
+                theme_name = contents["theme"]
+                appearance_mode = contents["appearance_mode"]
                 ctk.set_default_color_theme(f"{THEME_PATH}/{theme_name.lower()}.json")
                 ctk.set_appearance_mode(appearance_mode)
         except FileNotFoundError:
