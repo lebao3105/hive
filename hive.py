@@ -119,6 +119,8 @@ class HiveApp(ctk.CTk):
                              pady = PADY,
                              sticky = "w"
                              )
+        if "contents" in locals():
+            self.theme_menu.set(contents["theme"])
 
         # sys files widgets
         self.sys_files_label = SysFilesLabel(self, self.font)

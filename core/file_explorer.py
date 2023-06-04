@@ -273,7 +273,7 @@ class FileExplorer(ctk.CTkScrollableFrame):
                 self.cwd_var.set(self.cwd)
         except PermissionError:
             WarnBox(self.icon_path.replace("file_icons", "misc"),
-                    "You do not have permission\nto open this file or directory.",
+                    "You do not have\npermission to open\nthis file or directory.",
                     self.font
                     )
 

@@ -38,7 +38,7 @@ class Popup(ctk.CTkToplevel):
         self.rowconfigure(1, weight = 1)
         self.columnconfigure(0, weight = 1)
 
-        # the warning image/icon
+        # the popup image/icon
         icon = ctk.CTkImage(light_image = Image.open(f"{icon_path}popup.png"),
                             size = (55, 55)
                             )
