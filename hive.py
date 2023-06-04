@@ -48,11 +48,10 @@ class HiveApp(ctk.CTk):
                 appearance_mode = contents["appearance_mode"]
                 ctk.set_default_color_theme(f"{THEME_PATH}/{theme_name.lower()}.json")
                 ctk.set_appearance_mode(appearance_mode)
+                config_file.close()
         except FileNotFoundError:
             ctk.set_default_color_theme(f"{THEME_PATH}/default.json")
             ctk.set_appearance_mode("system")
-        finally:
-            config_file.close()
 
         if ctk.get_appearance_mode().lower() == "light":
             icon_image = Image.open(LIGHT_ICON_PATH)
@@ -243,10 +242,9 @@ class HiveApp(ctk.CTk):
                 elif ctk.get_appearance_mode().lower() == "dark":
                     icon_image = Image.open(DARK_ICON_PATH)
                     self.iconphoto(True, ImageTk.PhotoImage(icon_image, master = self))
+                config_file.close()
         except FileNotFoundError:
             pass
-        finally:
-            config_file.close()
 
     def save_recent(self) -> None:
         """

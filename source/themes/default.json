@@ -87,7 +87,7 @@
       "fg_color": ["#FFE169", "#FAD643"],
       "button_color": ["#EDC531", "#DBB42C"],
       "button_hover_color": ["#C9A227", "#B69121"],
-      "text_color": ["#FAFAFA", "#DCE4EE"],
+      "text_color": ["#1A1A1A", "#1A1A1A"],
       "text_color_disabled": ["#C7C7C7", "#ADADAD"]
     },
     "CTkComboBox": {
