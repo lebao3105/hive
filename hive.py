@@ -42,15 +42,17 @@ class HiveApp(ctk.CTk):
         # themeing and appearance mode
         self.config_file = f"{SCRIPT_DIR}/config/settings.cfg"
         try:
-            config_file = open(self.config_file, "r", encoding = "utf-8") # pylint: disable=consider-using-with
-            config_file = load(config_file)
-            theme_name = config_file["theme"]
-            appearance_mode = config_file["appearance_mode"]
-            ctk.set_default_color_theme(f"{THEME_PATH}/{theme_name.lower()}.json")
-            ctk.set_appearance_mode(appearance_mode)
+            with open(self.config_file, "r", encoding = "utf-8") as config_file:
+                config_file = load(config_file)
+                theme_name = config_file["theme"]
+                appearance_mode = config_file["appearance_mode"]
+                ctk.set_default_color_theme(f"{THEME_PATH}/{theme_name.lower()}.json")
+                ctk.set_appearance_mode(appearance_mode)
         except FileNotFoundError:
             ctk.set_default_color_theme(f"{THEME_PATH}/default.json")
             ctk.set_appearance_mode("system")
+        finally:
+            config_file.close()
 
         if ctk.get_appearance_mode().lower() == "light":
             icon_image = Image.open(LIGHT_ICON_PATH)
@@ -229,20 +231,22 @@ class HiveApp(ctk.CTk):
         """
 
         try:
-            file = open(self.config_file, "r", encoding = "utf-8") # pylint: disable=consider-using-with
-            settings = load(file)
-            self.cwd_var.set(settings["cwd"])
-            self.sys_files_var.set(settings["sys_files"])
-            ctk.set_appearance_mode(settings["appearance_mode"].lower())
-            ctk.set_default_color_theme(settings["theme"].lower())
-            if ctk.get_appearance_mode().lower() == "light":
-                icon_image = Image.open(LIGHT_ICON_PATH)
-                self.iconphoto(True, ImageTk.PhotoImage(icon_image, master = self))
-            elif ctk.get_appearance_mode().lower() == "dark":
-                icon_image = Image.open(DARK_ICON_PATH)
-                self.iconphoto(True, ImageTk.PhotoImage(icon_image, master = self))
+            with open(self.config_file, "r", encoding = "utf-8") as config_file:
+                settings = load(config_file)
+                self.cwd_var.set(settings["cwd"])
+                self.sys_files_var.set(settings["sys_files"])
+                ctk.set_appearance_mode(settings["appearance_mode"].lower())
+                ctk.set_default_color_theme(settings["theme"].lower())
+                if ctk.get_appearance_mode().lower() == "light":
+                    icon_image = Image.open(LIGHT_ICON_PATH)
+                    self.iconphoto(True, ImageTk.PhotoImage(icon_image, master = self))
+                elif ctk.get_appearance_mode().lower() == "dark":
+                    icon_image = Image.open(DARK_ICON_PATH)
+                    self.iconphoto(True, ImageTk.PhotoImage(icon_image, master = self))
         except FileNotFoundError:
             pass
+        finally:
+            config_file.close()
 
     def save_recent(self) -> None:
         """
@@ -250,14 +254,14 @@ class HiveApp(ctk.CTk):
         theme, and the system files toggle.
         """
 
-        path = f"{SCRIPT_DIR}/config/settings.cfg"
-        file = open(path, "w", encoding = "utf-8") # pylint: disable=consider-using-with
-        settings = {"cwd": self.cwd_var.get(),
-                    "sys_files": self.sys_files_var.get(),
-                    "appearance_mode": self.appearance_menu.get(),
-                    "theme": self.theme_menu.get()
-                    }
-        dump(settings, file)
+        with open(self.config_file, "w", encoding = "utf-8") as config_file:
+            settings = {"cwd": self.cwd_var.get(),
+                        "sys_files": self.sys_files_var.get(),
+                        "appearance_mode": self.appearance_menu.get(),
+                        "theme": self.theme_menu.get()
+                        }
+            dump(settings, config_file)
+            config_file.close()
 
 # create and run the app
 if __name__ == "__main__":
