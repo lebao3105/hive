@@ -273,7 +273,7 @@ class FileExplorer(ctk.CTkScrollableFrame):
                 self.cwd_var.set(self.cwd)
         except PermissionError:
             WarnBox(f"{SCRIPT_DIR}/source/misc/warning.png",
-                    "Error: You do not have\npermission to open\nthis file or directory.",
+                    "Error: This is a system\nfile or directory and should\nnot be modified.",
                     self.font
                     )
 
