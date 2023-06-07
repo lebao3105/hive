@@ -19,6 +19,8 @@
 
 from json import dump, load
 from sys import exit as sys_exit
+from os import mkdir
+from os.path import exists
 
 from PIL import ImageTk, Image
 
@@ -42,27 +44,6 @@ class HiveApp(ctk.CTk):
         ctk.FontManager.load_font("../source/fonts/DM Mono.ttf")
         self.font = ("DM Mono", 13)
 
-        # themeing and appearance mode
-        self.config_file = f"{SCRIPT_DIR}/config/settings.cfg"
-        try:
-            with open(self.config_file, "r", encoding = "utf-8") as config_file:
-                contents = load(config_file)
-                theme_name = contents["theme"]
-                appearance_mode = contents["appearance_mode"]
-                ctk.set_default_color_theme(f"{THEME_PATH}/{theme_name.lower()}.json")
-                ctk.set_appearance_mode(appearance_mode)
-                config_file.close()
-        except FileNotFoundError:
-            ctk.set_default_color_theme(f"{THEME_PATH}/default.json")
-            ctk.set_appearance_mode("system")
-
-        if ctk.get_appearance_mode().lower() == "light":
-            icon_image = Image.open(LIGHT_ICON_PATH)
-            self.iconphoto(True, ImageTk.PhotoImage(icon_image, master = self))
-        elif ctk.get_appearance_mode().lower() == "dark":
-            icon_image = Image.open(DARK_ICON_PATH)
-            self.iconphoto(True, ImageTk.PhotoImage(icon_image, master = self))
-
         # rows (layout)
         self.grid_rowconfigure(0, weight = 0)
         self.grid_rowconfigure(1, weight = 0)
@@ -84,6 +65,9 @@ class HiveApp(ctk.CTk):
         self.sys_files_var = ctk.IntVar(master = self,
                                         value = 0
                                         )
+
+        # tries to load recent config
+        self.open_recent()
 
         # appearance widgets
         self.appearance_label = AppearanceLabel(self, self.font)
@@ -119,8 +103,6 @@ class HiveApp(ctk.CTk):
                              pady = PADY,
                              sticky = "w"
                              )
-        if "contents" in locals():
-            self.theme_menu.set(contents["theme"])
 
         # sys files widgets
         self.sys_files_label = SysFilesLabel(self, self.font)
@@ -175,9 +157,6 @@ class HiveApp(ctk.CTk):
         self.sys_files_var.trace_add("write", self.update_tree)
         self.cwd_var.trace_add("write", self.update_tree)
 
-        # tries to load recent config
-        self.open_recent()
-
         # save the current config
         self.after(100, self.save_recent)
 
@@ -222,22 +201,29 @@ class HiveApp(ctk.CTk):
         Opens the configuration file with the most recent user settings.
         """
 
-        try:
-            with open(self.config_file, "r", encoding = "utf-8") as config_file:
+        if exists(CONFIG_PATH) and exists(CONFIG_PATH.removesuffix("/settings.cfg")):
+            with open(CONFIG_PATH, "r", encoding = "utf-8") as config_file:
                 settings = load(config_file)
                 self.cwd_var.set(settings["cwd"])
                 self.sys_files_var.set(settings["sys_files"])
+
                 ctk.set_appearance_mode(settings["appearance_mode"].lower())
-                ctk.set_default_color_theme(settings["theme"].lower())
-                if ctk.get_appearance_mode().lower() == "light":
-                    icon_image = Image.open(LIGHT_ICON_PATH)
-                    self.iconphoto(True, ImageTk.PhotoImage(icon_image, master = self))
-                elif ctk.get_appearance_mode().lower() == "dark":
-                    icon_image = Image.open(DARK_ICON_PATH)
-                    self.iconphoto(True, ImageTk.PhotoImage(icon_image, master = self))
+
+                theme_name = settings["theme"].lower()
+                ctk.set_default_color_theme(f"{THEME_PATH}/{theme_name}.json")
+
                 config_file.close()
-        except FileNotFoundError:
-            pass
+
+        else:
+            ctk.set_appearance_mode("system")
+            ctk.set_default_color_theme(f"{THEME_PATH}/default.json")
+
+        if ctk.get_appearance_mode().lower() == "light":
+            icon_image = Image.open(LIGHT_ICON_PATH)
+            self.iconphoto(True, ImageTk.PhotoImage(icon_image, master = self))
+        elif ctk.get_appearance_mode().lower() == "dark":
+            icon_image = Image.open(DARK_ICON_PATH)
+            self.iconphoto(True, ImageTk.PhotoImage(icon_image, master = self))
 
     def save_recent(self) -> None:
         """
@@ -245,12 +231,16 @@ class HiveApp(ctk.CTk):
         theme, and the system files toggle.
         """
 
-        with open(self.config_file, "w", encoding = "utf-8") as config_file:
+        if not exists(CONFIG_PATH.removesuffix("/settings.cfg")):
+            mkdir(CONFIG_PATH.removesuffix("/settings.cfg"))
+
+        with open(CONFIG_PATH, "w", encoding = "utf-8") as config_file:
             settings = {"cwd": self.cwd_var.get(),
                         "sys_files": self.sys_files_var.get(),
                         "appearance_mode": self.appearance_menu.get(),
                         "theme": self.theme_menu.get()
                         }
+
             dump(settings, config_file)
             config_file.close()
 

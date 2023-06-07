@@ -28,11 +28,18 @@ HEIGHT = 600
 PADX = 15
 PADY = 5
 
-# paths to files and directories
+# absolute path to hive.py
 SCRIPT_DIR = dirname(__file__).replace("core", "")
 if SCRIPT_DIR.endswith("/"):
     SCRIPT_DIR = SCRIPT_DIR.removesuffix("/")
+
+# config file path
+CONFIG_PATH = f"{SCRIPT_DIR}/config/settings.cfg"
+
+# path to the theme folder
 THEME_PATH = f"{SCRIPT_DIR}/source/themes"
+
+# the current user
 USER = environ["USER"]
 
 LIGHT_ICON_PATH = f"{SCRIPT_DIR}/source/icons/light.png"
