@@ -103,6 +103,7 @@ class HiveApp(ctk.CTk):
                              pady = PADY,
                              sticky = "w"
                              )
+        self.theme_menu.set(self.theme_name)
 
         # sys files widgets
         self.sys_files_label = SysFilesLabel(self, self.font)
@@ -209,14 +210,18 @@ class HiveApp(ctk.CTk):
 
                 ctk.set_appearance_mode(settings["appearance_mode"].lower())
 
-                theme_name = settings["theme"].lower()
-                ctk.set_default_color_theme(f"{THEME_PATH}/{theme_name}.json")
+                self.theme_name = settings["theme"]
+                if self.theme_name != "Dark Blue":
+                    ctk.set_default_color_theme(f"{THEME_PATH}/{self.theme_name.lower()}.json")
+                else:
+                    ctk.set_default_color_theme(f"{THEME_PATH}/dark_blue.json")
 
                 config_file.close()
 
         else:
             ctk.set_appearance_mode("system")
             ctk.set_default_color_theme(f"{THEME_PATH}/default.json")
+            self.theme_name = "Default"
 
         if ctk.get_appearance_mode().lower() == "light":
             icon_image = Image.open(LIGHT_ICON_PATH)
