@@ -54,7 +54,7 @@ python3 ./utility/build.py
 The build can be found in your `/Applications/` folder. It will be a macOS application with the name `hive.app`.
 
 ## Contributing:
-First off, thank you for showing interest in contributing to this open-source project! As mentiomed in the `About` section, this project depends on contributors to keep it alive. To keep this `hive` maintainable, we have a few requirements.
+First off, thank you for showing interest in contributing to this open-source project! As mentiomed in the `About` section, this project depends on contributors to keep it alive. To keep `hive` maintainable, we have a few requirements.
 - Please make sure your code runs without issue on pylint.
 - When making commits, please follow this [style guide](https://github.com/dishb/commit-styles).
 - Please use v3.11.3 as the minimum version of Python.
