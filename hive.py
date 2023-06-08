@@ -225,10 +225,10 @@ class HiveApp(ctk.CTk):
 
         if ctk.get_appearance_mode().lower() == "light":
             icon_image = Image.open(LIGHT_ICON_PATH)
-            self.iconphoto(True, ImageTk.PhotoImage(icon_image, master = self))
+            self.iconphoto(True, ImageTk.PhotoImage(icon_image))
         elif ctk.get_appearance_mode().lower() == "dark":
             icon_image = Image.open(DARK_ICON_PATH)
-            self.iconphoto(True, ImageTk.PhotoImage(icon_image, master = self))
+            self.iconphoto(True, ImageTk.PhotoImage(icon_image))
 
     def save_recent(self) -> None:
         """

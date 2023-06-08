@@ -20,7 +20,7 @@
 import customtkinter as ctk
 
 class PathLabel(ctk.CTkLabel):
-    def __init__(self, master: ctk.CTkFrame, cwd: str, font: tuple) -> None:
+    def __init__(self, master: ctk.CTk, cwd: str, font: tuple) -> None:
         """
         Widget to display the path to the current working directory.
         """
