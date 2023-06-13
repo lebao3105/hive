@@ -25,6 +25,7 @@ class ScaleLabel(ctk.CTkLabel):
         A widget to explain what the menu under it is for.
         """
 
+        # widget setup
         super().__init__(master,
                          text = "UI Scaling:",
                          font = font
@@ -35,10 +36,12 @@ class ScaleMenu(ctk.CTkOptionMenu):
         """
         A widget allowing the user to customize the scaling/size of the UI.
         """
-
+        
+        # widget setup
+        self.master = master
         self.options = ["80%", "90%", "100%", "110%", "120%"]
 
-        super().__init__(master,
+        super().__init__(self.master,
                          values = self.options,
                          command = self.scale_ui,
                          font = font
@@ -53,3 +56,5 @@ class ScaleMenu(ctk.CTkOptionMenu):
 
         scale_float = int(scale_percent.replace("%", "")) / 100
         ctk.set_widget_scaling(scale_float)
+        self.master.save_recent()
+        

@@ -42,7 +42,7 @@ class HiveApp(ctk.CTk):
         self.resizable(True, True)
 
         # font setup
-        ctk.FontManager.load_font("../source/fonts/DM Mono.ttf")
+        ctk.FontManager.load_font("./source/fonts/DM Mono.ttf")
         self.font = ("DM Mono", 13)
 
         # rows (layout)
@@ -141,6 +141,7 @@ class HiveApp(ctk.CTk):
                              pady = PADY,
                              sticky = "w"
                              )
+        self.scale_menu.set(self.scale_percent)
 
         # path text (breadcrumbs) widgets
         self.path_text = PathLabel(self,
@@ -225,10 +226,15 @@ class HiveApp(ctk.CTk):
         if exists(CONFIG_PATH) and exists(CONFIG_PATH.removesuffix("/settings.cfg")):
             with open(CONFIG_PATH, "r", encoding = "utf-8") as config_file:
                 settings = load(config_file)
+
                 self.cwd_var.set(settings["cwd"])
                 self.sys_files_var.set(settings["sys_files"])
 
                 ctk.set_appearance_mode(settings["appearance_mode"].lower())
+
+                self.scale_percent = settings["ui_scale"]
+                scale_float = int(self.scale_percent.replace("%", "")) / 100
+                ctk.set_widget_scaling(scale_float)
 
                 self.theme_name = settings["theme"]
                 if self.theme_name != "Dark Blue":
@@ -241,7 +247,10 @@ class HiveApp(ctk.CTk):
         else:
             ctk.set_appearance_mode("system")
             ctk.set_default_color_theme(f"{THEME_PATH}/default.json")
+
             self.theme_name = "Default"
+            self.scale_percent = "100%"
+
 
         if ctk.get_appearance_mode().lower() == "light":
             icon_image = Image.open(LIGHT_ICON_PATH)
@@ -263,7 +272,8 @@ class HiveApp(ctk.CTk):
             settings = {"cwd": self.cwd_var.get(),
                         "sys_files": self.sys_files_var.get(),
                         "appearance_mode": self.appearance_menu.get(),
-                        "theme": self.theme_menu.get()
+                        "theme": self.theme_menu.get(),
+                        "ui_scale": self.scale_menu.get()
                         }
 
             dump(settings, config_file)
