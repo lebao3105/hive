@@ -20,7 +20,6 @@
 from os.path import dirname
 from os import remove, rmdir
 from shutil import rmtree, move
-from subprocess import run
 from platform import system
 from sys import exit as sys_exit
 
@@ -35,16 +34,7 @@ REPO_LOC = dirname(__file__).replace("utility", "")
 if REPO_LOC.endswith("/"):
     REPO_LOC = REPO_LOC.removesuffix("/")
 
-# find where customtkinter is located
-output = run(["pip3", "show", "customtkinter"], check = True, capture_output = True).stdout
-output = output.split() # split by the newline chars
-
-# convert from bytes to string
-for index, item in enumerate(output):
-    output[index] = item.decode()
-
-# customtkinter's location
-CTK_LOC = output[24]
+CTK_LOC = f"{REPO_LOC}/customtkinter"
 
 # arguments for pyinstaller; these are command line args
 ARGS = [f"{REPO_LOC}/hive.py", # file to package
@@ -57,7 +47,7 @@ ARGS = [f"{REPO_LOC}/hive.py", # file to package
         f"--distpath={REPO_LOC}/dist/", # location of the build
         f"--specpath={REPO_LOC}/utility/", # location of the .spec file
         "--log-level=ERROR", # verbosity
-        "--add-data=../customtkinter:customtkinter", # adds customtkinter module
+        f"--add-data={CTK_LOC}:customtkinter", # adds customtkinter module
         f"--add-data={REPO_LOC}/core:core", # adds core directory
         f"--add-data={REPO_LOC}/source:source", # adds source directory
         f"--add-data={REPO_LOC}/config:config" # adds config directory
