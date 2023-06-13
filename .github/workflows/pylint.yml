@@ -24,4 +24,4 @@ jobs:
         pip install requests
     - name: Analysing the code with pylint
       run: |
-        pylint $(git ls-files '*.py') --rcfile=.pylintrc --ignore-paths=./customtkinter/
+        pylint $(git ls-files '*.py') --rcfile=.pylintrc

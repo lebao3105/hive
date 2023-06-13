@@ -147,6 +147,10 @@ class FileExplorer(ctk.CTkScrollableFrame):
                                lambda event, text = label.cget("text"):
                                    self.open_entity(event, text)
                                )
+                    label.bind("<Button-2>",
+                               lambda event, text = label.cget("text"):
+                                   self.entity_tooltip(event, text)
+                              )
 
                     if os.path.isfile(entity_path):
                         if self.icon_path.endswith("/"):
@@ -181,6 +185,10 @@ class FileExplorer(ctk.CTkScrollableFrame):
                                 lambda event, text = label.cget("text"):
                                     self.open_entity(event, text)
                                 )
+                    button.bind("<Button-2>",
+                                lambda event, text = label.cget("text"):
+                                    self.entity_tooltip(event, text)
+                               )
 
         # if we want to see system files; 1 = True
         elif self.sys_files == 1:
@@ -211,6 +219,10 @@ class FileExplorer(ctk.CTkScrollableFrame):
                            lambda event, text = label.cget("text"):
                                self.open_entity(event, text)
                            )
+                label.bind("<Button-2>",
+                           lambda event, text = label.cget("text"):
+                               self.entity_tooltip(event, text)
+                          )
 
                 if os.path.isfile(entity_path):
                     if self.icon_path.endswith("/"):
@@ -245,6 +257,10 @@ class FileExplorer(ctk.CTkScrollableFrame):
                             lambda event, text = label.cget("text"):
                                 self.open_entity(event, text)
                             )
+                label.bind("<Button-2>",
+                           lambda event, text = label.cget("text"):
+                               self.entity_tooltip(event, text)
+                          )
 
     def open_entity(self, event, text: str) -> None: # pylint: disable=unused-argument
         """
@@ -276,6 +292,11 @@ class FileExplorer(ctk.CTkScrollableFrame):
                     "Error: This is a system\nfile or directory and should\nnot be modified.",
                     self.font
                     )
+
+    def entity_tooltip(self, event, text: str) -> None: # pylint: disable=unused-argument
+        """
+        A tooltip that allows the user to perform functions on an entity such as renaming.
+        """
 
     def up_one_dir(self, event) -> None: # pylint: disable=unused-argument
         """
