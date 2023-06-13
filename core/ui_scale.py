@@ -36,7 +36,7 @@ class ScaleMenu(ctk.CTkOptionMenu):
         """
         A widget allowing the user to customize the scaling/size of the UI.
         """
-        
+
         # widget setup
         self.master = master
         self.options = ["80%", "90%", "100%", "110%", "120%"]
@@ -57,4 +57,3 @@ class ScaleMenu(ctk.CTkOptionMenu):
         scale_float = int(scale_percent.replace("%", "")) / 100
         ctk.set_widget_scaling(scale_float)
         self.master.save_recent()
-        
