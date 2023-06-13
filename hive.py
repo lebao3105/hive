@@ -38,7 +38,8 @@ class HiveApp(ctk.CTk):
         super().__init__()
         self.title("hive")
         self.geometry(f"{WIDTH}x{HEIGHT}")
-        self.resizable(False, False)
+        self.minsize(WIDTH - 100, HEIGHT - 100)
+        self.resizable(True, True)
 
         # font setup
         ctk.FontManager.load_font("../source/fonts/DM Mono.ttf")
@@ -51,8 +52,10 @@ class HiveApp(ctk.CTk):
         self.grid_rowconfigure(3, weight = 0)
         self.grid_rowconfigure(4, weight = 0)
         self.grid_rowconfigure(5, weight = 0)
-        self.grid_rowconfigure(6, weight = 1)
+        self.grid_rowconfigure(6, weight = 0)
         self.grid_rowconfigure(7, weight = 0)
+        self.grid_rowconfigure(8, weight = 1)
+        self.grid_rowconfigure(9, weight = 0)
 
         # columns (layout)
         self.grid_columnconfigure(0, weight = 0)
@@ -122,13 +125,30 @@ class HiveApp(ctk.CTk):
                                    sticky = "w"
                                    )
 
+        # UI scale widgets
+        self.scale_label = ScaleLabel(self, self.font)
+        self.scale_label.grid(row = 6,
+                              column = 0,
+                              padx = PADX,
+                              pady = PADY,
+                              sticky = "w"
+                              )
+
+        self.scale_menu = ScaleMenu(self, self.font)
+        self.scale_menu.grid(row = 7,
+                             column = 0,
+                             padx = PADX,
+                             pady = PADY,
+                             sticky = "w"
+                             )
+
         # path text (breadcrumbs) widgets
         self.path_text = PathLabel(self,
                                    self.cwd_var.get(),
                                    self.font
                                    )
 
-        self.path_text.grid(row = 7,
+        self.path_text.grid(row = 9,
                             column = 1,
                             padx = PADX,
                             pady = PADY,
@@ -146,7 +166,7 @@ class HiveApp(ctk.CTk):
                                           self.font
                                           )
         self.file_explorer.grid(row = 0,
-                                rowspan = 7,
+                                rowspan = 9,
                                 column = 1,
                                 columnspan = 1,
                                 padx = PADX,
@@ -188,7 +208,7 @@ class HiveApp(ctk.CTk):
                                    font = self.font
                                    )
 
-        self.path_text.grid(row = 7,
+        self.path_text.grid(row = 9,
                             column = 1,
                             padx = PADX,
                             pady = PADY,
