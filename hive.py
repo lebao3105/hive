@@ -242,6 +242,9 @@ class HiveApp(ctk.CTk):
                 else:
                     ctk.set_default_color_theme(f"{THEME_PATH}/dark_blue.json")
 
+                size = (settings["width"], settings["height"])
+                self.geometry(f"{size[0]}x{size[1]}")
+
                 config_file.close()
 
         else:
@@ -250,7 +253,6 @@ class HiveApp(ctk.CTk):
 
             self.theme_name = "Default"
             self.scale_percent = "100%"
-
 
         if ctk.get_appearance_mode().lower() == "light":
             icon_image = Image.open(LIGHT_ICON_PATH)
@@ -273,7 +275,9 @@ class HiveApp(ctk.CTk):
                         "sys_files": self.sys_files_var.get(),
                         "appearance_mode": self.appearance_menu.get(),
                         "theme": self.theme_menu.get(),
-                        "ui_scale": self.scale_menu.get()
+                        "ui_scale": self.scale_menu.get(),
+                        "width": self.winfo_width(),
+                        "height": self.winfo_height()
                         }
 
             dump(settings, config_file)
