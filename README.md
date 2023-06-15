@@ -71,14 +71,17 @@ cd ./hive/
 # make sure pip is updated
 pip3 install --upgrade pip
 
-# install the linter
-pip3 install --upgrade pylint
-
 # install all the dependencies
 pip3 install --upgrade requests
 pip3 install --upgrade pyinstaller
 pip3 install --upgrade customtkinter
 pip3 install --upgrade pillow
+
+# install the linter
+pip3 install --upgrade pylint
+
+# update our local customtkinter version
+python3 ./utility/ctk_update.py
 ```
 
 ## Security:
