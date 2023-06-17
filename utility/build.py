@@ -17,45 +17,80 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-from os.path import dirname, exists
-from os import remove, rmdir
-from shutil import rmtree, move
+from os import remove
+from os.path import exists
+from shutil import rmtree
+from subprocess import run
 from platform import system
+from pathlib import Path
 
 from PyInstaller.__main__ import run as pkg
 
 # location of the repository
-REPO_LOC = dirname(__file__).replace("utility", "")
-if REPO_LOC.endswith("/"):
-    REPO_LOC = REPO_LOC.removesuffix("/")
+REPO_LOC = Path("./").absolute()
+
+# find out whether user uses pip or pip3
+if system().lower() == "darwin":
+    PIP_CMD = "pip3"
+elif system().lower() == "windows":
+    PIP_CMD = "pip"
+
+# find where customtkinter is located
+output = run([PIP_CMD, "show", "customtkinter"], check = True, capture_output = True).stdout
+output = output.split() # split by the newline chars
+
+# convert from bytes to string
+for index, item in enumerate(output):
+    output[index] = item.decode()
+
+# customtkinter's location
+CTK_LOC = Path(output[24])
+CTK_LOC /= "customtkinter"
+
+# location of icon file
+ICON_LOC = REPO_LOC / "source" / "icons" / "dark.png"
+
+# location of other directories that are needed
+CORE_LOC = REPO_LOC / "core"
+SRC_LOC = REPO_LOC / "source"
+CFG_LOC = REPO_LOC / "config"
+DIST_LOC = REPO_LOC / "dist"
+UTIL_LOC = REPO_LOC / "utility"
 
 # arguments for pyinstaller; these are command line args
 ARGS = [f"{REPO_LOC}/hive.py", # file to package
         "-n=hive", # name
-        f"-i={REPO_LOC}/source/icons/dark.png", # icon
+        f"-i={ICON_LOC}", # icon
         "--clean", # clear cache
         "--windowed", # no terminal window
         "-y", # no confirmation
         "--onedir", # one directory with all files
-        f"--distpath={REPO_LOC}/dist", # location of the build
-        f"--specpath={REPO_LOC}/utility", # location of the .spec file
+        f"--distpath={DIST_LOC}", # location of the build
+        f"--specpath={UTIL_LOC}", # location of the .spec file
         "--log-level=ERROR", # verbosity
-        f"--add-data={REPO_LOC}/customtkinter:customtkinter", # adds customtkinter module
-        f"--add-data={REPO_LOC}/core:core", # adds core directory
-        f"--add-data={REPO_LOC}/source:source", # adds source directory
-        f"--add-data={REPO_LOC}/config:config" # adds config directory
+        f"--add-data={CTK_LOC}:customtkinter", # adds customtkinter module
+        f"--add-data={CORE_LOC}:core", # adds core directory
+        f"--add-data={SRC_LOC}:source", # adds source directory
+        f"--add-data={CFG_LOC}:config" # adds config directory
         ]
 
-if not exists(f"{REPO_LOC}/config"):
+if not exists(CFG_LOC):
     ARGS.pop(-1)
 
 # build the application
 pkg(ARGS)
 
+# locations of extra files/dirs
+extras = [REPO_LOC / "build",
+          REPO_LOC / "dist" / "hive",
+          REPO_LOC / "utility" / "hive.spec"
+          ]
+
+# # convert the Path objs into strings
+# for index, path in enumerate(extras):
+#     extras[index] = str(path)
+
 # remove the extra files and dirs
-rmtree(f"{REPO_LOC}/build")
-rmtree(f"{REPO_LOC}/dist/hive")
-remove(f"{REPO_LOC}/utility/hive.spec")
-if system().lower() == "darwin":
-    move(f"{REPO_LOC}/dist/hive.app", "/Applications")
-    rmdir(f"{REPO_LOC}/dist")
+rmtree(extras[0])
+rmtree(extras[1])
+remove(extras[2])
