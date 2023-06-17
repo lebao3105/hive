@@ -25,10 +25,6 @@ from sys import exit as sys_exit
 
 from PyInstaller.__main__ import run as pkg
 
-if system().lower() != "darwin":
-    print("You are on an incompatible operating system. hive was designed for and tested on macOS.")
-    sys_exit(1)
-
 # location of the repository
 REPO_LOC = dirname(__file__).replace("utility", "")
 if REPO_LOC.endswith("/"):
