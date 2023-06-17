@@ -26,6 +26,12 @@
 
 By being open source, `hive` can establish a community of users that can help contribute to the project through code, documentation, and more. The community can look at the internal workings of this tool and find potential issues. Suggestions can be made and development sped up. Open source allows this project to have a much higher chance of surviving and not dying out.
 
+## Images:
+![image 1](./images/1.png)
+![image 2](./images/2.png)
+![image 3](./images/3.png)
+![image 4](./images/4.png)
+
 ## Download:
 You can find the most recent build in the [Releases section](https://github.com/dishb/hive/releases) of this repository. Each release contains details as well as a version number.
 
