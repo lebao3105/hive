@@ -34,8 +34,6 @@ REPO_LOC = dirname(__file__).replace("utility", "")
 if REPO_LOC.endswith("/"):
     REPO_LOC = REPO_LOC.removesuffix("/")
 
-CTK_LOC = f"{REPO_LOC}/customtkinter"
-
 # arguments for pyinstaller; these are command line args
 ARGS = [f"{REPO_LOC}/hive.py", # file to package
         "-n=hive", # name
@@ -44,10 +42,10 @@ ARGS = [f"{REPO_LOC}/hive.py", # file to package
         "--windowed", # no terminal window
         "-y", # no confirmation
         "--onedir", # one directory with all files
-        f"--distpath={REPO_LOC}/dist/", # location of the build
-        f"--specpath={REPO_LOC}/utility/", # location of the .spec file
+        f"--distpath={REPO_LOC}/dist", # location of the build
+        f"--specpath={REPO_LOC}/utility", # location of the .spec file
         "--log-level=ERROR", # verbosity
-        f"--add-data={CTK_LOC}:customtkinter", # adds customtkinter module
+        f"--add-data={REPO_LOC}/customtkinter:customtkinter", # adds customtkinter module
         f"--add-data={REPO_LOC}/core:core", # adds core directory
         f"--add-data={REPO_LOC}/source:source", # adds source directory
         f"--add-data={REPO_LOC}/config:config" # adds config directory
@@ -60,8 +58,9 @@ if not exists(f"{REPO_LOC}/config"):
 pkg(ARGS)
 
 # remove the extra files and dirs
-rmtree(f"{REPO_LOC}/build/")
-rmtree(f"{REPO_LOC}/dist/hive/")
+rmtree(f"{REPO_LOC}/build")
+rmtree(f"{REPO_LOC}/dist/hive")
 remove(f"{REPO_LOC}/utility/hive.spec")
-move(f"{REPO_LOC}/dist/hive.app", "/Applications/")
-rmdir(f"{REPO_LOC}/dist/")
+if system().lower() == "darwin":
+    move(f"{REPO_LOC}/dist/hive.app", "/Applications")
+    rmdir(f"{REPO_LOC}/dist")
