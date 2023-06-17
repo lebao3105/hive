@@ -39,14 +39,13 @@ mkdir ./hive/
 git clone https://github.com/dishb/hive.git ./hive/
 cd ./hive/
 
-# make sure pip is updated
-pip3 install --upgrade pip
+# create a virtual environment and activiate it
+python3 -m venv ./venv/
+source ./venv/bin/activate
 
-# install all the dependencies
-pip3 install --upgrade requests
-pip3 install --upgrade pyinstaller
-pip3 install --upgrade customtkinter
-pip3 install --upgrade pillow
+# upgrade pip and install dependencies
+pip3 install --upgrade pip
+pip3 install -r requirements.txt
 
 # run the build script
 python3 ./utility/build.py
@@ -55,7 +54,7 @@ The build can be found in your `/Applications/` folder. It will be a macOS appli
 
 ## Contributing:
 First off, thank you for showing interest in contributing to this open-source project! As mentiomed in the `About` section, this project depends on contributors to keep it alive. To keep `hive` maintainable, we have a few requirements.
-- Please make sure your code runs without issue on pylint.
+- Please make sure your code runs without issue on `pylint`.
 - When making commits, please follow this [style guide](https://github.com/dishb/commit-styles).
 - Please use v3.11.3 as the minimum version of Python.
 - Your tab size should be 4 spaces; not hard tabs
@@ -68,20 +67,20 @@ mkdir ./hive/
 git clone https://github.com/dishb/hive.git ./hive/
 cd ./hive/
 
-# make sure pip is updated
+# create a virtual environment and activiate it
+python3 -m venv ./venv/
+source ./venv/bin/activate
+
+# upgrade pip and install dependencies
 pip3 install --upgrade pip
-
-# install all the dependencies
-pip3 install --upgrade requests
-pip3 install --upgrade pyinstaller
-pip3 install --upgrade customtkinter
-pip3 install --upgrade pillow
-
-# install the linter
-pip3 install --upgrade pylint
+pip3 install -r requirements.txt
 
 # update our local customtkinter version
 python3 ./utility/ctk_update.py
+```
+To lint your code with `pylint`, run the following commands from the top-level directory of the repository:
+```bash
+pylint $(git ls-files '*.py') --rcfile=.pylintrc
 ```
 
 ## Security:
