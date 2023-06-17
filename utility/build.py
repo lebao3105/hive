@@ -17,7 +17,7 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-from os.path import dirname
+from os.path import dirname, exists
 from os import remove, rmdir
 from shutil import rmtree, move
 from platform import system
@@ -52,6 +52,9 @@ ARGS = [f"{REPO_LOC}/hive.py", # file to package
         f"--add-data={REPO_LOC}/source:source", # adds source directory
         f"--add-data={REPO_LOC}/config:config" # adds config directory
         ]
+
+if not exists(f"{REPO_LOC}/config"):
+    ARGS.pop(-1)
 
 # build the application
 pkg(ARGS)
