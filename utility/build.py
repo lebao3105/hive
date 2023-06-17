@@ -21,7 +21,6 @@ from os.path import dirname, exists
 from os import remove, rmdir
 from shutil import rmtree, move
 from platform import system
-from sys import exit as sys_exit
 
 from PyInstaller.__main__ import run as pkg
 
