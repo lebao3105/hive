@@ -20,9 +20,9 @@
 import os
 from subprocess import run
 
+import customtkinter as ctk
 from PIL import Image
 
-import customtkinter as ctk
 from .config import *
 from .warn_box import *
 from .helper import *

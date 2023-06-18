@@ -17,9 +17,9 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
+import customtkinter as ctk
 from PIL import ImageTk, Image
 
-import customtkinter as ctk
 from .config import *
 
 class AppearanceLabel(ctk.CTkLabel):

@@ -22,10 +22,10 @@ from sys import exit as sys_exit
 from os import mkdir
 from os.path import exists
 
+import customtkinter as ctk
 from PIL import ImageTk, Image
 
 from core import *
-import customtkinter as ctk
 
 class HiveApp(ctk.CTk):
     def __init__(self) -> None:
