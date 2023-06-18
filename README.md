@@ -31,6 +31,7 @@ By being open source, `hive` can establish a community of users that can help co
 ![image 2](./images/2.png)
 ![image 3](./images/3.png)
 ![image 4](./images/4.png)
+![image 5](https://user-images.githubusercontent.com/89534395/246685234-5da2da41-24ce-4728-b8ad-673a26eb4002.png)
 
 ## Download:
 You can find the most recent build in the [Releases section](https://github.com/dishb/hive/releases) of this repository. Each release contains details as well as a version number.
