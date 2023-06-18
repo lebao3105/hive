@@ -80,9 +80,6 @@ source ./venv/bin/activate
 # upgrade pip and install dependencies
 pip3 install --upgrade pip
 pip3 install -r requirements.txt
-
-# update our local customtkinter version
-python3 ./utility/ctk_update.py
 ```
 To lint your code with `pylint`, run the following commands from the top-level directory of the repository:
 ```bash
