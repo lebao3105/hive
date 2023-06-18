@@ -38,7 +38,6 @@ class HiveApp(ctk.CTk):
         super().__init__()
         self.title("hive")
         self.geometry(f"{WIDTH}x{HEIGHT}")
-        self.minsize(WIDTH - 100, HEIGHT - 100)
         self.resizable(True, True)
 
         # font setup
