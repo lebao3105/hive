@@ -18,7 +18,6 @@
 #
 
 from os import remove
-from os.path import exists
 from shutil import rmtree
 from subprocess import run
 from platform import system
@@ -52,14 +51,14 @@ CTK_LOC = Path(output[24])
 CTK_LOC /= "customtkinter"
 
 # location of icon file
-ICON_LOC = REPO_LOC / "source" / "icons" / "dark.png"
+ICON_LOC = Path(f"{REPO_LOC}/source/icons/dark.png")
 
 # location of other directories that are needed
-CORE_LOC = REPO_LOC / "core"
-SRC_LOC = REPO_LOC / "source"
-CFG_LOC = REPO_LOC / "config"
-DIST_LOC = REPO_LOC / "dist"
-UTIL_LOC = REPO_LOC / "utility"
+CORE_LOC = Path(f"{REPO_LOC}/core")
+SRC_LOC = Path(f"{REPO_LOC}/source")
+CFG_LOC = Path(f"{REPO_LOC}/config")
+DIST_LOC = Path(f"{REPO_LOC}/dist")
+UTIL_LOC = Path(f"{REPO_LOC}/utility")
 
 # arguments for pyinstaller; these are command line args
 ARGS = [f"{REPO_LOC}/hive.py", # file to package
@@ -78,21 +77,17 @@ ARGS = [f"{REPO_LOC}/hive.py", # file to package
         f"--add-data={CFG_LOC}:config" # adds config directory
         ]
 
-if not exists(CFG_LOC):
+if not CFG_LOC.exists():
     ARGS.pop(-1)
 
 # build the application
 pkg(ARGS)
 
 # locations of extra files/dirs
-extras = [REPO_LOC / "build",
-          REPO_LOC / "dist" / "hive",
-          REPO_LOC / "utility" / "hive.spec"
+extras = [Path(f"{REPO_LOC}/build"),
+          Path(f"{REPO_LOC}/dist/hive"),
+          Path(f"{REPO_LOC}/utility/hive.spec")
           ]
-
-# # convert the Path objs into strings
-# for index, path in enumerate(extras):
-#     extras[index] = str(path)
 
 # remove the extra files and dirs
 rmtree(extras[0])
