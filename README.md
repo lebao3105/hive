@@ -33,6 +33,9 @@ By being open source, `hive` can establish a community of users that can help co
 ![image 4](./images/4.png)
 ![image 5](https://user-images.githubusercontent.com/89534395/246685234-5da2da41-24ce-4728-b8ad-673a26eb4002.png)
 
+## Themes:
+If you want to add your own themes to `hive`, just drop the `.json` file into the `~/.hive` folder!
+
 ## Download:
 You can find the most recent build in the [Releases section](https://github.com/dishb/hive/releases) of this repository. Each release contains details as well as a version number.
 

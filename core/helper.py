@@ -18,9 +18,20 @@
 #
 
 from webbrowser import open as open_link
-from os import listdir
+from os import listdir, mkdir
+from os.path import exists
 
 from .config import *
+
+def create_dir() -> None:
+    """
+    Creates a special directory for users to put their custom themes in.
+    """
+
+    path = f"{USER}/.hive/"
+
+    if not exists(path):
+        mkdir(path)
 
 def get_all_themes(path: str) -> list:
     """
@@ -29,6 +40,7 @@ def get_all_themes(path: str) -> list:
 
     # local variables
     files = listdir(path)
+    files += listdir(f"{USER}/.hive/")
     themes = []
 
     # get all the themes (.json files)

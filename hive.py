@@ -44,6 +44,9 @@ class HiveApp(ctk.CTk):
         ctk.FontManager.load_font("./source/fonts/DM Mono.ttf")
         self.font = ("DM Mono", 13)
 
+        # create a special dir for user-made themes
+        create_dir()
+
         # rows (layout)
         self.grid_rowconfigure(0, weight = 0)
         self.grid_rowconfigure(1, weight = 0)
