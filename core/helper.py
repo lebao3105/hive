@@ -18,8 +18,41 @@
 #
 
 from webbrowser import open as open_link
+from os import listdir
 
 from .config import *
+
+def get_all_themes(path: str) -> list:
+    """
+    Returns a list of all the themes in the given path.
+    """
+
+    # local variables
+    files = listdir(path)
+    themes = []
+
+    # get all the themes (.json files)
+    for file in files:
+
+        # call methods on each string to get it ready for user
+        file = file.removesuffix(".json")
+        file = file.capitalize()
+
+        if "_" in file:
+            file = file.replace("_", " ")
+            temp = file.split(" ")
+            file = ""
+            for index, item in enumerate(temp):
+                temp[index] = item.capitalize()
+                if not index == 0:
+                    file += " " + temp[index]
+                else:
+                    file += temp[index]
+
+        themes.append(file)
+
+    themes.sort()
+    return themes
 
 def is_hidden(entity: str, path: str) -> bool:
     """
@@ -61,7 +94,7 @@ def open_contribute() -> None:
 
 def open_creator() -> None:
     """
-    Opens a link to @dishb on Github.
+    Opens a link to the creator on Github.
     """
 
     open_link("https://github.com/dishb")

@@ -19,5 +19,5 @@
 
 *.DS_Store
 *__pycache__
-/config/settings.cfg
+/config/
 /venv/

@@ -236,10 +236,12 @@ class HiveApp(ctk.CTk):
                 ctk.set_widget_scaling(scale_float)
 
                 self.theme_name = settings["theme"]
-                if self.theme_name != "Dark Blue":
-                    ctk.set_default_color_theme(f"{THEME_PATH}/{self.theme_name.lower()}.json")
+                if " " in self.theme_name:
+                    no_spaces = self.theme_name.replace(" ", "_")
                 else:
-                    ctk.set_default_color_theme(f"{THEME_PATH}/dark_blue.json")
+                    no_spaces = self.theme_name
+
+                ctk.set_default_color_theme(f"{THEME_PATH}/{no_spaces.lower()}.json")
 
                 size = (settings["width"], settings["height"])
                 self.geometry(f"{size[0]}x{size[1]}")
