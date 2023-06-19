@@ -276,10 +276,6 @@ class FileExplorer(ctk.CTkScrollableFrame):
             else:
                 new_path = f"{self.cwd}/{text}"
 
-            # protects users from accidentally messing with system stuff
-            if is_hidden(text, new_path):
-                raise PermissionError
-
             if os.path.isfile(new_path) or new_path.endswith(".app"): # a file or application
                 run(["open", new_path], check = True)
             else: # a directory
