@@ -26,6 +26,7 @@ from PIL import Image
 from .config import *
 from .warn_box import *
 from .helper import *
+from .rename import *
 
 class FileExplorer(ctk.CTkScrollableFrame):
     def __init__(self,
@@ -45,6 +46,9 @@ class FileExplorer(ctk.CTkScrollableFrame):
                          )
         self.sys_files = 0
         self.cwd_var = cwd_var
+
+        # create an empty variable for later use
+        self.rename_popup = None
 
         # font setup
         self.font = font
@@ -149,8 +153,8 @@ class FileExplorer(ctk.CTkScrollableFrame):
                                )
                     label.bind("<Button-2>",
                                lambda event, text = label.cget("text"):
-                                   self.entity_tooltip(event, text)
-                              )
+                                   self.rename_entity(event, text)
+                               )
 
                     if os.path.isfile(entity_path):
                         if self.icon_path.endswith("/"):
@@ -187,8 +191,8 @@ class FileExplorer(ctk.CTkScrollableFrame):
                                 )
                     button.bind("<Button-2>",
                                 lambda event, text = label.cget("text"):
-                                    self.entity_tooltip(event, text)
-                               )
+                                    self.rename_entity(event, text)
+                                )
 
         # if we want to see system files; 1 = True
         elif self.sys_files == 1:
@@ -221,8 +225,8 @@ class FileExplorer(ctk.CTkScrollableFrame):
                            )
                 label.bind("<Button-2>",
                            lambda event, text = label.cget("text"):
-                               self.entity_tooltip(event, text)
-                          )
+                               self.rename_entity(event, text)
+                           )
 
                 if os.path.isfile(entity_path):
                     if self.icon_path.endswith("/"):
@@ -257,10 +261,10 @@ class FileExplorer(ctk.CTkScrollableFrame):
                             lambda event, text = label.cget("text"):
                                 self.open_entity(event, text)
                             )
-                label.bind("<Button-2>",
-                           lambda event, text = label.cget("text"):
-                               self.entity_tooltip(event, text)
-                          )
+                button.bind("<Button-2>",
+                            lambda event, text = label.cget("text"):
+                                self.rename_entity(event, text)
+                            )
 
     def open_entity(self, event, text: str) -> None: # pylint: disable=unused-argument
         """
@@ -283,16 +287,69 @@ class FileExplorer(ctk.CTkScrollableFrame):
                 self.cwd = new_path
                 os.chdir(self.cwd)
                 self.cwd_var.set(self.cwd)
+
         except PermissionError:
             WarnBox(f"{SCRIPT_DIR}/source/misc/warning.png",
                     "Error: This is a system\nfile or directory and should\nnot be modified.",
                     self.font
                     )
 
-    def entity_tooltip(self, event, text: str) -> None: # pylint: disable=unused-argument
+    def rename_entity(self, event, text: str) -> None: # pylint: disable=unused-argument
         """
-        A tooltip that allows the user to perform functions on an entity such as renaming.
+        A window that allows the user to rename a file or directory.
         """
+
+        os.chdir(self.cwd)
+
+        try:
+            if self.cwd.endswith("/"):
+                path = f"{self.cwd}{text}"
+            else:
+                path = f"{self.cwd}/{text}"
+
+            # stop the user from renaming
+            if not can_rename(text, path):
+                raise PermissionError
+
+            if os.path.isfile(path) or path.endswith(".app"): # a file or application
+                # rename the file or application
+                self.rename_popup = RenamePopup(self.font)
+
+                new_name = self.rename_popup.get_input()
+
+                # construct a new path
+                if self.cwd.endswith("/"):
+                    new_path = f"{self.cwd}{new_name}"
+                else:
+                    new_path = f"{self.cwd}/{new_name}"
+
+                # only rename if "Ok" event and not "Cancel" event
+                if not new_name is None or new_name == "None":
+                    os.rename(path, new_path)
+                    self.fill_tree(self.cwd, self.sys_files)
+            else: # a directory
+                # rename the directory
+                path += "/"
+                self.rename_popup = RenamePopup(self.font)
+
+                new_name = self.rename_popup.get_input()
+
+                # construct a new path
+                if self.cwd.endswith("/"):
+                    new_path = f"{self.cwd}{new_name}/"
+                else:
+                    new_path = f"{self.cwd}/{new_name}/"
+
+                # only rename if "Ok" event and not "Cancel" event
+                if not new_name is None or new_name == "None":
+                    os.rename(path, new_path)
+                    self.fill_tree(self.cwd, self.sys_files)
+
+        except PermissionError:
+            WarnBox(f"{SCRIPT_DIR}/source/misc/warning.png",
+                    "Error: This is a system\nfile or directory and should\nnot be modified.",
+                    self.font
+                    )
 
     def up_one_dir(self, event) -> None: # pylint: disable=unused-argument
         """

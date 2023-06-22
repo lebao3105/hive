@@ -17,14 +17,18 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-from .appearance import *
+import customtkinter as ctk
+
 from .config import *
-from .file_explorer import *
-from .helper import *
-from .path_text import *
-from .sys_files import *
-from .theme import *
-from .warn_box import *
-from .popup import *
-from .ui_scale import *
-from .rename import *
+
+class RenamePopup(ctk.CTkInputDialog):
+    def __init__(self, font: tuple) -> None:
+        """
+        A popup window for the user to rename a file or directory.
+        """
+
+        # wudget setup
+        super().__init__(title = "rename",
+                         text = "Enter a new name (including the file extension):",
+                         font = font
+                         )
