@@ -296,7 +296,7 @@ class FileExplorer(ctk.CTkScrollableFrame):
 
     def rename_entity(self, event, text: str) -> None: # pylint: disable=unused-argument
         """
-        A window that allows the user to rename a file or directory.
+        Allows the use to rename a file or directory,
         """
 
         os.chdir(self.cwd)
@@ -323,8 +323,8 @@ class FileExplorer(ctk.CTkScrollableFrame):
                 else:
                     new_path = f"{self.cwd}/{new_name}"
 
-                # only rename if "Ok" event and not "Cancel" event
-                if not new_name is None or new_name == "None":
+                # only rename if valid name was entered
+                if new_name is not None and new_name != "":
                     os.rename(path, new_path)
                     self.fill_tree(self.cwd, self.sys_files)
             else: # a directory
@@ -340,8 +340,8 @@ class FileExplorer(ctk.CTkScrollableFrame):
                 else:
                     new_path = f"{self.cwd}/{new_name}/"
 
-                # only rename if "Ok" event and not "Cancel" event
-                if not new_name is None or new_name == "None":
+                # only rename if valid name was entered
+                if new_name is not None and new_name != "":
                     os.rename(path, new_path)
                     self.fill_tree(self.cwd, self.sys_files)
 

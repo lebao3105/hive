@@ -17,7 +17,6 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-from webbrowser import open as open_link
 from os import listdir, mkdir
 from os.path import exists
 
@@ -74,10 +73,12 @@ def is_hidden(entity: str, path: str) -> bool:
     if entity.startswith("."): # many system files/dirs start with a "."
         return True
 
-    if path in SYSTEM_FILES: # if the file/dir is a known system file/dir
-        return True
+    for hidden_path in SYSTEM_FILES:
+        if path.startswith(hidden_path): # if the file/dir is a known system file/dir
+            return True
 
     return False
+
 def can_rename(entity: str, path: str) -> bool:
     """
     Checks if it is possible to rename a file or directory based on some conditions.
@@ -96,17 +97,3 @@ def can_rename(entity: str, path: str) -> bool:
         return False
 
     return True
-
-def open_contribute() -> None:
-    """
-    Opens a link to the official Github repository.
-    """
-
-    open_link("https://github.com/dishb/hive")
-
-def open_creator() -> None:
-    """
-    Opens a link to the creator on Github.
-    """
-
-    open_link("https://github.com/dishb")

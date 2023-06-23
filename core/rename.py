@@ -19,8 +19,6 @@
 
 import customtkinter as ctk
 
-from .config import *
-
 class RenamePopup(ctk.CTkInputDialog):
     def __init__(self, font: tuple) -> None:
         """
