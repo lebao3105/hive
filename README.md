@@ -31,7 +31,6 @@ By being open source, `hive` can establish a community of users that can help co
 ![image 2](./images/2.png)
 ![image 3](./images/3.png)
 ![image 4](./images/4.png)
-![image 5](https://user-images.githubusercontent.com/89534395/246685234-5da2da41-24ce-4728-b8ad-673a26eb4002.png)
 
 ## Themes:
 If you want to add your own themes to `hive`, just drop the `.json` file into the `~/.hive` folder!
