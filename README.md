@@ -30,15 +30,33 @@ By being open source, `hive` can establish a community of users that can help co
 You can find screenshots of `hive` in the `./images` folder or [here](https://github.com/dishb/hive/tree/20da48fb7e18305743c7e491de8ad361a919d252/images).
 
 ## Themes:
-If you want to add your own themes to `hive`, just drop the `.json` file into the `~/.hive` folder!
+If you want to add your own themes to `hive`, just drop the `.json` file into the `~/.hive/` folder!
 
 ## Download:
 You can find the most recent build in the [Releases section](https://github.com/dishb/hive/releases) of this repository. Each release contains details as well as a version number.
 
+## Run:
+If you want to run `hive` from source, follow the commands and instructions below:
+```bash
+# create a folder for the repo, clone it
+mkdir ./hive/
+git clone https://github.com/dishb/hive.git ./hive/
+cd ./hive/
+
+# create a virtual environment and activiate it
+python3 -m venv ./venv/
+source ./venv/bin/activate
+
+# upgrade pip and install dependencies
+pip3 install --upgrade pip
+pip3 install -r requirements.txt
+
+# run the main file
+python3 ./hive.py
+```
+
 ## Build:
 If you want to build `hive` from source yourself, follow the commands and instructions listed below.
-
-If you haven't already, install the latest version of Python from the [official website](https://python.org/downloads/).
 ```bash
 # create a folder for the repo, clone it
 mkdir ./hive/
@@ -85,6 +103,9 @@ To lint your code with `pylint`, run the following commands from the top-level d
 ```bash
 pylint $(git ls-files '*.py') --rcfile=.pylintrc
 ```
+
+## Files and Folders:
+If you're confused on what each file and/or directory in this repository is for, details can be found in `./FILES.md` or [here](./FILES.md).
 
 ## Security:
 If you find a security issue or vulnerability, please follow the instructions listed [here](./SECURITY.md) on in the `./SECURITY.md`  file.

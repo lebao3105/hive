@@ -16,7 +16,10 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -->
 
-# Contributor Covenant Code of Conduct
+<div align = 'center'>
+    <h1>Code of Conduct</h1>
+    This document details how members of the community should interact with each other.
+</div>
 
 ## Our Pledge
 
