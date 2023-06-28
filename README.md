@@ -27,10 +27,7 @@
 By being open source, `hive` can establish a community of users that can help contribute to the project through code, documentation, and more. The community can look at the internal workings of this tool and find potential issues. Suggestions can be made and development sped up. Open source allows this project to have a much higher chance of surviving and not dying out.
 
 ## Images:
-![image 1](./images/1.png)
-![image 2](./images/2.png)
-![image 3](./images/3.png)
-![image 4](./images/4.png)
+You can find screenshots of `hive` in the `./images` folder or [here](https://github.com/dishb/hive/tree/20da48fb7e18305743c7e491de8ad361a919d252/images).
 
 ## Themes:
 If you want to add your own themes to `hive`, just drop the `.json` file into the `~/.hive` folder!
