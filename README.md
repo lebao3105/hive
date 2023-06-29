@@ -35,8 +35,8 @@ If you want to add your own themes to `hive`, just drop the `.json` file into th
 ## Download:
 You can find the most recent build in the [Releases section](https://github.com/dishb/hive/releases) of this repository. Each release contains details as well as a version number.
 
-## Run:
-If you want to run `hive` from source, follow the commands and instructions below:
+## Getting started:
+To get started with `hive` whether it be developing, building, or just normal usage, you'll need to follow the commands and instructions below:
 ```bash
 # create a folder for the repo, clone it
 mkdir ./hive/
@@ -50,31 +50,20 @@ source ./venv/bin/activate
 # upgrade pip and install dependencies
 pip3 install --upgrade pip
 pip3 install -r requirements.txt
+```
 
-# run the main file
+## Run:
+If you want to run `hive` from source, first read the [Getting started](#getting-started) section, then run this command:
+```bash
 python3 ./hive.py
 ```
 
 ## Build:
-If you want to build `hive` from source yourself, follow the commands and instructions listed below.
+If you want to build `hive` from source yourself, first read the [Getting started](#getting-started) section, then run this command:
 ```bash
-# create a folder for the repo, clone it
-mkdir ./hive/
-git clone https://github.com/dishb/hive.git ./hive/
-cd ./hive/
-
-# create a virtual environment and activiate it
-python3 -m venv ./venv/
-source ./venv/bin/activate
-
-# upgrade pip and install dependencies
-pip3 install --upgrade pip
-pip3 install -r requirements.txt
-
-# run the build script
 python3 ./utility/build.py
 ```
-The build can be found in your `/Applications/` folder. It will be a macOS application with the name `hive.app`.
+The build will be found in the `./dist/` folder with the name `hive.app`.
 
 ## Contributing:
 First off, thank you for showing interest in contributing to this open-source project! As mentiomed in the `About` section, this project depends on contributors to keep it alive. To keep `hive` maintainable, we have a few requirements.
@@ -84,21 +73,8 @@ First off, thank you for showing interest in contributing to this open-source pr
 - Your tab size should be 4 spaces; not hard tabs
 - The file encoding should be UTF-8
 
-To get started with development, follow the commands listed below:
-```bash
-# create a folder for the repo, clone it
-mkdir ./hive/
-git clone https://github.com/dishb/hive.git ./hive/
-cd ./hive/
+To get started with development, read the [Getting started](#getting-started) section.
 
-# create a virtual environment and activiate it
-python3 -m venv ./venv/
-source ./venv/bin/activate
-
-# upgrade pip and install dependencies
-pip3 install --upgrade pip
-pip3 install -r requirements.txt
-```
 To lint your code with `pylint`, run the following commands from the top-level directory of the repository:
 ```bash
 pylint $(git ls-files '*.py') --rcfile=.pylintrc
