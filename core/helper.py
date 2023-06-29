@@ -63,6 +63,11 @@ def get_all_themes(path: str) -> list:
         themes.append(file)
 
     themes.sort()
+
+    # move the default theme to top of list
+    old_index = themes.index("Default")
+    themes.insert(0, themes.pop(old_index))
+
     return themes
 
 def is_hidden(entity: str, path: str) -> bool:
