@@ -29,8 +29,8 @@ By being open source, `hive` can establish a community of users that can help co
 ## Images:
 You can find screenshots of `hive` in the `./images` folder or [here](https://github.com/dishb/hive/tree/20da48fb7e18305743c7e491de8ad361a919d252/images).
 
-## Themes:
-If you want to add your own themes to `hive`, just drop the `.json` file into the `~/.hive/` folder!
+## Customization
+While `hive` already has many options for customizing the theme, you can still add your own themes and fonts! For themes, just drop the `.json` file into the `~/.hive/themes/` directory. For fonts, drop the `.ttf` file into the `~/.hive/fonts/` directory. In `hive`, you can select your new theme and font!
 
 ## Download:
 You can find the most recent build in the [Releases section](https://github.com/dishb/hive/releases) of this repository. Each release contains details as well as a version number.

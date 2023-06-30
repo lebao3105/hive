@@ -27,10 +27,15 @@ def create_dir() -> None:
     Creates a special directory for users to put their custom themes in.
     """
 
-    path = f"/Users/{USER}/.hive/"
+    base_path = f"/Users/{USER}/.hive/"
+    sub_dirs = ["",
+                "themes",
+                "fonts"
+                ]
 
-    if not exists(path):
-        mkdir(path)
+    for path in sub_dirs:
+        if not exists(base_path + path):
+            mkdir(base_path + path)
 
 def get_all_themes(path: str) -> list:
     """
