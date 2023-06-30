@@ -19,14 +19,14 @@
 
 import customtkinter as ctk
 
-class RenamePopup(ctk.CTkInputDialog):
+class GotoPopup(ctk.CTkInputDialog):
     def __init__(self, font: tuple) -> None: # pylint: disable=unused-argument
         """
-        A popup window for the user to rename a file or directory.
+        A window that allows users to view a specific path.
         """
 
         # widget setup
-        super().__init__(title = "rename",
-                         text = "Enter a new name (including the file extension):",
+        super().__init__(title = "go to",
+                         text = "View any path in the file explorer:",
                          # font = font
                          )

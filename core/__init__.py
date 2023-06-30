@@ -41,3 +41,5 @@ from .ui_scale import ScaleLabel
 from .ui_scale import ScaleMenu
 
 from .rename import RenamePopup
+
+from .goto import GotoPopup

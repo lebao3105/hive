@@ -20,7 +20,7 @@
 from json import dump, load
 from sys import exit as sys_exit
 from os import mkdir
-from os.path import exists
+from os.path import exists, isfile, expanduser
 
 import customtkinter as ctk
 from PIL import ImageTk, Image
@@ -43,6 +43,9 @@ class HiveApp(ctk.CTk):
         # font setup
         ctk.FontManager.load_font("./source/fonts/DM Mono.ttf")
         self.font = ("DM Mono", 13)
+
+        # empty widgets for later use
+        self.goto_popup = None
 
         # create a special dir for user-made themes
         create_dir()
@@ -183,6 +186,34 @@ class HiveApp(ctk.CTk):
 
         # save the current config
         self.after(100, self.save_recent)
+
+        # hotkeys and their functionality
+        self.bind("<Control-g>", self.goto)
+
+    def goto(self, event) -> None: # pylint: disable=unused-argument
+        """
+        Creates a popup allowing the user to view a path.
+        """
+
+        self.goto_popup = GotoPopup(self.font)
+
+        try:
+            path = self.goto_popup.get_input()
+            path = expanduser(path)
+
+            # only view the path in the explorer if the path is valid
+            if path is not None and path != "":
+                if isfile(path): # if the path is a file
+                    dir_path = dirname(path)
+                    self.cwd_var.set(dir_path)
+                else: # a directory
+                    self.cwd_var.set(path)
+
+        except PermissionError:
+            WarnBox(f"{SCRIPT_DIR}/source/misc/warning.png",
+                    "Error: This is a system\nfile or directory and cannot\nbe viewed.",
+                    self.font
+                    )
 
     def quit_app(self) -> None:
         """
