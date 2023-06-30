@@ -20,7 +20,7 @@
 import customtkinter as ctk
 
 class RenamePopup(ctk.CTkInputDialog):
-    def __init__(self, font: tuple) -> None:
+    def __init__(self, font: tuple) -> None: # pylint: disable=unused-argument
         """
         A popup window for the user to rename a file or directory.
         """
