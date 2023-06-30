@@ -28,5 +28,5 @@ class RenamePopup(ctk.CTkInputDialog):
         # wudget setup
         super().__init__(title = "rename",
                          text = "Enter a new name (including the file extension):",
-                         font = font
+                         # font = font
                          )
