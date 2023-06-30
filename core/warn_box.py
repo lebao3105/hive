@@ -17,7 +17,7 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-from .popup import *
+from .popup import Popup
 
 class WarnBox(Popup):
     def __init__(self, icon_path: str, message: str, font: tuple) -> None:

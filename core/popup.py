@@ -20,7 +20,7 @@
 import customtkinter as ctk
 from PIL import Image
 
-from .config import *
+from .config import PADX, PADY
 
 class Popup(ctk.CTkToplevel):
     def __init__(self, icon_path: str, message: str, font: tuple) -> None:
@@ -47,11 +47,19 @@ class Popup(ctk.CTkToplevel):
                                text = "",
                                width = self.icon.cget("size")[0]
                                )
-        button.grid(row = 0, column = 0, padx = PADX, pady = PADY)
+        button.grid(row = 0,
+                    column = 0,
+                    padx = PADX,
+                    pady = PADY
+                    )
 
         # create a text widget
         warning = PopupLabel(self, message, font)
-        warning.grid(row = 1, column = 0, padx = PADX, pady = PADY)
+        warning.grid(row = 1,
+                     column = 0,
+                     padx = PADX,
+                     pady = PADY
+                     )
 
 class PopupLabel(ctk.CTkLabel):
     def __init__(self, master: ctk.CTk, message: str, font: tuple) -> None:

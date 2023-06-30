@@ -20,7 +20,7 @@
 from os import listdir, mkdir
 from os.path import exists
 
-from .config import *
+from .config import USER, SYSTEM_FILES, NO_RENAME
 
 def create_dir() -> None:
     """

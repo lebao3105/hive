@@ -19,9 +19,9 @@
 
 import customtkinter as ctk
 
-from .config import *
-from .popup import *
-from .helper import *
+from .config import SCRIPT_DIR, THEME_PATH
+from .popup import Popup
+from .helper import get_all_themes
 
 class ThemeLabel(ctk.CTkLabel):
     def __init__(self, master: ctk.CTk, font: tuple) -> None:

@@ -20,7 +20,7 @@
 import customtkinter as ctk
 from PIL import ImageTk, Image
 
-from .config import *
+from .config import LIGHT_ICON_PATH, DARK_ICON_PATH
 
 class AppearanceLabel(ctk.CTkLabel):
     def __init__(self, master: ctk.CTk, font: tuple) -> None:

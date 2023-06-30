@@ -17,14 +17,27 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-from .appearance import *
 from .config import *
-from .file_explorer import *
 from .helper import *
-from .path_text import *
-from .sys_files import *
-from .theme import *
-from .warn_box import *
-from .popup import *
-from .ui_scale import *
-from .rename import *
+
+from .appearance import AppearanceLabel
+from .appearance import AppearanceMenu
+
+from .file_explorer import FileExplorer
+
+from .path_text import PathLabel
+
+from .sys_files import SysFilesLabel
+from .sys_files import SysFilesSwitch
+
+from .theme import ThemeLabel
+from .theme import ThemeMenu
+
+from .warn_box import WarnBox
+
+from .popup import Popup
+
+from .ui_scale import ScaleLabel
+from .ui_scale import ScaleMenu
+
+from .rename import RenamePopup
