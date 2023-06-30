@@ -29,6 +29,6 @@ Folders are also referred to as "directories".
 - `./source/`: Resources that `hive` uses. This includes icons, images, fonts, and themes (as `.json` files).
 - `./utility/`: Scripts for `hive`'s developers. This includes a Python script to build `hive` into a bundled application/
 - `./.gitignore`: Tells Git to not include specific files or directories when making commits.
-- `.pylintrc`: A file that configures `pylint` through available options. Some options include ignoring specific files.
+- `./.pylintrc`: A file that configures `pylint` through available options. Some options include ignoring specific files.
 - `./hive.py`: The main code/file. If you want to run `hive.py` from source, you'll want to run this file.
 - `./requirements.txt`: A list of all of `hive`'s dependencies.
