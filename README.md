@@ -71,19 +71,7 @@ python3 ./utility/build.py
 The build will be found in the `./dist/` folder with the name `hive.app`.
 
 ## Contributing:
-First off, thank you for showing interest in contributing to this open-source project! As mentiomed in the `About` section, this project depends on contributors to keep it alive. To keep `hive` maintainable, we have a few requirements.
-- Please make sure your code runs without issue on `pylint`.
-- When making commits, please follow this [style guide](https://github.com/dishb/commit-styles).
-- Please use v3.11.3 as the minimum version of Python.
-- Your tab size should be 4 spaces; not hard tabs
-- The file encoding should be UTF-8
-
-To get started with development, read the [Getting started](#getting-started) section.
-
-To lint your code with `pylint`, run the following commands from the top-level directory of the repository:
-```bash
-pylint $(git ls-files '*.py') --rcfile=.pylintrc
-```
+If you want to contribute, please read the cotributing guide [here](./CONTRIBUTING.md) or in the `./CONTRIBUTING.md` file.
 
 ## Files and Folders:
 If you're confused on what each file and/or directory in this repository is for, details can be found in `./FILES.md` or [here](./FILES.md).
