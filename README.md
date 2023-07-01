@@ -17,6 +17,11 @@
 -->
 
 <div align = 'center'>
+    <picture>
+        <source media = "(prefers-color-scheme: dark)" srcset = "./source/icons/light.png">
+        <source media = "(prefers-color-scheme: light)" srcset = "./source/icons/dark.png">
+        <img alt = "hive's icon" src = "./source/icons/light.png"
+    </picture>
     <h1>hive</h1>
     A whole new file explorer for macOS. Finder, but better.
 </div>
