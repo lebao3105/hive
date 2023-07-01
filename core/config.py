@@ -39,6 +39,9 @@ CONFIG_PATH = f"{SCRIPT_DIR}/config/settings.cfg"
 # path to the theme folder
 THEME_PATH = f"{SCRIPT_DIR}/source/themes"
 
+# path to the font folder
+FONT_PATH = f"{SCRIPT_DIR}/source/fonts"
+
 # the current user
 USER = environ["USER"]
 

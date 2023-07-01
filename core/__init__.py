@@ -43,3 +43,6 @@ from .ui_scale import ScaleMenu
 from .rename import RenamePopup
 
 from .goto import GotoPopup
+
+from .font import FontMenu
+from .font import FontLabel

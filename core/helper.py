@@ -22,6 +22,45 @@ from os.path import exists
 
 from .config import USER, SYSTEM_FILES, NO_RENAME
 
+def get_all_fonts(path: str) -> list:
+    """
+    Returns a list of all the fonts in the given path.
+    """
+
+    # local variables
+    files = listdir(path)
+    files += listdir(f"/Users/{USER}/.hive/fonts")
+    fonts = []
+
+    # get all the fonts (.ttf files)
+    for file in files:
+
+        # call methods on each string to get it ready for user
+        file = file.removesuffix(".ttf")
+        file = file.capitalize()
+
+        # removing underscores
+        if "_" in file:
+            file = file.replace("_", " ")
+            temp = file.split(" ")
+            file = ""
+            for index, item in enumerate(temp):
+                temp[index] = item.capitalize()
+                if not index == 0:
+                    file += " " + temp[index]
+                else:
+                    file += temp[index]
+
+        fonts.append(file)
+
+    fonts.sort()
+
+    # move the default theme to top of list
+    fonts.pop(fonts.index("Dm Mono"))
+    fonts.insert(0, "DM Mono")
+
+    return fonts
+
 def create_dir() -> None:
     """
     Creates a special directory for users to put their custom themes in.
@@ -44,7 +83,7 @@ def get_all_themes(path: str) -> list:
 
     # local variables
     files = listdir(path)
-    files += listdir(f"/Users/{USER}/.hive/")
+    files += listdir(f"/Users/{USER}/.hive/themes")
     themes = []
 
     # get all the themes (.json files)
@@ -54,6 +93,7 @@ def get_all_themes(path: str) -> list:
         file = file.removesuffix(".json")
         file = file.capitalize()
 
+        # removing underscores
         if "_" in file:
             file = file.replace("_", " ")
             temp = file.split(" ")

@@ -41,7 +41,7 @@ class HiveApp(ctk.CTk):
         self.resizable(True, True)
 
         # font setup
-        ctk.FontManager.load_font("./source/fonts/DM Mono.ttf")
+        ctk.FontManager.load_font(f"{FONT_PATH}DM Mono.ttf")
         self.font = ("DM Mono", 13)
 
         # empty widgets for later use
@@ -59,8 +59,10 @@ class HiveApp(ctk.CTk):
         self.grid_rowconfigure(5, weight = 0)
         self.grid_rowconfigure(6, weight = 0)
         self.grid_rowconfigure(7, weight = 0)
-        self.grid_rowconfigure(8, weight = 1)
+        self.grid_rowconfigure(8, weight = 0)
         self.grid_rowconfigure(9, weight = 0)
+        self.grid_rowconfigure(10, weight = 1)
+        self.grid_rowconfigure(11, weight = 0)
 
         # columns (layout)
         self.grid_columnconfigure(0, weight = 0)
@@ -148,13 +150,30 @@ class HiveApp(ctk.CTk):
                              )
         self.scale_menu.set(self.scale_percent)
 
+        # font widgets
+        self.font_label = FontLabel(self, self.font)
+        self.font_label.grid(row = 8,
+                             column = 0,
+                             padx = PADX,
+                             pady = PADY,
+                             sticky = "w"
+                             )
+
+        self.font_menu = FontMenu(self, self.font)
+        self.font_menu.grid(row = 9,
+                            column = 0,
+                            padx = PADX,
+                            pady = PADY,
+                            sticky = "w"
+                            )
+
         # path text (breadcrumbs) widgets
         self.path_text = PathLabel(self,
                                    self.cwd_var.get(),
                                    self.font
                                    )
 
-        self.path_text.grid(row = 9,
+        self.path_text.grid(row = 11,
                             column = 1,
                             padx = PADX,
                             pady = PADY,
@@ -172,7 +191,7 @@ class HiveApp(ctk.CTk):
                                           self.font
                                           )
         self.file_explorer.grid(row = 0,
-                                rowspan = 9,
+                                rowspan = 11,
                                 column = 1,
                                 columnspan = 1,
                                 padx = PADX,
