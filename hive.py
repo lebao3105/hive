@@ -166,6 +166,7 @@ class HiveApp(ctk.CTk):
                             pady = PADY,
                             sticky = "w"
                             )
+        self.font_menu.set(self.font_name)
 
         # path text (breadcrumbs) widgets
         self.path_text = PathLabel(self,
@@ -290,11 +291,18 @@ class HiveApp(ctk.CTk):
 
                 self.theme_name = settings["theme"]
                 if " " in self.theme_name:
-                    no_spaces = self.theme_name.replace(" ", "_")
+                    no_spaces_theme = self.theme_name.replace(" ", "_")
                 else:
-                    no_spaces = self.theme_name
+                    no_spaces_theme = self.theme_name
 
-                ctk.set_default_color_theme(f"{THEME_PATH}/{no_spaces.lower()}.json")
+                self.font_name = settings["font"]
+                if " " in self.font_name:
+                    no_spaces_font = self.font_name.replace(" ", "_")
+                else:
+                    no_spaces_font = self.font_name
+
+                ctk.set_default_color_theme(f"{THEME_PATH}/{no_spaces_theme.lower()}.json")
+                ctk.FontManager.load_font(f"{FONT_PATH}/{no_spaces_font.lower()}.ttf")
 
                 size = (settings["width"], settings["height"])
                 self.geometry(f"{size[0]}x{size[1]}")
@@ -304,8 +312,10 @@ class HiveApp(ctk.CTk):
         else:
             ctk.set_appearance_mode("system")
             ctk.set_default_color_theme(f"{THEME_PATH}/default.json")
+            ctk.FontManager.load_font(f"{FONT_PATH}/dm_mono.ttf")
 
             self.theme_name = "Default"
+            self.font_name =  "DM Mono"
             self.scale_percent = "100%"
 
         if ctk.get_appearance_mode().lower() == "light":
@@ -331,7 +341,8 @@ class HiveApp(ctk.CTk):
                         "theme": self.theme_menu.get(),
                         "ui_scale": self.scale_menu.get(),
                         "width": self.winfo_width(),
-                        "height": self.winfo_height()
+                        "height": self.winfo_height(),
+                        "font": self.font_menu.get()
                         }
 
             dump(settings, config_file)
