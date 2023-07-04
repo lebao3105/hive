@@ -44,8 +44,7 @@ You can find the most recent build in the [Releases section](https://github.com/
 To get started with `hive` whether it be developing, building, or just normal usage, you'll need to follow the commands and instructions below:
 ```bash
 # create a folder for the repo, clone it
-mkdir ./hive/
-git clone https://github.com/dishb/hive.git ./hive/
+git clone https://github.com/dishb/hive
 cd ./hive/
 
 # create a virtual environment and activiate it
