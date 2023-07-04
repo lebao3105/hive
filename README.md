@@ -83,3 +83,12 @@ To keep this repository friendly and open to everyone, please ensure that you fo
 
 ## License:
 This project is licensed under the `GNU General Public License v3` license. A copy of the license can be found in [here](./LICENSE.md) or in the `./LICENSE.md` file. All the source code files have a license header at the top.
+
+## Credits:
+`hive` and its development would not have been possible without these open-source projects:
+- [Python](https://github.com/python/cpython/) (yes, the language!)
+- [customtkinter](https://github.com/TomSchimansky/CustomTkinter)
+- [Pillow](https://github.com/python-pillow/Pillow)
+- [CTkXYFrame](https://github.com/Akascape/CTkXYFrame)
+- [pyinstaller](https://github.com/pyinstaller/pyinstaller/)
+- [pylint](https://github.com/pylint-dev/pylint)
