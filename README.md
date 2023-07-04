@@ -70,7 +70,7 @@ python3 ./utility/build.py
 The build will be found in the `./dist/` folder with the name `hive.app`.
 
 ## Contributing:
-If you want to contribute, please read the cotributing guide [here](./CONTRIBUTING.md) or in the `./CONTRIBUTING.md` file.
+If you want to contribute, please read the contributing guide [here](./CONTRIBUTING.md) or in the `./CONTRIBUTING.md` file.
 
 ## Files and Folders:
 If you're confused on what each file and/or directory in this repository is for, details can be found in `./FILES.md` or [here](./FILES.md).
