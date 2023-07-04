@@ -263,7 +263,7 @@ class HiveApp(ctk.CTk):
                                    font = self.font
                                    )
 
-        self.path_text.grid(row = 9,
+        self.path_text.grid(row = 11,
                             column = 1,
                             padx = PADX,
                             pady = PADY,
