@@ -27,8 +27,9 @@ from .config import PADX, PADY, SCRIPT_DIR
 from .helper import can_rename, is_hidden
 from .warn_box import WarnBox
 from .rename import RenamePopup
+from .extensions import CTkXYFrame
 
-class FileExplorer(ctk.CTkScrollableFrame):
+class FileExplorer(CTkXYFrame):
     def __init__(self,
                  master: ctk.CTk,
                  cwd: str,

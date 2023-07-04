@@ -39,6 +39,7 @@ class HiveApp(ctk.CTk):
         self.title("hive")
         self.geometry(f"{WIDTH}x{HEIGHT}")
         self.resizable(True, True)
+        self.minsize(200, 200)
 
         # font setup
         ctk.FontManager.load_font(f"{FONT_PATH}DM Mono.ttf")

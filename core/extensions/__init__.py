@@ -1,6 +1,6 @@
 #
 #    A whole new file explorer for macOS. Finder, but better.
-#    Copyright (C) 2023  Dishant B. (@dishb) <code.dishb@gmail.com> and 
+#    Copyright (C) 2023  Dishant B. (@dishb) <code.dishb@gmail.com> and
 #    contributors.
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -17,19 +17,4 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-[MAIN]
-
-ignore-paths=core/extensions
-
-[MESSAGES CONTROL]
-
-disable=missing-module-docstring,
-        unused-wildcard-import,
-        wildcard-import,
-        missing-class-docstring,
-        too-many-ancestors,
-        too-few-public-methods,
-        too-many-branches,
-        too-many-instance-attributes,
-        too-many-statements,
-        too-many-arguments
+from .ctk_xyframe import CTkXYFrame
