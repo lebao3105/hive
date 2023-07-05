@@ -13,10 +13,10 @@ jobs:
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         issue-message: |
-                       Hi! Welcome to `hive`!
+                       Welcome to `hive`!
                        If this is a security issue or vulnerability, please email me at code.dishb@gmail.com and close this issue.
                        Thank you for contributing!
         pr-message: |
-                    Hi! Welcome to `hive`!
-                    Please remember to read the CONTRIBUTING.md file.
+                    Welcome to `hive`!
+                    Please remember to read the CONTRIBUTING.md file and follow the commit style guide from dishb/commit-styles.
                     Thank you for contributing!
