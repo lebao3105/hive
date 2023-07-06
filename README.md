@@ -31,6 +31,9 @@
 
 By being open source, `hive` can establish a community of users that can help contribute to the project through code, documentation, and more. The community can look at the internal workings of this tool and find potential issues. Suggestions can be made and development sped up. Open source allows this project to have a much higher chance of surviving and not dying out.
 
+## Website:
+The offcial website for `hive` can be found [here](https://dishb.github.io/hive).
+
 ## Images:
 You can find screenshots of `hive` in the `./images` folder or [here](https://github.com/dishb/hive/tree/20da48fb7e18305743c7e491de8ad361a919d252/images).
 
