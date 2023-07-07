@@ -63,11 +63,12 @@ class FontMenu(ctk.CTkOptionMenu):
               self.font
               )
 
-        self.master.font = (new_font, 13)
+        if new_font != self.get():
+            self.master.font = (new_font, 13)
 
-        if " " in new_font:
-            new_font = new_font.replace(" ", "_")
+            if " " in new_font:
+                new_font = new_font.replace(" ", "_")
 
-        ctk.FontManager.load_font(f"{FONT_PATH}/{new_font.lower()}")
+            ctk.FontManager.load_font(f"{FONT_PATH}/{new_font.lower()}")
 
-        self.master.save_recent()
+            self.master.save_recent()

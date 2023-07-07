@@ -58,14 +58,15 @@ class ThemeMenu(ctk.CTkOptionMenu):
         Changes the theme of the app.
         """
 
-        Popup(f"{SCRIPT_DIR}/source/misc/popup.png",
-              "Popup: Please restart\nfor changes to the\ntheme to take effect.",
-              self.font
-              )
+        if new_theme != self.get():
+            Popup(f"{SCRIPT_DIR}/source/misc/popup.png",
+                "Popup: Please restart\nfor changes to the\ntheme to take effect.",
+                self.font
+                )
 
-        if " " in new_theme:
-            new_theme = new_theme.replace(" ", "_")
+            if " " in new_theme:
+                new_theme = new_theme.replace(" ", "_")
 
-        ctk.set_default_color_theme(f"{THEME_PATH}/{new_theme.lower()}.json")
+            ctk.set_default_color_theme(f"{THEME_PATH}/{new_theme.lower()}.json")
 
-        self.master.save_recent()
+            self.master.save_recent()
