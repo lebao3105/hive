@@ -220,10 +220,10 @@ class HiveApp(ctk.CTk):
 
         try:
             path = self.goto_popup.get_input()
-            path = expanduser(path)
 
             # only view the path in the explorer if the path is valid
             if path is not None and path != "":
+                path = expanduser(path)
                 if isfile(path): # if the path is a file
                     dir_path = dirname(path)
                     self.cwd_var.set(dir_path)
