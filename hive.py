@@ -224,11 +224,17 @@ class HiveApp(ctk.CTk):
             # only view the path in the explorer if the path is valid
             if path is not None and path != "":
                 path = expanduser(path)
-                if isfile(path): # if the path is a file
-                    dir_path = dirname(path)
-                    self.cwd_var.set(dir_path)
-                else: # a directory
-                    self.cwd_var.set(path)
+                if not exists(path):
+                    WarnBox(f"{SCRIPT_DIR}/source/misc/warning.png",
+                            "Error: This is file or\ndirectory does not\nexist.",
+                            self.font
+                            )
+                else:
+                    if isfile(path): # if the path is a file
+                        dir_path = dirname(path)
+                        self.cwd_var.set(dir_path)
+                    else: # a directory
+                        self.cwd_var.set(path)
 
         except PermissionError:
             WarnBox(f"{SCRIPT_DIR}/source/misc/warning.png",
