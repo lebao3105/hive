@@ -47,6 +47,7 @@ class HiveApp(ctk.CTk):
 
         # empty widgets for later use
         self.goto_popup = None
+        self.info_popup = None
 
         # create a special dir for user-made themes
         create_dir()
@@ -210,6 +211,14 @@ class HiveApp(ctk.CTk):
 
         # hotkeys and their functionality
         self.bind("<Control-g>", self.goto)
+        self.bind("<space>", self.info)
+
+    def info(self, event) -> None: # pylint: disable=unused-argument
+        """
+        Creates a window displaying infomation about a directory.
+        """
+
+        self.info_popup = InfoPopup(self.font, self.cwd_var.get())
 
     def goto(self, event) -> None: # pylint: disable=unused-argument
         """

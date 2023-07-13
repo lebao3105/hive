@@ -47,3 +47,5 @@ from .goto import GotoPopup
 
 from .font import FontMenu
 from .font import FontLabel
+
+from .info import InfoPopup
