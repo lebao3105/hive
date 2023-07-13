@@ -20,9 +20,7 @@
 from os import remove
 from shutil import rmtree
 from subprocess import run
-from platform import system
 from pathlib import Path
-from sys import exit as sys_exit
 
 from PyInstaller.__main__ import run as pkg
 
