@@ -29,14 +29,8 @@ from PyInstaller.__main__ import run as pkg
 # location of the repository
 REPO_LOC = Path("./").absolute()
 
-# find out whether user uses pip or pip3
-if system().lower() == "darwin" or system().lower() == "linux":
-    PIP_CMD = "pip3"
-elif system().lower() == "windows":
-    PIP_CMD = "pip"
-else:
-    print("OS not supported. Please make sure you are on macOS, Windows, or Linux.")
-    sys_exit(1)
+# pip
+PIP_CMD = "pip3"
 
 # find where customtkinter is located
 output = run([PIP_CMD, "show", "customtkinter"], check = True, capture_output = True).stdout
