@@ -105,8 +105,16 @@ class SizeLabel(ctk.CTkLabel):
         """
 
         total_size = check_output(['du','-shx', path]).split()[0].decode('utf-8')
-
         total_size = str(total_size)
+
+        # make it human readable
+        if "K" in total_size:
+            total_size = total_size.replace("K", "") + " kilo"
+        elif "M" in total_size:
+            total_size = total_size.replace("M", "") + " mega"
+        elif "G" in total_size:
+            total_size = total_size.replace("G", "") + " giga"
+
         self.configure(require_redraw = True,
-                       text = self.cget("text") + total_size + " bytes"
+                       text = self.cget("text") + total_size + "bytes"
                        )
