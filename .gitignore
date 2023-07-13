@@ -21,3 +21,4 @@
 *__pycache__
 /config/
 /venv/
+/dist/
