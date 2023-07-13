@@ -49,3 +49,5 @@ from .font import FontMenu
 from .font import FontLabel
 
 from .info import InfoPopup
+
+from .trash import TrashButton

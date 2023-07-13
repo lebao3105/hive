@@ -170,6 +170,21 @@ class HiveApp(ctk.CTk):
                             )
         self.font_menu.set(self.font_name)
 
+        # attribute setup
+        self.trash_icon_path = f"{SCRIPT_DIR}/source/misc/"
+
+        # trash button widgets
+        self.trash = TrashButton(self,
+                                 self.trash_icon_path,
+                                 self.font
+                                 )
+        self.trash.grid(row = 11,
+                        column = 0,
+                        padx = PADX,
+                        pady = PADY,
+                        sticky = "sw"
+                        )
+
         # path text (breadcrumbs) widgets
         self.path_text = PathLabel(self,
                                    self.cwd_var.get(),
