@@ -18,6 +18,7 @@
 #
 
 import os
+from subprocess import check_output
 
 import customtkinter as ctk
 
@@ -55,13 +56,13 @@ class InfoPopup(ctk.CTkToplevel):
                            )
 
         # size label widget
-        # self.size = SizeLabel(self, self.cwd, self.font)
-        # self.size.grid(row = 1,
-        #                column = 0,
-        #                padx = PADX,
-        #                pady = PADY,
-        #                sticky = "w"
-        #                )
+        self.size = SizeLabel(self, self.cwd, self.font)
+        self.size.grid(row = 1,
+                       column = 0,
+                       padx = PADX,
+                       pady = PADY,
+                       sticky = "w"
+                       )
 
 class GitLabel(ctk.CTkLabel):
     def __init__(self, master: ctk.CTkToplevel, cwd: str, font: tuple) -> None:
@@ -103,15 +104,7 @@ class SizeLabel(ctk.CTkLabel):
         Gets the size of a directory in bytes.
         """
 
-        total_size = 0
-
-        for dir_path, _, filenames in os.walk(path):
-            for file in filenames:
-                file_path = os.path.join(dir_path, file)
-
-                # skip if it is symbolic link
-                if not os.path.islink(file_path):
-                    total_size += os.path.getsize(file_path)
+        total_size = check_output(['du','-shx', path]).split()[0].decode('utf-8')
 
         total_size = str(total_size)
         self.configure(require_redraw = True,
