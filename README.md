@@ -31,8 +31,8 @@
 
 By being open source, `hive` can establish a community of users that can help contribute to the project through code, documentation, and more. The community can look at the internal workings of this tool and find potential issues. Suggestions can be made and development sped up. Open source allows this project to have a much higher chance of surviving and not dying out.
 
-## Website:
-The offcial website for `hive` can be found [here](https://dishb.github.io/hive).
+## Platforms:
+As stated, `hive` is a file explorer for macOS. This means Windows users won't be able to use `hive`. Linux users may be able to use `hive` but they are not an intended audience and there are no guarantees it will work. For Windows users, I would recommend [`Files`](https://github.com/files-community/Files) as an alternative. `Files` is another open-source file explorer but only for Windows.
 
 ## Images:
 You can find screenshots of `hive` in the `./images` folder or [here](https://github.com/dishb/hive/tree/20da48fb7e18305743c7e491de8ad361a919d252/images).
