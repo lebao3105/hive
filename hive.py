@@ -41,10 +41,6 @@ class HiveApp(ctk.CTk):
         self.resizable(True, True)
         self.minsize(200, 200)
 
-        # font setup
-        ctk.FontManager.load_font(f"{FONT_PATH}DM Mono.ttf")
-        self.font = ("DM Mono", 13)
-
         # empty widgets for later use
         self.goto_popup = None
         self.info_popup = None
@@ -334,6 +330,7 @@ class HiveApp(ctk.CTk):
 
                 ctk.set_default_color_theme(f"{THEME_PATH}/{no_spaces_theme.lower()}.json")
                 ctk.FontManager.load_font(f"{FONT_PATH}/{no_spaces_font.lower()}.ttf")
+                self.font = (self.font_name, 13)
 
                 size = (settings["width"], settings["height"])
                 self.geometry(f"{size[0]}x{size[1]}")
@@ -344,9 +341,10 @@ class HiveApp(ctk.CTk):
             ctk.set_appearance_mode("system")
             ctk.set_default_color_theme(f"{THEME_PATH}/default.json")
             ctk.FontManager.load_font(f"{FONT_PATH}/dm_mono.ttf")
+            self.font = ("Dm Mono", 13)
 
             self.theme_name = "Default"
-            self.font_name =  "DM Mono"
+            self.font_name =  "Dm Mono"
             self.scale_percent = "100%"
 
         if ctk.get_appearance_mode().lower() == "light":

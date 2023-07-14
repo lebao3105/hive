@@ -42,22 +42,23 @@ def get_all_fonts(path: str) -> list:
         # removing underscores
         if "_" in file:
             file = file.replace("_", " ")
-            temp = file.split(" ")
-            file = ""
-            for index, item in enumerate(temp):
-                temp[index] = item.capitalize()
-                if not index == 0:
-                    file += " " + temp[index]
-                else:
-                    file += temp[index]
+            file = file.title()
+            # temp = file.split(" ")
+            # file = ""
+            # for index, item in enumerate(temp):
+            #     temp[index] = item.capitalize()
+            #     if not index == 0:
+            #         file += " " + temp[index]
+            #     else:
+            #         file += temp[index]
 
         fonts.append(file)
 
     fonts.sort()
 
     # move the default theme to top of list
-    fonts.pop(fonts.index("Dm Mono"))
-    fonts.insert(0, "DM Mono")
+    old_index = fonts.index("Dm Mono")
+    fonts.insert(0, fonts.pop(old_index))
 
     return fonts
 
@@ -96,14 +97,15 @@ def get_all_themes(path: str) -> list:
         # removing underscores
         if "_" in file:
             file = file.replace("_", " ")
-            temp = file.split(" ")
-            file = ""
-            for index, item in enumerate(temp):
-                temp[index] = item.capitalize()
-                if not index == 0:
-                    file += " " + temp[index]
-                else:
-                    file += temp[index]
+            file = file.title()
+            # temp = file.split(" ")
+            # file = ""
+            # for index, item in enumerate(temp):
+            #     temp[index] = item.capitalize()
+            #     if not index == 0:
+            #         file += " " + temp[index]
+            #     else:
+            #         file += temp[index]
 
         themes.append(file)
 
