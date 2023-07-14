@@ -20,7 +20,7 @@
 import customtkinter as ctk
 from PIL import Image
 
-from .config import USER
+from .const import USER
 
 class TrashButton(ctk.CTkButton):
     def __init__(self, master: ctk.CTk, icon_path: str, font: tuple) -> None:

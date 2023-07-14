@@ -20,7 +20,7 @@
 from os import listdir, mkdir
 from os.path import exists
 
-from .config import USER, SYSTEM_FILES, NO_RENAME
+from .const import USER, SYSTEM_FILES, NO_RENAME
 
 def get_all_fonts(path: str) -> list:
     """

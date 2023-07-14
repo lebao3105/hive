@@ -23,7 +23,7 @@ from subprocess import run
 import customtkinter as ctk
 from PIL import Image
 
-from .config import PADX, PADY, SCRIPT_DIR
+from .const import PADX, PADY, SCRIPT_DIR
 from .helper import can_rename, is_hidden
 from .warn_box import WarnBox
 from .rename import RenamePopup

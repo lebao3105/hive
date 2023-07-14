@@ -61,6 +61,7 @@ class HiveApp(ctk.CTk):
         self.grid_rowconfigure(9, weight = 0)
         self.grid_rowconfigure(10, weight = 1)
         self.grid_rowconfigure(11, weight = 0)
+        self.grid_rowconfigure(12, weight = 0)
 
         # columns (layout)
         self.grid_columnconfigure(0, weight = 0)
@@ -193,6 +194,20 @@ class HiveApp(ctk.CTk):
                             pady = PADY,
                             sticky = "sw"
                             )
+
+        # filler widgets
+        self.filler = ctk.CTkButton(self,
+                                    text = "",
+                                    state = ctk.DISABLED,
+                                    fg_color = "transparent",
+                                    height = 5
+                                    )
+        self.filler.grid(row = 12,
+                         column = 0,
+                         padx = PADX,
+                         pady = PADY,
+                         sticky = "w"
+                         )
 
         # attribute setup
         self.file_icon_path = f"{SCRIPT_DIR}/source/file_icons/"

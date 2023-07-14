@@ -20,7 +20,7 @@
 import customtkinter as ctk
 from PIL import Image
 
-from .config import PADX, PADY
+from .const import PADX, PADY
 
 class Popup(ctk.CTkToplevel):
     def __init__(self, icon_path: str, message: str, font: tuple) -> None:

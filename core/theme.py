@@ -19,7 +19,7 @@
 
 import customtkinter as ctk
 
-from .config import SCRIPT_DIR, THEME_PATH
+from .const import SCRIPT_DIR, THEME_PATH
 from .popup import Popup
 from .helper import get_all_themes
 

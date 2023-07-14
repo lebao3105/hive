@@ -22,7 +22,7 @@ from subprocess import check_output
 
 import customtkinter as ctk
 
-from .config import PADX, PADY
+from .const import PADX, PADY
 
 class InfoPopup(ctk.CTkToplevel):
     def __init__(self, font: tuple, cwd: str) -> None:

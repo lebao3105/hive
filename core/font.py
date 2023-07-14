@@ -21,7 +21,7 @@ import customtkinter as ctk
 
 from .popup import Popup
 from .helper import get_all_fonts
-from .config import SCRIPT_DIR, FONT_PATH
+from .const import SCRIPT_DIR, FONT_PATH
 
 class FontLabel(ctk.CTkLabel):
     def __init__(self, master: ctk.CTk, font: tuple) -> None:
