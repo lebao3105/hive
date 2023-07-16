@@ -35,24 +35,25 @@ def get_all_fonts(path: str) -> list:
     # get all the fonts (.ttf files)
     for file in files:
 
-        # call methods on each string to get it ready for user
-        file = file.removesuffix(".ttf")
-        file = file.capitalize()
+        if not file == ".DS_Store":
+            # call methods on each string to get it ready for user
+            file = file.removesuffix(".ttf")
+            file = file.capitalize()
 
-        # removing underscores
-        if "_" in file:
-            file = file.replace("_", " ")
-            file = file.title()
-            # temp = file.split(" ")
-            # file = ""
-            # for index, item in enumerate(temp):
-            #     temp[index] = item.capitalize()
-            #     if not index == 0:
-            #         file += " " + temp[index]
-            #     else:
-            #         file += temp[index]
+            # removing underscores
+            if "_" in file:
+                file = file.replace("_", " ")
+                file = file.title()
+                # temp = file.split(" ")
+                # file = ""
+                # for index, item in enumerate(temp):
+                #     temp[index] = item.capitalize()
+                #     if not index == 0:
+                #         file += " " + temp[index]
+                #     else:
+                #         file += temp[index]
 
-        fonts.append(file)
+            fonts.append(file)
 
     fonts.sort()
 
@@ -90,24 +91,25 @@ def get_all_themes(path: str) -> list:
     # get all the themes (.json files)
     for file in files:
 
-        # call methods on each string to get it ready for user
-        file = file.removesuffix(".json")
-        file = file.capitalize()
+        if not file == ".DS_Store":
+            # call methods on each string to get it ready for user
+            file = file.removesuffix(".json")
+            file = file.capitalize()
 
-        # removing underscores
-        if "_" in file:
-            file = file.replace("_", " ")
-            file = file.title()
-            # temp = file.split(" ")
-            # file = ""
-            # for index, item in enumerate(temp):
-            #     temp[index] = item.capitalize()
-            #     if not index == 0:
-            #         file += " " + temp[index]
-            #     else:
-            #         file += temp[index]
+            # removing underscores
+            if "_" in file:
+                file = file.replace("_", " ")
+                file = file.title()
+                # temp = file.split(" ")
+                # file = ""
+                # for index, item in enumerate(temp):
+                #     temp[index] = item.capitalize()
+                #     if not index == 0:
+                #         file += " " + temp[index]
+                #     else:
+                #         file += temp[index]
 
-        themes.append(file)
+            themes.append(file)
 
     themes.sort()
 

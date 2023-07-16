@@ -45,7 +45,7 @@ class HiveApp(ctk.CTk):
         self.goto_popup = None
         self.info_popup = None
 
-        # create a special dir for user-made themes
+        # create a special dir for user-made themes/fonts
         create_dir()
 
         # rows (layout)
@@ -353,11 +353,13 @@ class HiveApp(ctk.CTk):
                 config_file.close()
 
         else:
+            # default configurations
             ctk.set_appearance_mode("system")
             ctk.set_default_color_theme(f"{THEME_PATH}/default.json")
             ctk.FontManager.load_font(f"{FONT_PATH}/dm_mono.ttf")
             self.font = ("Dm Mono", 13)
 
+            # default values
             self.theme_name = "Default"
             self.font_name =  "Dm Mono"
             self.scale_percent = "100%"
