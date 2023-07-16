@@ -123,111 +123,37 @@ class FileExplorer(CTkXYFrame):
                             self.up_one_dir(event)
                         )
 
-        # if we don't want to see system files; 0 = False
-        if self.sys_files == 0:
-            for entity in entities:
-                # create a path to the file/directory
-                if self.cwd.endswith("/"):
-                    entity_path = f"{self.cwd}{entity}"
-                else:
-                    entity_path = f"{self.cwd}/{entity}"
+        for entity in entities:
+            # create a path to the file/directory
+            if self.cwd.endswith("/"):
+                entity_path = f"{self.cwd}{entity}"
+            else:
+                entity_path = f"{self.cwd}/{entity}"
 
-                # is the file a hidden system file
-                if is_hidden(entity, entity_path):
-                    pass
+            # is the file a hidden system file
+            if is_hidden(entity, entity_path) and self.sys_files == 0:
+                pass
 
-                # is the file a normal, user visible file?
-                else:
-                    label = ctk.CTkLabel(master = self,
-                                         text = entity,
-                                         font = self.font
-                                         )
-                    label.grid(row = entities.index(entity) + 1,
-                               column = 1,
-                               padx = PADX,
-                               pady = PADY,
-                               sticky = "w"
-                               )
-                    label.bind("<Double-Button-1>",
-                               lambda event, text = label.cget("text"):
-                                   self.open_entity(event, text)
-                               )
-                    label.bind("<Button-2>",
-                               lambda event, text = label.cget("text"):
-                                   self.rename_entity(event, text)
-                               )
-
-                    if os.path.isfile(entity_path):
-                        if self.icon_path.endswith("/"):
-                            icon = ctk.CTkImage(light_image =
-                                                Image.open(f"{self.icon_path}file.png")
-                                                )
-                        else:
-                            icon = ctk.CTkImage(light_image =
-                                                Image.open(f"{self.icon_path}/file.png")
-                                                )
-                    else:
-                        if self.icon_path.endswith("/"):
-                            icon = ctk.CTkImage(light_image =
-                                                Image.open(f"{self.icon_path}folder.png")
-                                                )
-                        else:
-                            icon = ctk.CTkImage(light_image =
-                                                Image.open(f"{self.icon_path}/folder.png")
-                                                )
-                    button = ctk.CTkButton(master = self,
-                                           image = icon,
-                                           text = "",
-                                           width = icon.cget("size")[0]
-                                           )
-                    button.grid(row = entities.index(entity) + 1,
-                                column = 0,
-                                padx = PADX,
-                                pady = PADY,
-                                sticky = "w"
-                                )
-                    button.bind("<Double-Button-1>",
-                                lambda event, text = label.cget("text"):
-                                    self.open_entity(event, text)
-                                )
-                    button.bind("<Button-2>",
-                                lambda event, text = label.cget("text"):
-                                    self.rename_entity(event, text)
-                                )
-
-        # if we want to see system files; 1 = True
-        elif self.sys_files == 1:
-            for entity in entities:
-                if self.cwd.endswith("/"):
-                    entity_path = f"{self.cwd}{entity}"
-                else:
-                    entity_path = f"{self.cwd}/{entity}"
-
-            for entity in entities:
-                # create a path to the file/directory
-                if self.cwd.endswith("/"):
-                    entity_path = f"{self.cwd}{entity}"
-                else:
-                    entity_path = f"{self.cwd}/{entity}"
-
+            # is the file a normal, user visible file?
+            else:
                 label = ctk.CTkLabel(master = self,
-                                     text = entity,
-                                     font = self.font
-                                     )
+                                        text = entity,
+                                        font = self.font
+                                        )
                 label.grid(row = entities.index(entity) + 1,
-                           column = 1,
-                           padx = PADX,
-                           pady = PADY,
-                           sticky = "w"
-                           )
+                            column = 1,
+                            padx = PADX,
+                            pady = PADY,
+                            sticky = "w"
+                            )
                 label.bind("<Double-Button-1>",
-                           lambda event, text = label.cget("text"):
-                               self.open_entity(event, text)
-                           )
+                            lambda event, text = label.cget("text"):
+                                self.open_entity(event, text)
+                            )
                 label.bind("<Button-2>",
-                           lambda event, text = label.cget("text"):
-                               self.rename_entity(event, text)
-                           )
+                            lambda event, text = label.cget("text"):
+                                self.rename_entity(event, text)
+                            )
 
                 if os.path.isfile(entity_path):
                     if self.icon_path.endswith("/"):
@@ -248,10 +174,10 @@ class FileExplorer(CTkXYFrame):
                                             Image.open(f"{self.icon_path}/folder.png")
                                             )
                 button = ctk.CTkButton(master = self,
-                                       image = icon,
-                                       text = "",
-                                       width = icon.cget("size")[0]
-                                       )
+                                        image = icon,
+                                        text = "",
+                                        width = icon.cget("size")[0]
+                                        )
                 button.grid(row = entities.index(entity) + 1,
                             column = 0,
                             padx = PADX,
