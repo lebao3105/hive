@@ -138,14 +138,11 @@ def can_rename(entity: str, path: str) -> bool:
     Checks if it is possible to rename a file or directory based on some conditions.
     """
 
-    if path in NO_RENAME: # if the file/dir is in our list of no-nos
-        return False
-
-    if path.startswith("/Library/"): # if the file/dir is in the Library dir
-        return False
-
-    if path.startswith("/System/"): # if the file/dir is in the System dir
-        return False
+    for path_ in NO_RENAME:
+        # not recommended yet, especially for manually-granted-access files.
+        # using os.access is not a good idea (it doesn't work),
+        # so we will need a better solutions.
+        if path.startswith(path_): return False
 
     if is_hidden(entity, path): # if the file/dir is a system file/dir
         return False

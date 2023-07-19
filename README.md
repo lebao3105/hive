@@ -32,13 +32,13 @@
 By being open source, `hive` can establish a community of users that can help contribute to the project through code, documentation, and more. The community can look at the internal workings of this tool and find potential issues. Suggestions can be made and development sped up. Open source allows this project to have a much higher chance of surviving and not dying out.
 
 ## Platforms:
-As stated, `hive` is a file explorer for macOS. This means Windows users won't be able to use `hive`. Linux users may be able to use `hive` but they are not an intended audience and there are no guarantees it will work. For Windows users, I would recommend [`Files`](https://github.com/files-community/Files) as an alternative. `Files` is another open-source file explorer but only for Windows.
+As stated, `hive` is a file explorer for macOS. But this not means non-macOS users can't use it. A work for this is underway, and should be completed one day.
 
 ## Images:
-You can find screenshots of `hive` in the `./images` folder or [here](https://github.com/dishb/hive/tree/20da48fb7e18305743c7e491de8ad361a919d252/images).
+You can find screenshots of `hive` in the [```./images```](./images/) folder.
 
 ## Customization
-While `hive` already has many options for customizing the theme, you can still add your own themes and fonts! For themes, just drop the `.json` file into the `~/.hive/themes/` directory. For fonts, drop the `.ttf` file into the `~/.hive/fonts/` directory. In `hive`, you can select your new theme and font!
+While `hive` already has many options for customizing the theme, you can still add your own themes and fonts! For themes, look for pre-made [themes](./source/themes/), make your own one, and drop the `.json` file into the `~/.hive/themes/` directory. For fonts, drop the `.ttf` file into the `~/.hive/fonts/` directory. In `hive`, you can select your new theme and font!
 
 ## Download:
 You can find the most recent build in the [Releases section](https://github.com/dishb/hive/releases) of this repository. Each release contains details as well as a version number.
@@ -51,12 +51,13 @@ git clone https://github.com/dishb/hive
 cd ./hive/
 
 # create a virtual environment and activiate it
+# you can skip it
 python3 -m venv ./venv/
 source ./venv/bin/activate
 
 # upgrade pip and install dependencies
 pip3 install --upgrade pip
-pip3 install -r requirements.txt
+pip3 install -r customtkinter
 ```
 
 ## Run:
@@ -68,9 +69,10 @@ python3 ./hive.py
 ## Build:
 If you want to build `hive` from source yourself, first read the [Getting started](#getting-started) section, then run this command:
 ```bash
-python3 ./utility/build.py
+python3 ./utility/build.py build
+python3 ./utility/build.py clean
 ```
-The build will be found in the `./dist/` folder with the name `hive.app`.
+The build will be found in the `./dist/` folder. Find and launch the executable.
 
 ## Contributing:
 If you want to contribute, please read the contributing guide [here](./CONTRIBUTING.md) or in the `./CONTRIBUTING.md` file.

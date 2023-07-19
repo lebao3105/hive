@@ -23,7 +23,7 @@
 
 ## Folders:
 Folders are also referred to as "directories".
-- `./github/`: Where the Github workflow files are stored.
+- `./.github/`: Where the Github workflow files are stored.
 - `./core/`: All the widgets and classes that `hive` uses. Most of the code can be found here.
 - `./images/`: Screenshots of `hive`. This is used for showcasing the application in the `README.md` file.
 - `./source/`: Resources that `hive` uses. This includes icons, images, fonts, and themes (as `.json` files).

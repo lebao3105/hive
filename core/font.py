@@ -19,21 +19,9 @@
 
 import customtkinter as ctk
 
-from .popup import Popup
+from .popup import InfoBox
 from .helper import get_all_fonts
 from .const import SCRIPT_DIR, FONT_PATH
-
-class FontLabel(ctk.CTkLabel):
-    def __init__(self, master: ctk.CTk, font: tuple) -> None:
-        """
-        Widget that explains what the menu below it is for/does.
-        """
-
-        # widget setup
-        super().__init__(master = master,
-                         text = "Font:",
-                         font = font
-                         )
 
 class FontMenu(ctk.CTkOptionMenu):
     def __init__(self, master: ctk.CTk, font: tuple) -> None:
@@ -58,10 +46,9 @@ class FontMenu(ctk.CTkOptionMenu):
         Changes the theme of the app.
         """
 
-        Popup(f"{SCRIPT_DIR}/source/misc/popup.png",
-              "Popup: Please restart\nfor changes to the\nfont to take effect.",
-              self.font
-              )
+        InfoBox("Please restart for change to the font to take effect.",
+                self.font,
+                "Action completed")
 
         if " " in new_font:
             new_font = new_font.replace(" ", "_")

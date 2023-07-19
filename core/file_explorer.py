@@ -19,13 +19,14 @@
 
 import os
 from subprocess import run
+from sys import platform
 
 import customtkinter as ctk
 from PIL import Image
 
 from .const import PADX, PADY, SCRIPT_DIR
 from .helper import can_rename, is_hidden
-from .warn_box import WarnBox
+from .popup import ErrorBox, WarnBox
 from .rename import RenamePopup
 from .extensions import CTkXYFrame
 
@@ -88,7 +89,7 @@ class FileExplorer(CTkXYFrame):
         for widget in self.winfo_children():
             widget.destroy()
 
-        if not self.cwd == "/":
+        if not self.cwd in ["/", os.getenv("SYSTEMDRIVE")]:
             # a button to let the user navigate up a directory
             up_label = ctk.CTkLabel(master = self,
                                     text = "←",
@@ -195,8 +196,8 @@ class FileExplorer(CTkXYFrame):
 
     def open_entity(self, event, text: str) -> None: # pylint: disable=unused-argument
         """
-        An event in the case that the user double clicks a file or directory. Should open the file 
-        or directory.
+        An event in the case that the user double clicks a file or directory.
+        Should open the file or directory.
         """
 
         os.chdir(self.cwd)
@@ -207,15 +208,24 @@ class FileExplorer(CTkXYFrame):
             else:
                 new_path = f"{self.cwd}/{text}"
 
-            if os.path.isfile(new_path) or new_path.endswith(".app"): # a file or application
-                run(["open", new_path], check = True)
+            if os.path.isfile(new_path): # is a file
+
+                if platform == "darwin":
+                    run(["open", new_path], check = True)
+                elif platform == "win32":
+                    run(["cmd", new_path], check = True)
+                else: # Not a good way.
+                    run(new_path, check = True)
+
             else: # a directory
+
                 new_path += "/"
                 self.cwd = new_path
                 os.chdir(self.cwd)
                 self.cwd_var.set(self.cwd)
 
         except PermissionError:
+
             WarnBox(f"{SCRIPT_DIR}/source/misc/warning.png",
                     "Error: This is a system\nfile or directory and should\nnot be modified.",
                     self.font
@@ -228,55 +238,30 @@ class FileExplorer(CTkXYFrame):
 
         os.chdir(self.cwd)
 
+        if self.cwd.endswith("/"):
+            path = f"{self.cwd}{text}"
+        else:
+            path = f"{self.cwd}/{text}"
+
+        # stop the user from renaming
+        if not can_rename(text, path):
+            ErrorBox(f"Permission denied: {path}")
+            raise PermissionError(f"Unable to rename {path} yet. Are you have premission to this path?")
+        
         try:
-            if self.cwd.endswith("/"):
-                path = f"{self.cwd}{text}"
-            else:
-                path = f"{self.cwd}/{text}"
+            self.rename_popup = RenamePopup(self.font)
+            new_name = self.rename_popup.get_input()
 
-            # stop the user from renaming
-            if not can_rename(text, path):
-                raise PermissionError
+            self.cwd += "/" if not self.cwd.endswith("/") else ""
+            new_path = f"{self.cwd}{new_name}"
 
-            if os.path.isfile(path) or path.endswith(".app"): # a file or application
-                # rename the file or application
-                self.rename_popup = RenamePopup(self.font)
+            # only rename if valid name was entered
+            if new_name is not None and new_name != "":
+                os.rename(path, new_path)
+                self.fill_tree(self.cwd, self.sys_files)
 
-                new_name = self.rename_popup.get_input()
-
-                # construct a new path
-                if self.cwd.endswith("/"):
-                    new_path = f"{self.cwd}{new_name}"
-                else:
-                    new_path = f"{self.cwd}/{new_name}"
-
-                # only rename if valid name was entered
-                if new_name is not None and new_name != "":
-                    os.rename(path, new_path)
-                    self.fill_tree(self.cwd, self.sys_files)
-            else: # a directory
-                # rename the directory
-                path += "/"
-                self.rename_popup = RenamePopup(self.font)
-
-                new_name = self.rename_popup.get_input()
-
-                # construct a new path
-                if self.cwd.endswith("/"):
-                    new_path = f"{self.cwd}{new_name}/"
-                else:
-                    new_path = f"{self.cwd}/{new_name}/"
-
-                # only rename if valid name was entered
-                if new_name is not None and new_name != "":
-                    os.rename(path, new_path)
-                    self.fill_tree(self.cwd, self.sys_files)
-
-        except PermissionError:
-            WarnBox(f"{SCRIPT_DIR}/source/misc/warning.png",
-                    "Error: This is a system\nfile or directory and should\nnot be modified.",
-                    self.font
-                    )
+        except Exception as e:
+            ErrorBox(f"An error occured when renaming {path}: {e}")
 
     def up_one_dir(self, event) -> None: # pylint: disable=unused-argument
         """

@@ -5,7 +5,9 @@
 
 ## Basics:
 
-First off, thank you for showing interest in contributing to this open-source project! As mentiomed in the `About` section, this project depends on contributors to keep it alive. To keep `hive` maintainable, we have a few requirements.
+First off, thank you for showing interest in contributing to this open-source project! As mentiomed in the `About` section, this project depends on contributors to keep it alive. To keep `hive` maintainable, we have a few requirements:
+
+- Install all requirements needed for development as specified from ```requirements.txt```.
 - Please make sure your code runs without issue on `pylint`.
 - When making commits, please follow this [style guide](https://github.com/dishb/commit-styles).
 - Please use v3.11.3 as the minimum version of Python.

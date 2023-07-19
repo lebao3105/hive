@@ -18,29 +18,29 @@
 #
 
 from os import remove
+from sys import executable, platform
 from shutil import rmtree
 from subprocess import run
 from pathlib import Path
+from argparse import ArgumentParser
 
+from customtkinter import __file__ as ctkpath
 from PyInstaller.__main__ import run as pkg
 
 # location of the repository
 REPO_LOC = Path("./").absolute()
 
 # pip
-PIP_CMD = "pip3"
+PIP_CMD = executable + " -m pip"
 
 # find where customtkinter is located
-output = run([PIP_CMD, "show", "customtkinter"], check = True, capture_output = True).stdout
-output = output.split() # split by the newline chars
+CTK_LOC = Path(ctkpath).parent.absolute().__str__()
 
-# convert from bytes to string
-for index, item in enumerate(output):
-    output[index] = item.decode()
-
-# customtkinter's location
-CTK_LOC = Path(output[24])
-CTK_LOC /= "customtkinter"
+# Path separator
+# Use for Pyinstaller's --add-data flag: https://pyinstaller.org/en/stable/usage.html#cmdoption-add-data
+# On Windows, it's ";", else it will be ":"
+# Don't use os.pathsep yet because it may point to pathsep on posixpath, which is not for Windows.
+PATHSEP = ";" if platform == "win32" else ":"
 
 # location of icon file
 ICON_LOC = Path(f"{REPO_LOC}/source/icons/dark.png")
@@ -54,7 +54,7 @@ UTIL_LOC = Path(f"{REPO_LOC}/utility")
 
 # arguments for pyinstaller; these are command line args
 ARGS = [f"{REPO_LOC}/hive.py", # file to package
-        "-n=hive", # name
+        "-n=hive", # name,
         f"-i={ICON_LOC}", # icon
         "--clean", # clear cache
         "--windowed", # no terminal window
@@ -63,17 +63,17 @@ ARGS = [f"{REPO_LOC}/hive.py", # file to package
         f"--distpath={DIST_LOC}", # location of the build
         f"--specpath={UTIL_LOC}", # location of the .spec file
         "--log-level=ERROR", # verbosity
-        f"--add-data={CTK_LOC}:customtkinter", # adds customtkinter module
-        f"--add-data={CORE_LOC}:core", # adds core directory
-        f"--add-data={SRC_LOC}:source", # adds source directory
-        f"--add-data={CFG_LOC}:config" # adds config directory
+        f"--add-data={CTK_LOC}{PATHSEP}customtkinter", # adds customtkinter module
+        f"--add-data={CORE_LOC}{PATHSEP}core", # adds core directory
+        f"--add-data={SRC_LOC}{PATHSEP}source", # adds source directory
+        f"--add-data={CFG_LOC}{PATHSEP}config" # adds config directory
         ]
 
 if not CFG_LOC.exists():
     ARGS.pop(-1)
 
 # build the application
-pkg(ARGS)
+# pkg(ARGS)
 
 # locations of extra files/dirs
 extras = [Path(f"{REPO_LOC}/build"),
@@ -81,7 +81,30 @@ extras = [Path(f"{REPO_LOC}/build"),
           Path(f"{REPO_LOC}/utility/hive.spec")
           ]
 
-# remove the extra files and dirs
-rmtree(extras[0])
-rmtree(extras[1])
-remove(extras[2])
+# arguments.
+argparser = ArgumentParser(description="Build script for Hive project.")
+argparser.add_argument(
+    "--build",
+    "-b",
+    action="store_true",
+    help="Build the project (using pyinstaller)"
+)
+argparser.add_argument(
+    "--clean",
+    "-c",
+    action="store_true",
+    help="Remove all built outputs"
+)
+
+if __name__ == "__main__":
+    args = argparser.parse_args()
+
+    if args.build:
+        pkg(ARGS)
+    
+    if args.clean:
+        # not really a good idea(?), but this time we only have these 3 things to remove
+        # the pyinstaller build outputs.
+        rmtree(extras[0])
+        rmtree(extras[1])
+        remove(extras[2])

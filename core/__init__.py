@@ -21,32 +21,23 @@ from .const import *
 
 from .helper import *
 
-from .appearance import AppearanceLabel
-from .appearance import AppearanceMenu
+from .appearance import AppearanceLabel, AppearanceMenu
 
 from .file_explorer import FileExplorer
 
 from .path_text import PathLabel
 
-from .sys_files import SysFilesLabel
-from .sys_files import SysFilesSwitch
+from .sys_files import SysFilesLabel, SysFilesSwitch
 
-from .theme import ThemeLabel
-from .theme import ThemeMenu
+from .theme import ThemeLabel, ThemeMenu
 
-from .warn_box import WarnBox
+from .popup import *
 
-from .popup import Popup
-
-from .ui_scale import ScaleLabel
-from .ui_scale import ScaleMenu
+from .ui_scale import ScaleLabel, ScaleMenu
 
 from .rename import RenamePopup
 
-from .goto import GotoPopup
-
 from .font import FontMenu
-from .font import FontLabel
 
 from .info import InfoPopup
 

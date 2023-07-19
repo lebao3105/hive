@@ -19,6 +19,7 @@
 
 from os import environ
 from os.path import dirname
+from sys import platform
 
 # window size
 WIDTH = 700
@@ -43,13 +44,14 @@ THEME_PATH = f"{SCRIPT_DIR}/source/themes"
 FONT_PATH = f"{SCRIPT_DIR}/source/fonts"
 
 # the current user
-USER = environ["USER"]
+USER = environ["USER"] if platform != "win32" else environ["USERNAME"]
 
 LIGHT_ICON_PATH = f"{SCRIPT_DIR}/source/icons/light.png"
 DARK_ICON_PATH = f"{SCRIPT_DIR}/source/icons/dark.png"
 
 # list of hidden system files/directories
 SYSTEM_FILES = ["/bin",
+                "/boot",
                 "/cores",
                 "/private",
                 "/etc",
@@ -64,7 +66,12 @@ SYSTEM_FILES = ["/bin",
                 "/Users/Shared/adi",
                 "/Users/Shared/SC Info",
                 f"/Users/{USER}/Library",
-                f"/Users/{USER}/Trash"
+                f"/Users/{USER}/Trash",
+                "/$Recycle.Bin",
+                "/hiberfil.sys",
+                "/pagefile.sys",
+                "/swapfile.sys",
+                "/Windows"
                 ]
 
 # list of directories that cannot be renamed
@@ -80,5 +87,8 @@ NO_RENAME = ["/Applications",
              f"/Users/{USER}/Movies",
              f"/Users/{USER}/Music",
              f"/Users/{USER}/Pictures",
-             f"/Users/{USER}/Public"
-             ]
+             f"/Users/{USER}/Public",
+            "/Program Files",
+            "/Program Files (x86)"
+            ]
+NO_RENAME += SYSTEM_FILES

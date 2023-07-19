@@ -20,20 +20,21 @@
 import customtkinter as ctk
 from PIL import Image
 
-from .const import PADX, PADY
+from .const import PADX, PADY, SCRIPT_DIR
 
 class Popup(ctk.CTkToplevel):
-    def __init__(self, icon_path: str, message: str, font: tuple) -> None:
-        """
-        A window that displays a message instructing the user to restart the app after selecting a
-        new theme.
-        """
+    """
+    Base class for hive dialogs.
+    """
 
-        # setup widget
+    def __init__(self, icon_path: str, message: str, font: tuple, title: str) -> None:
+
+        # basic TopLevel setups
         super().__init__()
-        self.title("restart")
+        self.title(title)
         self.geometry("250x150")
         self.resizable(False, False)
+
         self.rowconfigure(0, weight = 1)
         self.rowconfigure(1, weight = 1)
         self.columnconfigure(0, weight = 1)
@@ -72,3 +73,12 @@ class PopupLabel(ctk.CTkLabel):
                          text = message,
                          font = font
                          )
+
+def WarnBox(message: str, font: tuple):
+    return Popup(f"{SCRIPT_DIR}/source/misc/warning.png", message, font, "Warning")
+
+def ErrorBox(message: str, font: tuple):
+    return Popup(f"{SCRIPT_DIR}/source/misc/error.png", message, font, "Error")
+
+def InfoBox(message: str, font: tuple, title: str):
+    return Popup(f"{SCRIPT_DIR}/source/misc/popup.png", message, font, title)

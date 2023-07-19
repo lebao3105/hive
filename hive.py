@@ -18,7 +18,7 @@
 #
 
 from json import dump, load
-from sys import exit as sys_exit
+from sys import exit as sys_exit, argv
 from os import mkdir
 from os.path import exists, isfile, expanduser
 
@@ -49,19 +49,11 @@ class HiveApp(ctk.CTk):
         create_dir()
 
         # rows (layout)
-        self.grid_rowconfigure(0, weight = 0)
-        self.grid_rowconfigure(1, weight = 0)
-        self.grid_rowconfigure(2, weight = 0)
-        self.grid_rowconfigure(3, weight = 0)
-        self.grid_rowconfigure(4, weight = 0)
-        self.grid_rowconfigure(5, weight = 0)
-        self.grid_rowconfigure(6, weight = 0)
-        self.grid_rowconfigure(7, weight = 0)
-        self.grid_rowconfigure(8, weight = 0)
-        self.grid_rowconfigure(9, weight = 0)
-        self.grid_rowconfigure(10, weight = 1)
-        self.grid_rowconfigure(11, weight = 0)
-        self.grid_rowconfigure(12, weight = 0)
+        for i in range(0, 12):
+            if i == 10:
+                self.grid_rowconfigure(i, weight=1)
+                break
+            self.grid_rowconfigure(i, weight=0)
 
         # columns (layout)
         self.grid_columnconfigure(0, weight = 0)
@@ -69,7 +61,7 @@ class HiveApp(ctk.CTk):
 
         # data
         self.cwd_var = ctk.StringVar(master = self,
-                                     value = "/"
+                                     value = argv[1] if len(argv) > 1 else USER
                                      )
         self.sys_files_var = ctk.IntVar(master = self,
                                         value = 0
@@ -107,7 +99,7 @@ class HiveApp(ctk.CTk):
         # theme widgets
         self.theme_menu = ThemeMenu(self, self.font)
         self.theme_menu.grid(row = 3,
-                             column = 0,
+                            #  column = 0,
                              padx = PADX,
                              pady = PADY,
                              sticky = "w"
@@ -150,7 +142,7 @@ class HiveApp(ctk.CTk):
         self.scale_menu.set(self.scale_percent)
 
         # font widgets
-        self.font_label = FontLabel(self, self.font)
+        self.font_label = ctk.CTkLabel(self, font=self.font, text="Font:")
         self.font_label.grid(row = 8,
                              column = 0,
                              padx = PADX,
@@ -251,7 +243,7 @@ class HiveApp(ctk.CTk):
         Creates a popup allowing the user to view a path.
         """
 
-        self.goto_popup = GotoPopup(self.font)
+        self.goto_popup = ctk.CTkInputDialog(title="Go to", text="Jump to a directory")
 
         try:
             path = self.goto_popup.get_input()
@@ -261,7 +253,7 @@ class HiveApp(ctk.CTk):
                 path = expanduser(path)
                 if not exists(path):
                     WarnBox(f"{SCRIPT_DIR}/source/misc/warning.png",
-                            "Error: This is file or\ndirectory does not\nexist.",
+                            "This is file or\ndirectory does not\nexist.",
                             self.font
                             )
                 else:
@@ -391,7 +383,7 @@ class HiveApp(ctk.CTk):
                         "font": self.font_menu.get()
                         }
 
-            dump(settings, config_file)
+            dump(settings, config_file, indent=4)
             config_file.close()
 
 # create and run the app

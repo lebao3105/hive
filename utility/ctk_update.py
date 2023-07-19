@@ -17,20 +17,22 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-from shutil import copyfileobj, rmtree
 import os
+from shutil import copyfileobj, rmtree
 
 import requests
 
-def download_dir(repo_url: str, dir_path: str, dest_path: str) -> None:
+
+def download_dir(repo: str, dir_path: str, dest_path: str) -> None:
     """
     Downloads any folder from a Github repository.
     """
 
     # Extract the repository owner and name from the URL
-    url_parts = repo_url.split("/")
-    owner = url_parts[-2]
-    repo_name = url_parts[-1].split(".")[0]
+    url_parts = repo.split("/")
+    owner = url_parts[0]
+    repo_name = url_parts[1]
+    repo_url = f"https://github.com/{owner}/{repo_name}"
 
     # API endpoint for the repository contents
     api_url = f"https://api.github.com/repos/{owner}/{repo_name}/contents/{dir_path}"
@@ -75,7 +77,7 @@ def download_dir(repo_url: str, dir_path: str, dest_path: str) -> None:
         print(f"Folder requested: {dir_path}")
         print(f"Destination: {dest_path}")
 
-download_dir("https://github.com/TomSchimansky/CustomTkinter",
+download_dir("TomSchimansky/CustomTkinter",
                 "customtkinter",
                 "../customtkinter/"
                 )
