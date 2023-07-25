@@ -33,4 +33,4 @@ Folders are also referred to as "directories".
 - `./.gitignore`: Tells Git to not include specific files or directories when making commits.
 - `./.pylintrc`: A file that configures `pylint` through available options. Some options include ignoring specific files.
 - `./hive.py`: The main code/file. If you want to run `hive.py` from source, you'll want to run this file.
-- `./requirements.txt`: A list of all of `hive`'s dependencies.
+- `./requirements.txt`: A list of all of `hive`'s dependencies for DEVELOPMENT (for now). Normal users just need `customtkinter`.

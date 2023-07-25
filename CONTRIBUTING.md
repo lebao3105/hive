@@ -18,6 +18,10 @@ First off, thank you for showing interest in contributing to this open-source pr
 
 To get started with development, read the [Getting started](./README.md#getting-started) section of the `./README.md` file.
 
+There's a TODO file which the name says it all: list our wanted features. You can pick one and start working!
+
+A separate branch from "main" is recommended. After you finish your work, make a PR on GitHub and I will look for that.
+
 ## Linting
 
 To lint your code with `pylint`, run the following commands from the top-level directory of the repository:
