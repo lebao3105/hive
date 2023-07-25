@@ -26,6 +26,8 @@
     A whole new file explorer for macOS. Finder, but better.
 </div>
 
+> This version of Hive is died due to its structure. I really can't get used to it. A new version will be started later.
+
 ## About:
 `hive` is a file explorer for macOS. At its core, `hive` is pure Python and uses the `customtkinter` module. This project is meant to be a simple file explorer with a clean and modern UI. While it's not as good as Finder yet, `hive` is meant to be a replacement for the somewhat dull, complex Finder. Users will be able to do everything they can in Finder, just without the clutter and extra nonsense. `hive` is targeted at casual users. People who don't need to harvest the full power of the operating system and file system. 
 
@@ -44,11 +46,20 @@ While `hive` already has many options for customizing the theme, you can still a
 You can find the most recent build in the [Releases section](https://github.com/dishb/hive/releases) of this repository. Each release contains details as well as a version number.
 
 ## Getting started:
+
+Firstly, you will need the following:
+
+* Python 3 with pip and Tkinter installed
+* Git to clone this repository (optional)
+
 To get started with `hive` whether it be developing, building, or just normal usage, you'll need to follow the commands and instructions below:
+
 ```bash
 # create a folder for the repo, clone it
+# or find and click the 'Download zip' button on GitHub page
 git clone https://github.com/dishb/hive
 cd ./hive/
+git submodule update --init # get all Git submodules, will packed zip include this?
 
 # create a virtual environment and activiate it
 # you can skip it
@@ -61,18 +72,30 @@ pip3 install -r customtkinter
 ```
 
 ## Run:
-If you want to run `hive` from source, first read the [Getting started](#getting-started) section, then run this command:
+
+If you want to run from source code:
+
 ```bash
-python3 ./hive.py
+python3 ./hive.py [folder]
 ```
 
-## Build:
-If you want to build `hive` from source yourself, first read the [Getting started](#getting-started) section, then run this command:
+Or make your own portable build, install ```pyinstaller``` with pip first, then run the following:
+
 ```bash
 python3 ./utility/build.py build
 python3 ./utility/build.py clean
 ```
 The build will be found in the `./dist/` folder. Find and launch the executable.
+
+# Shortcuts
+
+* Space: Folder properties
+* Ctrl + G: Go to path
+* Middle click: Rename dialog
+
+No cut-copy-paste(?).
+
+No right-click.
 
 ## Contributing:
 If you want to contribute, please read the contributing guide [here](./CONTRIBUTING.md) or in the `./CONTRIBUTING.md` file.
@@ -87,11 +110,13 @@ If you find a security issue or vulnerability, please follow the instructions li
 To keep this repository friendly and open to everyone, please ensure that you follow the guidelines [here](./CODE_OF_CONDUCT.md) or in the `./CODE_OF_CONDUCT.md` file.
 
 ## License:
-This project is licensed under the `GNU General Public License v3` license. A copy of the license can be found in [here](./LICENSE.md) or in the `./LICENSE.md` file. All the source code files have a license header at the top.
+This project is licensed under the `GNU General Public License v3` license. A copy of the license can be found in [here](./LICENSE.md). All the source code files have a license header at the top.
+
+Source codes in [core/extensions](core/extensions/) are git submodules, and they are licensed by their author.
 
 ## Credits:
 `hive` and its development would not have been possible without these open-source projects:
-- [Python](https://github.com/python/cpython/) (yes, the language!)
+- [Python](https://python.org) (yes, the language!)
 - [customtkinter](https://github.com/TomSchimansky/CustomTkinter)
 - [Pillow](https://github.com/python-pillow/Pillow)
 - [CTkXYFrame](https://github.com/Akascape/CTkXYFrame)
