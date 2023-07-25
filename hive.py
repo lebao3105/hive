@@ -252,8 +252,7 @@ class HiveApp(ctk.CTk):
             if path is not None and path != "":
                 path = expanduser(path)
                 if not exists(path):
-                    WarnBox(f"{SCRIPT_DIR}/source/misc/warning.png",
-                            "This is file or\ndirectory does not\nexist.",
+                    ErrorBox("This is file or\ndirectory does not\nexist.",
                             self.font
                             )
                 else:
@@ -264,8 +263,7 @@ class HiveApp(ctk.CTk):
                         self.cwd_var.set(path)
 
         except PermissionError:
-            WarnBox(f"{SCRIPT_DIR}/source/misc/warning.png",
-                    "Error: This is a system\nfile or directory and cannot\nbe viewed.",
+            ErrorBox("Error: This is a system\nfile or directory and cannot\nbe viewed.",
                     self.font
                     )
 
