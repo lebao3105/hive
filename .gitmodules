@@ -1,0 +1,9 @@
+[submodule "core/extensions/CTkXYFrame"]
+	path = core/extensions/CTkXYFrame
+	url = https://github.com/Akascape/CTkXYFrame
+[submodule "core/extensions/CTkTable"]
+	path = core/extensions/CTkTable
+	url = https://github.com/Akascape/CTkTable
+[submodule "core/extensions/CTkMenuBar"]
+	path = core/extensions/CTkMenuBar
+	url = https://github.com/Akascape/CTkMenuBar
