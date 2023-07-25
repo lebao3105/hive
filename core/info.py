@@ -18,6 +18,7 @@
 #
 
 import os
+import shutil
 from subprocess import check_output
 
 import customtkinter as ctk
@@ -76,6 +77,10 @@ class GitLabel(ctk.CTkLabel):
                          text = "Git Repository: "
                          )
 
+        if not shutil.which("git"):
+            self.configure(require_redraw = True,
+                           text = "No git executable found")
+
         if os.path.exists(f"{cwd}/.git"):
             self.configure(require_redraw = True,
                            text = self.cget("text") + "Yes"
@@ -101,20 +106,24 @@ class SizeLabel(ctk.CTkLabel):
 
     def get_size(self, path: str) -> str:
         """
-        Gets the size of a directory in bytes.
+        Gets the size of a file/directory in bytes.
         """
 
-        total_size = check_output(['du','-shx', path]).split()[0].decode('utf-8')
-        total_size = str(total_size)
+        # Universal method to calculate the directory size.
+        total_size = 0
+        for element in os.scandir(path):
+            total_size += os.path.getsize(element)
 
-        # make it human readable
-        if "K" in total_size:
-            total_size = total_size.replace("K", "") + " kilo"
-        elif "M" in total_size:
-            total_size = total_size.replace("M", "") + " mega"
-        elif "G" in total_size:
-            total_size = total_size.replace("G", "") + " giga"
+        # By default os.path.getsize output will return a value in bytes
+        # So this is how we convert it to other units
+        # *from SO: a/1094933*
+        for unit in ("", "Ki", "Mi", "Gi", "Ti", "Pi", "Ei", "Zi"):
+            if abs(total_size) < 1024.0:
+                total_size = f"{total_size:3.1f}{unit}B"
+                break
+            total_size /= 1024.0
+            total_size = f"{total_size:.1f}YiB"
 
         self.configure(require_redraw = True,
-                       text = self.cget("text") + total_size + "bytes"
+                       text = self.cget("text") + total_size
                        )
