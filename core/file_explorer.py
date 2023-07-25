@@ -214,8 +214,8 @@ class FileExplorer(CTkXYFrame):
                     run(["open", new_path], check = True)
                 elif platform == "win32":
                     run(["cmd", new_path], check = True)
-                else: # Not a good way.
-                    run(new_path, check = True)
+                else:
+                    run(["xdg-open", new_path], check = True)
 
             else: # a directory
 
