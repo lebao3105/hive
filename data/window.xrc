@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<resource xmlns="http://www.wxwidgets.org/wxxrc" version="2.5.3.0">
+	<object class="wxFrame" name="MainWindow">
+		<style>wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL</style>
+		<size>668,407</size>
+		<title></title>
+		<centered>1</centered>
+		<aui_managed>0</aui_managed>
+		<object class="wxMenuBar" name="AppMenuBar">
+			<object class="wxMenu" name="file">
+				<label>File</label>
+				<object class="wxMenuItem" name="m_menuItem1">
+					<label>Undo\tCtrl-Z</label>
+					<help></help>
+				</object>
+				<object class="wxMenuItem" name="m_menuItem2">
+					<label>Redo\tCtrl-Y</label>
+					<help></help>
+				</object>
+				<object class="wxMenuItem" name="m_menuItem3">
+					<label>Settings (unavailable)\tCtrl-P</label>
+					<help></help>
+				</object>
+				<object class="wxMenuItem" name="m_menuItem4">
+					<label>Exit\tAlt-F4</label>
+					<help></help>
+				</object>
+			</object>
+			<object class="wxMenu" name="nav">
+				<label>Navigate</label>
+				<object class="wxMenuItem" name="m_menuItem4">
+					<label>Go to...\tCtrl-G</label>
+					<help></help>
+				</object>
+				<object class="wxMenuItem" name="m_menuItem5">
+					<label>Go up\tAlt-up</label>
+					<help></help>
+				</object>
+				<object class="wxMenuItem" name="m_menuItem6">
+					<label>Go forward\tAlt-Right</label>
+					<help></help>
+				</object>
+				<object class="wxMenuItem" name="m_menuItem7">
+					<label>Go back\tAlt-Left</label>
+					<help></help>
+				</object>
+			</object>
+			<object class="wxMenu" name="help">
+				<label>Help</label>
+				<object class="wxMenuItem" name="m_menuItem8">
+					<label>Shortcuts...\tCtrl+?</label>
+					<help></help>
+				</object>
+				<object class="wxMenuItem" name="m_menuItem9">
+					<label>About</label>
+					<help></help>
+				</object>
+				<object class="wxMenuItem" name="m_menuItem10">
+					<label>System specifications</label>
+					<help></help>
+				</object>
+			</object>
+		</object>
+		<object class="wxStatusBar" name="AppStatusBar">
+			<style>wxSTB_DEFAULT_STYLE</style>
+			<fields>2</fields>
+		</object>
+		<object class="wxBoxSizer">
+			<orient>wxVERTICAL</orient>
+		</object>
+	</object>
+	<object class="wxToolBar" name="AppToolbar">
+		<style>wxTB_DOCKABLE|wxTB_FLAT|wxTB_HORIZONTAL</style>
+		<bitmapsize></bitmapsize>
+		<margins></margins>
+		<packing>1</packing>
+		<separation>5</separation>
+		<object class="tool" name="new_tb">
+			<label>New</label>
+			<tooltip></tooltip>
+			<longhelp></longhelp>
+			<bitmap />
+		</object>
+		<object class="separator" />
+		<object class="tool" name="cut_tb">
+			<label>Cut</label>
+			<tooltip>Cut</tooltip>
+			<longhelp></longhelp>
+			<bitmap />
+		</object>
+		<object class="tool" name="copy_tb">
+			<label>Copy</label>
+			<tooltip>Copy</tooltip>
+			<longhelp></longhelp>
+			<bitmap />
+		</object>
+		<object class="tool" name="paste_tb">
+			<label>Paste</label>
+			<tooltip>Paste</tooltip>
+			<longhelp></longhelp>
+			<bitmap />
+		</object>
+		<object class="separator" />
+		<object class="tool" name="rename_tb">
+			<label>Rename</label>
+			<tooltip>Rename item</tooltip>
+			<longhelp></longhelp>
+			<bitmap />
+		</object>
+		<object class="tool" name="delete_tb">
+			<label>Delete</label>
+			<tooltip>Move item(s) to Trash bin</tooltip>
+			<longhelp></longhelp>
+			<bitmap />
+		</object>
+		<object class="tool" name="refresh_tb">
+			<label>Refresh</label>
+			<tooltip>Refresh</tooltip>
+			<longhelp></longhelp>
+			<bitmap />
+		</object>
+	</object>
+</resource>
