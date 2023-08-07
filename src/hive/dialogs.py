@@ -4,9 +4,13 @@
 
 import platform
 import wx
+
 from libtextworker import __version__ as libver
+from libtextworker.general import CraftItems
 from libtextworker.interface.wx.about import AboutDialog
-from .consts import VERSION as appver, ARTISTS, DEVELOPERS, DOCWRITERS
+from libtextworker.interface.wx.miscs import XMLBuilder
+
+from .consts import DATADIR, VERSION as appver, ARTISTS, DEVELOPERS, DOCWRITERS
 
 class AboutHive(AboutDialog):
     """
@@ -45,4 +49,14 @@ def ShowSysSpecs(parent: wx.Window):
         For the app version, please check the About dialog.
         """
     )
+    dlg.ShowModal()
+
+def ShowShortcuts(parent: wx.Window):
+    """
+    Show Shortcuts window
+    """
+
+    dlg = wx.Dialog(parent, title=_("Shortcuts"))
+    builder = XMLBuilder(dlg, CraftItems(DATADIR, "shortcuts.xrc"), _)
+    builder.loadObject("MyPanel1", "wxPanel")
     dlg.ShowModal()
