@@ -20,7 +20,7 @@ Install attrdict3 first (for wxPython), then wxPython from pip.
 To run from source code, cd to ```src``` and run:
 
 ```bash
-$ # libtextworker can be installed - this is optional
+$ # libtextworker can be installed - this is optional for now
 $ # if installed you don't need to set PYTHONPATH
 $ PYTHONPATH=<path_to_libtextworker> python3 -m hive
 ```
