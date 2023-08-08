@@ -1,6 +1,6 @@
-#	A whole new file explorer.
-#	Copyright (C) 2023 Le Bao Nguyen and contributors.
-#	Licensed under the GNU General Public License version 3.0 or later.
+# 	A whole new file explorer.
+# 	Copyright (C) 2023 Le Bao Nguyen and contributors.
+# 	Licensed under the GNU General Public License version 3.0 or later.
 
 import platform
 import wx
@@ -11,6 +11,7 @@ from libtextworker.interface.wx.about import AboutDialog
 from libtextworker.interface.wx.miscs import XMLBuilder
 
 from .consts import DATADIR, VERSION as appver, ARTISTS, DEVELOPERS, DOCWRITERS
+
 
 class AboutHive(AboutDialog):
     """
@@ -28,6 +29,7 @@ class AboutHive(AboutDialog):
         self.SetName("Hive")
         self.SetVersion(appver)
         self.SetWebSite("https://github.com/lebao3105/hive")
+
 
 def ShowSysSpecs(parent: wx.Window):
     """
@@ -50,6 +52,7 @@ def ShowSysSpecs(parent: wx.Window):
         """
     )
     dlg.ShowModal()
+
 
 def ShowShortcuts(parent: wx.Window):
     """
