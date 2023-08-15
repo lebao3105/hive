@@ -2,6 +2,7 @@
 # 	Copyright (C) 2023 Le Bao Nguyen and contributors.
 # 	Licensed under the GNU General Public License version 3.0 or later.
 
+import os
 import wx
 import wx.xrc
 
@@ -38,7 +39,7 @@ class Window(XMLBuilder):
         splitBox = wx.SplitterWindow(self.mainFrame)
 
         self.leftDir = wx.GenericDirCtrl(
-            splitBox, dir=CURRDIR, style=wx.DIRCTRL_DIR_ONLY | wx.DIRCTRL_EDIT_LABELS
+            splitBox, dir=CURRDIR, style=wx.DIRCTRL_DIR_ONLY | wx.DIRCTRL_EDIT_LABELS | wx.DIRCTRL_MULTIPLE
         )
         self.notebook = Notebook(splitBox)
 
@@ -68,10 +69,17 @@ class Window(XMLBuilder):
 
         # Events list
         filemenu_events = [
+            (self.NewWindow, 0),
             # Undo: not available
             # Redo: not available
             # Settings: not available
-            (wx.GetApp().ExitMainLoop(), 3)
+            (lambda evt: wx.GetApp().ExitMainLoop(), 4)
+        ]
+
+        navmenu_events = [
+            (self.GoTo, 0),
+            (self.notebook.GetCurrentPage().GoUp, 1),
+            (self.notebook.NewTab, 4)
         ]
 
         helpmenu_events = [
@@ -81,4 +89,20 @@ class Window(XMLBuilder):
         ]
 
         BindMenuEvents(self.mainFrame, filemenu, filemenu_events)
+        BindMenuEvents(self.mainFrame, navmenu, navmenu_events)
         BindMenuEvents(self.mainFrame, helpmenu, helpmenu_events)
+
+    def NewWindow(self, evt):
+        new = Window()
+        wx.GetApp().SetTopWindow(new.mainFrame)
+        new.mainFrame.Bind(wx.EVT_CLOSE, lambda evt: (wx.GetApp().SetTopWindow(self.mainFrame), evt.Skip()))
+        new.Show()
+    
+    def GoTo(self, evt):
+        dlg = wx.TextEntryDialog(self.mainFrame, "", "Go to")
+        if dlg.ShowModal() == wx.ID_OK:
+            value = os.path.expanduser(dlg.GetValue())
+            if not os.path.isdir(value):
+                wx.MessageBox(f"Directory not found: {value}")
+                return
+            self.notebook.GetCurrentPage().GoDir(path=value)

@@ -10,52 +10,60 @@
 			<object class="wxMenu" name="file">
 				<label>File</label>
 				<object class="wxMenuItem" name="m_menuItem1">
-					<label>Undo\tCtrl-Z</label>
+					<label>New window</label>
 					<help></help>
 				</object>
 				<object class="wxMenuItem" name="m_menuItem2">
-					<label>Redo\tCtrl-Y</label>
+					<label>Undo\tCtrl-Z</label>
 					<help></help>
 				</object>
 				<object class="wxMenuItem" name="m_menuItem3">
-					<label>Settings (unavailable)\tCtrl-P</label>
+					<label>Redo\tCtrl-Y</label>
 					<help></help>
 				</object>
 				<object class="wxMenuItem" name="m_menuItem4">
+					<label>Settings (unavailable)\tCtrl-P</label>
+					<help></help>
+				</object>
+				<object class="wxMenuItem" name="m_menuItem5">
 					<label>Exit\tAlt-F4</label>
 					<help></help>
 				</object>
 			</object>
 			<object class="wxMenu" name="nav">
 				<label>Navigate</label>
-				<object class="wxMenuItem" name="m_menuItem4">
+				<object class="wxMenuItem" name="m_menuItem5">
 					<label>Go to...\tCtrl-G</label>
 					<help></help>
 				</object>
-				<object class="wxMenuItem" name="m_menuItem5">
+				<object class="wxMenuItem" name="m_menuItem6">
 					<label>Go up\tAlt-up</label>
 					<help></help>
 				</object>
-				<object class="wxMenuItem" name="m_menuItem6">
+				<object class="wxMenuItem" name="m_menuItem7">
 					<label>Go forward\tAlt-Right</label>
 					<help></help>
 				</object>
-				<object class="wxMenuItem" name="m_menuItem7">
+				<object class="wxMenuItem" name="m_menuItem8">
 					<label>Go back\tAlt-Left</label>
+					<help></help>
+				</object>
+				<object class="wxMenuItem" name="m_menuItem9">
+					<label>New tab</label>
 					<help></help>
 				</object>
 			</object>
 			<object class="wxMenu" name="help">
 				<label>Help</label>
-				<object class="wxMenuItem" name="m_menuItem8">
+				<object class="wxMenuItem" name="m_menuItem10">
 					<label>Shortcuts...\tCtrl+?</label>
 					<help></help>
 				</object>
-				<object class="wxMenuItem" name="m_menuItem9">
+				<object class="wxMenuItem" name="m_menuItem11">
 					<label>About</label>
 					<help></help>
 				</object>
-				<object class="wxMenuItem" name="m_menuItem10">
+				<object class="wxMenuItem" name="m_menuItem12">
 					<label>System specifications</label>
 					<help></help>
 				</object>

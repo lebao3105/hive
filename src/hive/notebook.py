@@ -5,6 +5,7 @@
 import os
 import wx
 import wx.lib.agw.flatnotebook as FLB
+from hive import consts
 from libtextworker.interface.wx.dirctrl import DirList, imgs, folderidx
 
 
@@ -32,6 +33,8 @@ class Notebook(FLB.FlatNotebook):
 
         FLB.FlatNotebook.__init__(self, parent, id, pos, size, agwStyle=styles)
         self.AssignImageList(imgs)
+        self.NewTab(path=consts.CURRDIR) # This should be moved to somewhere else?
+
         self.Bind(FLB.EVT_FLATNOTEBOOK_PAGE_CLOSED, self.OnPageClosed)
 
     def NewTab(self, evt: wx.Event | None = None, path: str = os.path.expanduser("~/")):

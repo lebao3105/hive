@@ -87,10 +87,23 @@
                         <property name="checked">0</property>
                         <property name="enabled">1</property>
                         <property name="help"></property>
+                        <property name="id">wxID_ANY</property>
+                        <property name="kind">wxITEM_NORMAL</property>
+                        <property name="label">New window</property>
+                        <property name="name">m_menuItem1</property>
+                        <property name="permission">none</property>
+                        <property name="shortcut"></property>
+                        <property name="unchecked_bitmap"></property>
+                    </object>
+                    <object class="wxMenuItem" expanded="1">
+                        <property name="bitmap"></property>
+                        <property name="checked">0</property>
+                        <property name="enabled">1</property>
+                        <property name="help"></property>
                         <property name="id">wxID_UNDO</property>
                         <property name="kind">wxITEM_NORMAL</property>
                         <property name="label">Undo</property>
-                        <property name="name">m_menuItem1</property>
+                        <property name="name">m_menuItem2</property>
                         <property name="permission">none</property>
                         <property name="shortcut">Ctrl-Z</property>
                         <property name="unchecked_bitmap"></property>
@@ -103,7 +116,7 @@
                         <property name="id">wxID_REDO</property>
                         <property name="kind">wxITEM_NORMAL</property>
                         <property name="label">Redo</property>
-                        <property name="name">m_menuItem2</property>
+                        <property name="name">m_menuItem3</property>
                         <property name="permission">none</property>
                         <property name="shortcut">Ctrl-Y</property>
                         <property name="unchecked_bitmap"></property>
@@ -116,7 +129,7 @@
                         <property name="id">wxID_ANY</property>
                         <property name="kind">wxITEM_NORMAL</property>
                         <property name="label">Settings (unavailable)</property>
-                        <property name="name">m_menuItem3</property>
+                        <property name="name">m_menuItem4</property>
                         <property name="permission">none</property>
                         <property name="shortcut">Ctrl-P</property>
                         <property name="unchecked_bitmap"></property>
@@ -129,7 +142,7 @@
                         <property name="id">wxID_ANY</property>
                         <property name="kind">wxITEM_NORMAL</property>
                         <property name="label">Exit</property>
-                        <property name="name">m_menuItem4</property>
+                        <property name="name">m_menuItem5</property>
                         <property name="permission">none</property>
                         <property name="shortcut">Alt-F4</property>
                         <property name="unchecked_bitmap"></property>
@@ -147,7 +160,7 @@
                         <property name="id">wxID_ANY</property>
                         <property name="kind">wxITEM_NORMAL</property>
                         <property name="label">Go to...</property>
-                        <property name="name">m_menuItem4</property>
+                        <property name="name">m_menuItem5</property>
                         <property name="permission">none</property>
                         <property name="shortcut">Ctrl-G</property>
                         <property name="unchecked_bitmap"></property>
@@ -160,7 +173,7 @@
                         <property name="id">wxID_ANY</property>
                         <property name="kind">wxITEM_NORMAL</property>
                         <property name="label">Go up</property>
-                        <property name="name">m_menuItem5</property>
+                        <property name="name">m_menuItem6</property>
                         <property name="permission">none</property>
                         <property name="shortcut">Alt-up</property>
                         <property name="unchecked_bitmap"></property>
@@ -173,7 +186,7 @@
                         <property name="id">wxID_ANY</property>
                         <property name="kind">wxITEM_NORMAL</property>
                         <property name="label">Go forward</property>
-                        <property name="name">m_menuItem6</property>
+                        <property name="name">m_menuItem7</property>
                         <property name="permission">none</property>
                         <property name="shortcut">Alt-Right</property>
                         <property name="unchecked_bitmap"></property>
@@ -186,9 +199,22 @@
                         <property name="id">wxID_ANY</property>
                         <property name="kind">wxITEM_NORMAL</property>
                         <property name="label">Go back</property>
-                        <property name="name">m_menuItem7</property>
+                        <property name="name">m_menuItem8</property>
                         <property name="permission">none</property>
                         <property name="shortcut">Alt-Left</property>
+                        <property name="unchecked_bitmap"></property>
+                    </object>
+                    <object class="wxMenuItem" expanded="1">
+                        <property name="bitmap"></property>
+                        <property name="checked">0</property>
+                        <property name="enabled">1</property>
+                        <property name="help"></property>
+                        <property name="id">wxID_ANY</property>
+                        <property name="kind">wxITEM_NORMAL</property>
+                        <property name="label">New tab</property>
+                        <property name="name">m_menuItem9</property>
+                        <property name="permission">none</property>
+                        <property name="shortcut"></property>
                         <property name="unchecked_bitmap"></property>
                     </object>
                 </object>
@@ -204,7 +230,7 @@
                         <property name="id">wxID_ANY</property>
                         <property name="kind">wxITEM_NORMAL</property>
                         <property name="label">Shortcuts...</property>
-                        <property name="name">m_menuItem8</property>
+                        <property name="name">m_menuItem10</property>
                         <property name="permission">none</property>
                         <property name="shortcut">Ctrl+?</property>
                         <property name="unchecked_bitmap"></property>
@@ -217,7 +243,7 @@
                         <property name="id">wxID_ABOUT</property>
                         <property name="kind">wxITEM_NORMAL</property>
                         <property name="label">About</property>
-                        <property name="name">m_menuItem9</property>
+                        <property name="name">m_menuItem11</property>
                         <property name="permission">none</property>
                         <property name="shortcut"></property>
                         <property name="unchecked_bitmap"></property>
@@ -230,7 +256,7 @@
                         <property name="id">wxID_ANY</property>
                         <property name="kind">wxITEM_NORMAL</property>
                         <property name="label">System specifications</property>
-                        <property name="name">m_menuItem10</property>
+                        <property name="name">m_menuItem12</property>
                         <property name="permission">none</property>
                         <property name="shortcut"></property>
                         <property name="unchecked_bitmap"></property>
