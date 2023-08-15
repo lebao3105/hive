@@ -25,7 +25,6 @@ if __name__ == "__main__":
 
     if args.folderpaths:
         consts.CURRDIR = parser.folderpaths
-
-    mw.notebook.NewTab(path=consts.CURRDIR)
+        
     mw.Show()
     app.MainLoop()

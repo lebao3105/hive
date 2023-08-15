@@ -3,8 +3,8 @@
 # 	Licensed under the GNU General Public License version 3.0 or later.
 
 from os.path import expanduser
-from libtextworker import THEMES_DIR
-from libtextworker.general import WalkCreation, TOPLV_DIR
+from libtextworker import THEMES_DIR, TOPLV_DIR
+from libtextworker.general import WalkCreation
 from libtextworker.versioning import require
 from libtextworker._importer import test_import
 
