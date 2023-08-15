@@ -112,6 +112,7 @@ class SizeLabel(ctk.CTkLabel):
         # Universal method to calculate the directory size.
         total_size = 0
         for element in os.scandir(path):
+            # It needs a FIX
             total_size += os.path.getsize(element)
 
         # By default os.path.getsize output will return a value in bytes
