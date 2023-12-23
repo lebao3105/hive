@@ -1,4 +1,5 @@
 ## Hive
+> The current development has been temporary stopped.
 
 Hive, which is a "very new file explorer" like its expanded name.
 
