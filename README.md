@@ -1,5 +1,6 @@
 ## Hive
-> The current development has been temporary stopped.
+> The current development has been permanently stopped.
+> Implementing a file explorer even with basic features is, err, a real challenge, and I can not handle it. Sorry.
 
 Hive, which is a "very new file explorer" like its expanded name.
 
